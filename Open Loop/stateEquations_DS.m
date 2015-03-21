@@ -1,4 +1,4 @@
-function stateVec = stateEquations(stateVec,u,dt)
+function y = stateEquations(stateVec,u,dt)
 
 %Robot Constants
 R       = 2; %Radius of tyres
@@ -22,4 +22,4 @@ y           = y + yDot * dt;
 xDot        = v*cos(psi);
 x           = x + xDot * dt;
 
-stateVec    = [x;y;psi];
+y    = [x;y;psi];

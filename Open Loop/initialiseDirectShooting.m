@@ -1,7 +1,7 @@
 function [xNav,x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseDirectShooting(N,n,m,refTraj)
 
 %*****Define Initial Conditions*****
-xNav = refTraj(1,2:4)';; %This is initial nav robot state [x;y;psi]
+xNav = [0;4;0];%refTraj(1,2:4)'; %This is initial nav robot state [x;y;psi]
 
 for k = 1:m %Intialise MPC vector and define upper and lower constraints
     xlow((k-1)*(N+1)+1:n+k*(N+1),1) = -inf;

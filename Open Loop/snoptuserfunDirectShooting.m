@@ -20,34 +20,35 @@ tu = [t0:dtu:tf];
 y     = xNav;
 cost  = 0;
 
-if nargout > 2
-  tout = tx;
-end
+% if nargout > 2
+%   tout = tx;
+% end
 
-if nargout > 3
-  yout(:,1) = xNav;
-  uout(:,1) = u(1,:);
-end
+% if nargout > 3
+%   yout(:,1) = xNav;
+%   uout(:,1) = u(1,:);
+% end
 
 for i = 1:N
   % zero order hold for u
-    tuIndex = find(tu<=tx(i),1,'last');
-    uapplied = u(tuIndex,:)';
-    xRef    = interp1(refTraj(:,1),refTraj(:,2:end),tx(i))';
+    tuIndex     = find(tu<=tx(i),1,'last');
+    uapplied    = u(tuIndex,:)';
+    xRef        = interp1(refTraj(:,1),refTraj(:,2:end),tx(i))';
+
   
   %linear interp
 %   uapplied = interp1(tu, u, tx(i), 'linear');
   
-  ydot          = stateEquations_DS(y, uapplied, dtx);
-  integrand         = cost_DS(y, uapplied, xRef);
+  y          = stateEquations_DS(y, uapplied, dtx);
+  integrand  = cost_DS(y, uapplied, xRef);
   
-  y = y + ydot * dtx;
-  cost = cost + integrand * dtx;
+%   y     = y + ydot * dtx;
+  cost  = cost + integrand * dtx;
   
-  if nargout > 3
-    yout(:,end+1) = y;
-    uout(:,end+1) = uapplied;
-  end
+%   if nargout > 3
+%     yout(:,end+1) = y;
+%     uout(:,end+1) = uapplied;
+%   end
   
 end
 

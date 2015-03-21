@@ -1,4 +1,4 @@
-function xNav = robotNav(xNav,tref,uref,dt,initTime,finalTime)
+function [xNav,T,Y] = robotNav(xNav,tref,uref,dt,initTime,finalTime)
 
 %Robot Constants
 R       = 2; %Radius of tyres
@@ -14,7 +14,7 @@ x       = xNav(1);
 
 %v       = R*(omegaR+omegaL)/2;
 
-[T,Y] = ode45(@(t,y) diffEqns(t,y,tref,uref),[initTime finalTime],[x y psi]);
+[T,Y] = ode45(@(t,y) diffEqns(t,y,tref,uref),[initTime:dt:finalTime],[x y psi]);
 
 % %Solve DE's
 % psiDot  = R*(omegaR-omegaL)/(2*b);

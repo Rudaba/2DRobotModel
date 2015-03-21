@@ -1,24 +1,22 @@
 global refTraj N n m xNav t0 tf Hp x Nx M
 
 %*****Define Simulation Parameters***
-simRunTime  = 50;   %Simulation run time in seconds
-dt          = 0.1; %Integration time step Nav
-dtp         = 0.1; %Time between controller updates
-t0          = 0;
-tf          = 10;
-MPCRunTims  = ceil(dtp/dt);
-modelNumber = 4;
+modelNumber = 1;
 
 %*****Define Model Parameters*****
 n   = 3; %Number of states
 m   = 2; %Number of controls
-Hp  = tf - t0;
-N   = 50;
 M   = 5; %this is for MS only;
 Nx  = 4; %this is for MS only;
 
+%*****Define Variable Parameters*****
+t0  = 0;
+tf  = 30;
+Hp  = tf - t0;
+N   = 50;
+
 %*****Define Reference Trajectory*****
-[refTraj] = calcRefTraj_circ;
+[refTraj] = [[0:50]',[0:50]',5*ones(51,1),0*ones(51,1)];
 
 %*****Intialise model*****
 if modelNumber == 1

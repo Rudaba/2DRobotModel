@@ -21,10 +21,10 @@ dt   = (tf - t0) / (N);
 t    = [t0:dt:tf];
 cost = 0;
 
-if nargout > 3
-  yout = y;
-  uout = u;
-end
+% if nargout > 3
+%   yout = y;
+%   uout = u;
+% end
 
 ydots       = stateEquations_Coll(y', u');
 xRef        = interp1(refTraj(:,1),refTraj(:,2:end),t)';
@@ -37,9 +37,9 @@ for i = 1:N
   
 end
 
-if nargout > 2
-  tout = t;
-end
+% if nargout > 2
+%   tout = t;
+% end
 
 y0 = xNav;
 

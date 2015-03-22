@@ -28,11 +28,11 @@ end
 
 cost = 0;
 
-if nargout > 3
-    for j = 1:M
-        yout{j}(:,1) = ystart{j};
-    end
-end
+% if nargout > 3
+%     for j = 1:M
+%         yout{j}(:,1) = ystart{j};
+%     end
+% end
 
 uout = u;
 
@@ -40,25 +40,25 @@ for j = 1:M
     y = ystart{j};
     for i = 1:Nx
         xRef        = interp1(refTraj(:,1),refTraj(:,2:end),tu{j}(i))';
-        ydot        = stateEquations_MS(y, u{j}(i,:)', dtu);
+        y           = stateEquations_MS(y, u{j}(i,:)', dtu);
         integrand   = cost_MS(y,u{j}(i,:)',xRef);
         
-        y = y + ydot * dtu;
+%         y = y + ydot * dtu;
         cost = cost + integrand * dtu;
         
         
         
-        if nargout > 3
-            yout{j}(:,end+1) = y;
-        end
+%         if nargout > 3
+%             yout{j}(:,end+1) = y;
+%         end
         
     end
     yfinal{j} = y;
 end
 
-if nargout > 2
-    tout = tu;
-end
+% if nargout > 2
+%     tout = tu;
+% end
 
 F(1) = cost;
 

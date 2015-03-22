@@ -19,10 +19,10 @@ for k = 1:m
     u(:,k) = x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)));
 end
 
-if nargout > 3
-    yout = y;
-    uout = u;
-end
+% if nargout > 3
+%     yout = y;
+%     uout = u;
+% end
 
 [ydots, df1_dx, df2_dx, df3_dx]    = stateEquations_Pseud(y, u);
 

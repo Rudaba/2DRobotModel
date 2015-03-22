@@ -1,17 +1,17 @@
 global refTraj N n m xNav t0 tf Hp x Nx M
 
 %*****Define Simulation Parameters***
-modelNumber = 1;
+modelNumber = 4;
 
 %*****Define Model Parameters*****
 n   = 3; %Number of states
 m   = 2; %Number of controls
 M   = 5; %this is for MS only;
-Nx  = 4; %this is for MS only;
+Nx  = 50; %this is for MS only;
 
 %*****Define Variable Parameters*****
 t0  = 0;
-tf  = 30;
+tf  = 20;
 Hp  = tf - t0;
 N   = 50;
 

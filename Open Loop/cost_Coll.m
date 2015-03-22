@@ -5,7 +5,7 @@ function [integrand] = integralCost(x,u,xRef)
 % integrand     = sum(integrand1);
 
 Qp = 1;
-Qu = 5;
+Qu = 1;
 
 % Over whole prediction horizon + yaw rate
 integrand1    = Qp*(x(1,:) - xRef(1,:)).^2 + Qp*(x(2,:) - xRef(2,:)).^2 + Qp*(x(3,:) - xRef(3,:)).^2 + Qu*(u(1,:) - u(2,:)).^2;

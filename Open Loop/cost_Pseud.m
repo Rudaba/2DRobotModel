@@ -2,8 +2,8 @@ function [Mayer, Integral, dC_dx] = Cost(x,u,xRef)
 
 Mayer = 0;
 
-Qp = 0.001;
-Qu = 0.0001;
+Qp = 1;
+Qu = 1;
 
 Integral = 0.5*(Qp*(x(1,:) - xRef(1,:)).^2 + Qp*(x(2,:)-xRef(2,:)).^2 + Qp*(x(3,:)-xRef(3,:)).^2 + Qu*(u(1,:)-u(2,:)).^2);
 

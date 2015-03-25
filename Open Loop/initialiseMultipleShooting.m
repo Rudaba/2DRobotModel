@@ -1,7 +1,7 @@
-function [xNav,x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseMultipleShooting(Nx,n,m,refTraj,Hp,M,t0)
+function [xNav,x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseMultipleShooting(Nui,n,m,refTraj,Hp,M,t0)
 
 %*****Define Initial Conditions*****
-xNav = refTraj(1,2:4)'; %This is initial nav robot state [x;y;psi]
+xNav = [0;5;0]; %This is initial nav robot state [x;y;psi]
 
 dti = Hp / (M);
 t0j = [t0:dti:t0+Hp-dti];
@@ -24,15 +24,15 @@ end
 count = 0;
 for j = 1:M
     for k = 1:m
-        xlow(2*M*n+(j-1)*(Nx+1)+count+((k-1)*(Nx+1)+1:k*(Nx+1)),1) = -inf;
-        xupp(2*M*n+(j-1)*(Nx+1)+count+((k-1)*(Nx+1)+1:k*(Nx+1)),1) = inf;
-        x(2*M*n+(j-1)*(Nx+1)+count+((k-1)*(Nx+1)+1:k*(Nx+1)),1)    = 0;
+        xlow(2*M*n+(j-1)*(Nui+1)+count+((k-1)*(Nui+1)+1:k*(Nui+1)),1) = -inf;
+        xupp(2*M*n+(j-1)*(Nui+1)+count+((k-1)*(Nui+1)+1:k*(Nui+1)),1) = inf;
+        x(2*M*n+(j-1)*(Nui+1)+count+((k-1)*(Nui+1)+1:k*(Nui+1)),1)    = 0;
     end
-    count = j*(Nx+1);
+    count = j*(Nui+1);
 end
 
 neF=1+n*M*2;
-Jac = ones(neF,2*n*M + (Nx+1)*M*m);
+Jac = ones(neF,2*n*M + (Nui+1)*M*m);
 [iGfun,jGvar,G]=find(Jac);
 
 Flow = zeros(neF,1);

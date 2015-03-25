@@ -1,19 +1,22 @@
-global refTraj N n m xNav t0 tf Hp x Nx M
+global refTraj N n m xNav t0 tf Hp x Nu Nx M Nui
 
 %*****Define Simulation Parameters***
-modelNumber = 4;
+modelNumber = 3;
 
 %*****Define Model Parameters*****
-n   = 3; %Number of states
-m   = 2; %Number of controls
-M   = 5; %this is for MS only;
-Nx  = 50; %this is for MS only;
+n   = 3;   % Number of states
+m   = 2;   % Number of controls states
+Nx  = 10;  % Number of state integration intervals for DS
+Nu  = 5;  % Number of discrete control points for DS
+M   = 5;   % Number of intervals for MS
+Nui = 2;  % Number of control points per interval for MS
+N   = 20;  % Number of collocation points for Direct Collocation and Pseudospectral
 
 %*****Define Variable Parameters*****
 t0  = 0;
-tf  = 20;
+tf  = 10;
 Hp  = tf - t0;
-N   = 50;
+
 
 %*****Define Reference Trajectory*****
 [refTraj] = [[0:50]',[0:50]',5*ones(51,1),0*ones(51,1)];
@@ -21,11 +24,11 @@ N   = 50;
 %*****Intialise model*****
 if modelNumber == 1
     % Direct Shooting
-    [xNav,x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseDirectShooting(N,n,m,refTraj);
+    [xNav,x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseDirectShooting(Nu,n,m,refTraj);
     
 elseif modelNumber == 2
     % Multiple Shooting
-    [xNav,x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseMultipleShooting(Nx,n,m,refTraj,Hp,M,t0);
+    [xNav,x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseMultipleShooting(Nui,n,m,refTraj,Hp,M,t0);
     
 elseif modelNumber == 3
     % Collocation

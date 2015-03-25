@@ -2,7 +2,7 @@ function [F,Jac,tout,yout,uout] = snoptuserfunCollocation(x)
 
 global N t0 tf xNav n m refTraj
 
-numconstr = 1 + n*N + n;
+numconstr = 1 + n*(N+1);
 
 F  = zeros(numconstr,1);
 
@@ -26,14 +26,14 @@ cost = 0;
 %   uout = u;
 % end
 
-ydots       = stateEquations_Coll(y', u');
-xRef        = interp1(refTraj(:,1),refTraj(:,2:end),t)';
-integrand   = cost_Coll(y',u',xRef);
-cost        = integrand * dt;%sum(integrand) * dt;
+yDots                   = stateEquations(y, u, t);
+xRef                    = interp1(refTraj(:,1),refTraj(:,2:end),t)';
+[Mayer, Integral]       = integralCost(y',u',xRef);
+cost                    = sum(Integral) * dt;%sum(integrand) * dt;
 
 for i = 1:N
   
-  F(1+((i-1)*n+1:i*n)) = y(i,:)' - y(i+1,:)' + (ydots(:,i) + ydots(:,i+1)) * dt * 0.5;
+  F(1+((i-1)*n+1:i*n)) = y(i,:)' - y(i+1,:)' + (yDots(:,i) + yDots(:,i+1)) * dt * 0.5;
   
 end
 

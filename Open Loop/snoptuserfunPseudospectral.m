@@ -24,19 +24,20 @@ end
 %     uout = u;
 % end
 
-[ydots, df1_dx, df2_dx, df3_dx]    = stateEquations_Pseud(y, u);
+t                   = ((tf-t0)/2*t_sort+(tf+t0)/2);
 
-ydots = ydots';
+[yDots, df1_dx, df2_dx, df3_dx]    = stateEquations(y, u, t);
+
+ydots = yDots';
 
 for index=n:-1:1
     Eqn(:,index) = 1./factor.*D_sort*y(:,index) - ydots(:,index);
 end
 
 % Assign Objective Function and Constraints to F
-t                   = ((tf-t0)/2*t_sort+(tf+t0)/2);
 xRef                = interp1(refTraj(:,1),refTraj(:,2:end),t)';
 % xRef(1:2,:)         = xRef(1:2,:) ./ 10;
-[Mayer,Integral,dC_dx]    = cost_Pseud(y',u',xRef);
+[Mayer,Integral,dC_dx]    = integralCost(y',u',xRef);
 
 F(1) = Mayer + sum(w.*Integral')*factor;
 for k = 1:n

@@ -1,7 +1,7 @@
 function [xNav,x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseCollocation(N,n,m,refTraj)
 
 %*****Define Initial Conditions*****
-xNav = [0;4;0];; %This is initial nav robot state [x;y;psi]
+xNav = [0;5;0]; %This is initial nav robot state [x;y;psi]
 
 for j = 1:n
     

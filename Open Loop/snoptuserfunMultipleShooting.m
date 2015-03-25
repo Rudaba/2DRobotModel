@@ -1,6 +1,6 @@
 function [F,Jac,tout,yout,uout] = snoptuserfunMultipleShooting(x)
 
-global M t0 tf xNav n m refTraj Nx
+global M t0 tf xNav n m refTraj Nui
 
 numconstr = 1 + 2*n*M;
 
@@ -13,13 +13,13 @@ for j = 1:M
 end
 for j = 1:M
     for k = 1:m
-        u{j}(:,k) = x(2*M*n+(j-1)*(Nx+1)+((k-1)*(Nx+1)+1:k*(Nx+1)));
+        u{j}(:,k) = x(2*M*n+(j-1)*(Nui+1)+((k-1)*(Nui+1)+1:k*(Nui+1)));
     end
 end
 
 % Integrate the state equations
 dti = (tf - t0) / (M);
-dtu = dti / (Nx);
+dtu = dti / (Nui);
 t0j = [t0:dti:tf-dti];
 tfj = [t0+dti:dti:tf];
 for j = 1:M
@@ -38,13 +38,13 @@ uout = u;
 
 for j = 1:M
     y = ystart{j};
-    for i = 1:Nx
+    for i = 1:Nui
         xRef        = interp1(refTraj(:,1),refTraj(:,2:end),tu{j}(i))';
-        y           = stateEquations_MS(y, u{j}(i,:)', dtu);
-        integrand   = cost_MS(y,u{j}(i,:)',xRef);
+        [yDots]     = stateEquations(y', u{j}(i,:),tu{j}(i));
+        [Mayer, Integral]  = integralCost(y,u{j}(i,:)', xRef);
         
-%         y = y + ydot * dtu;
-        cost = cost + integrand * dtu;
+        y = y + yDots * dtu;
+        cost = cost + Integral * dtu;
         
         
         

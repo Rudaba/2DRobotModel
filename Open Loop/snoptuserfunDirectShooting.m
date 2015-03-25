@@ -1,23 +1,23 @@
 function [F,Jac,tout,yout,uout] = snoptuserfunDirectShooting(x)
 
-global N t0 tf xNav n m refTraj;
+global Nu Nx t0 tf xNav n m refTraj;
 
 numconstr = 1 + n;
 
 F  = zeros(numconstr,1);
-u  = zeros(N+1,m);
+u  = zeros(Nu+1,m);
 
 for k = 1:m
-  u(:,k) = x((k-1)*(N+1)+1:k*(N+1));
+  u(:,k) = x((k-1)*(Nu+1)+1:k*(Nu+1));
 end
 
 % Integrate the state equations
-dtx = (tf - t0) / (N);
-tx = [t0:dtx:tf];
-dtu = (tf - t0) / (N);
-tu = [t0:dtu:tf];
+dtx = (tf - t0) / (Nx);
+tx  = [t0:dtx:tf];
+dtu = (tf - t0) / (Nu);
+tu  = [t0:dtu:tf];
 
-y     = xNav;
+y   = xNav;
 cost  = 0;
 
 % if nargout > 2
@@ -29,7 +29,7 @@ cost  = 0;
 %   uout(:,1) = u(1,:);
 % end
 
-for i = 1:N
+for i = 1:Nx
   % zero order hold for u
     tuIndex     = find(tu<=tx(i),1,'last');
     uapplied    = u(tuIndex,:)';
@@ -39,11 +39,11 @@ for i = 1:N
   %linear interp
 %   uapplied = interp1(tu, u, tx(i), 'linear');
   
-  y          = stateEquations_DS(y, uapplied, dtx);
-  integrand  = cost_DS(y, uapplied, xRef);
+  [yDots]            = stateEquations(y', uapplied',tx(i));
+  [Mayer, Integral]  = integralCost(y, uapplied, xRef);
   
-%   y     = y + ydot * dtx;
-  cost  = cost + integrand * dtx;
+  y          = y + yDots * dtx;
+  cost       = cost + Integral * dtx;
   
 %   if nargout > 3
 %     yout(:,end+1) = y;

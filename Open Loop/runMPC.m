@@ -1,6 +1,6 @@
 function runMPC(modelNumber,x,xlow,xupp,Flow,Fupp,iGfun,jGvar)
 
-global M Nui refTraj t0 tf m n N xNav t_sort Nu
+global M Nui refTraj t0 tf m n N t_sort Nu y0
 
 A = [];
 iAfun = [];
@@ -18,7 +18,7 @@ if modelNumber == 1
         u(:,k) = x((k-1)*(Nu+1)+1:k*(Nu+1));
     end
     
-    [xNav,tReal,yReal] = simulateRobotRK(xNav,tu,u,0.01,t0,tf);
+    [y0,tReal,yReal] = simulateRobotRK(y0,tu,u,0.01,t0,tf);
     
     %Plot results
     figure
@@ -29,17 +29,17 @@ if modelNumber == 1
     subplot(2,1,2)
     plot(tu,u(:,2),'-b')
     
-    %     figure
-    %     subplot(2,1,1)
-    %     plot(tReal,yReal(:,1),'r')
-    %     title('Integrated States, x (top), y (bottom)')
-    %     hold on
-    %     subplot(2,1,2)
-    %     plot(tReal,yReal(:,2),'b')
-    %
-    %     figure
-    %     plot(yReal(:,1),yReal(:,2),'g')
-    %     title('x vs y')
+    figure
+    subplot(2,1,1)
+    plot(tReal,yReal(:,1),'r')
+    title('Integrated States, x (top), y (bottom)')
+    hold on
+    subplot(2,1,2)
+    plot(tReal,yReal(:,2),'b')
+    
+    figure
+    plot(yReal(:,1),yReal(:,2),'g')
+    title('x vs y')
     
     
 elseif modelNumber == 2
@@ -57,21 +57,22 @@ elseif modelNumber == 2
         t{j} = [t0j(j):dtu:tfj(j)];
     end
     
+    % Extract states and controls from x vector
     for j = 1:M
         ystart{j}(:, 1) = x((j-1)*n+1:j*n);
         yend{j}(:, 1) = x(M*n+((j-1)*n+1:j*n));
     end
     
+    count = 0;
     for j = 1:M
         for k = 1:m
-            u{j}(:,k) = x(2*M*n+(j-1)*(Nui+1)+((k-1)*(Nui+1)+1:k*(Nui+1)));
+            u{j}(:,k) = x(2*M*n+(j-1)*(Nui+1)+count+((k-1)*(Nui+1)+1:k*(Nui+1)));
         end
+        count = j*(Nui+1);
     end
     
-    y0 = xNav;
     for j = 1:M
-        [xNav,tReal{j},yReal{j}] = simulateRobotRK(y0,t{j},u{j},0.01,t{j}(1),t{j}(end));
-        y0 = yReal{j}(end,:);
+        [y0,tReal{j},yReal{j}] = simulateRobotRK(y0,t{j},u{j},0.01,t{j}(1),t{j}(end));
     end
     
     %Plot results
@@ -87,27 +88,27 @@ elseif modelNumber == 2
         plot(t{j}(1:Nui),u{j}(1:Nui,2),'-b'); hold on;
     end
     
-    %     figure;
-    %     for j = 1:M
-    %         subplot(2,1,1)
-    %         plot(tReal{j}(:,1),yReal{j}(:,1)); hold on;
-    %         plot(t{j},ystart{j}(1,1),'*r'); hold on;
-    %         plot(t{j},yend{j}(1,1),'*g')
-    %     end
-    %     title('Integrated States, x (top), y (bottom)')
-    %
-    %     for j = 1:M
-    %         subplot(2,1,2)
-    %         plot(tReal{j}(:,1),yReal{j}(:,2)); hold on;
-    %         plot(t{j},ystart{j}(2,1),'*r'); hold on;
-    %         plot(t{j},yend{j}(2,1),'*g')
-    %     end
-    %
-    %     figure
-    %     for j = 1:M
-    %         plot(yReal{j}(:,1),yReal{j}(:,2)); hold on;
-    %     end
-    %     title('x vs y')
+    figure;
+    for j = 1:M
+        subplot(2,1,1)
+        plot(tReal{j}(:,1),yReal{j}(:,1)); hold on;
+        plot(t{j},ystart{j}(1,1),'*r'); hold on;
+        plot(t{j},yend{j}(1,1),'*g')
+    end
+    title('Integrated States, x (top), y (bottom)')
+    
+    for j = 1:M
+        subplot(2,1,2)
+        plot(tReal{j}(:,1),yReal{j}(:,2)); hold on;
+        plot(t{j},ystart{j}(2,1),'*r'); hold on;
+        plot(t{j},yend{j}(2,1),'*g')
+    end
+    
+    figure
+    for j = 1:M
+        plot(yReal{j}(:,1),yReal{j}(:,2)); hold on;
+    end
+    title('x vs y')
     
 elseif modelNumber == 3
     
@@ -125,7 +126,7 @@ elseif modelNumber == 3
     dt   = (tf - t0) / (N);
     t    = [t0:dt:tf];
     
-    [xNav,tReal,yReal] = simulateRobotRK(xNav,t,u,0.01,t0,tf);
+    [y0,tReal,yReal] = simulateRobotRK(y0,t,u,0.01,t0,tf);
     
     %Plot results
     figure
@@ -136,25 +137,25 @@ elseif modelNumber == 3
     subplot(2,1,2)
     plot(t,u(:,2),'-b')
     
-    %     figure
-    %     subplot(2,1,1)
-    %     plot(tReal,yReal(:,1),'r')
-    %     hold on
-    %     plot(t,y(:,1),'*g')
-    %     title('Integrated States, x (top), y (bottom)')
-    %     hold on
-    %     subplot(2,1,2)
-    %     plot(tReal,yReal(:,2),'b')
-    %     hold on
-    %     plot(t,y(:,2),'*g')
-    %     legend('integrated','optimal')
-    %
-    %     figure
-    %     plot(yReal(:,1),yReal(:,2),'b')
-    %     hold on
-    %     plot(y(:,1),y(:,2),'*g')
-    %     title('x vs y')
-    %     legend('integrated','optimal')
+    figure
+    subplot(2,1,1)
+    plot(tReal,yReal(:,1),'r')
+    hold on
+    plot(t,y(:,1),'*g')
+    title('Integrated States, x (top), y (bottom)')
+    hold on
+    subplot(2,1,2)
+    plot(tReal,yReal(:,2),'b')
+    hold on
+    plot(t,y(:,2),'*g')
+    legend('integrated','optimal')
+    
+    figure
+    plot(yReal(:,1),yReal(:,2),'b')
+    hold on
+    plot(y(:,1),y(:,2),'*g')
+    title('x vs y')
+    legend('integrated','optimal')
 elseif modelNumber == 4
     
     [x,F,inform,xmul,Fmul] = snopt(x,xlow,xupp,Flow,Fupp,'snoptuserfunPseudospectral', A, iAfun, jAvar, iGfun, jGvar);
@@ -170,37 +171,37 @@ elseif modelNumber == 4
     
     t                  = ((tf-t0)/2*t_sort+(tf+t0)/2);
     
-    [xNav,tReal,yReal] = simulateRobotRK(xNav,t,u,0.01,t0,tf);
+    [y0,tReal,yReal] = simulateRobotRK(y0,t,u,0.01,t0,tf);
     
     %Plot results
     figure
     subplot(2,1,1)
-    title('Controls PS, omegaR (top), omegaL (bottom)')
+    title('Controls Coll, omegaR (top), omegaL (bottom)')
     plot(t,u(:,1),'-r')
     hold on
     subplot(2,1,2)
     plot(t,u(:,2),'-b')
     
-    %     figure
-    %     subplot(2,1,1)
-    %     plot(tReal,yReal(:,1),'r')
-    %     hold on
-    %     plot(t,y(:,1),'*g')
-    %     title('Integrated States, x (top), y (bottom)')
-    %     hold on
-    %     subplot(2,1,2)
-    %     plot(tReal,yReal(:,2),'b')
-    %     hold on
-    %     plot(t,y(:,2),'*g')
-    %     legend('integrated','optimal')
-    %
-    %     figure
-    %     plot(yReal(:,1),yReal(:,2),'b')
-    %     hold on
-    %     plot(y(:,1),y(:,2),'*g')
-    %     title('x vs y')
-    %     legend('integrated','optimal')
-    %
+    figure
+    subplot(2,1,1)
+    plot(tReal,yReal(:,1),'r')
+    hold on
+    plot(t,y(:,1),'*g')
+    title('Integrated States, x (top), y (bottom)')
+    hold on
+    subplot(2,1,2)
+    plot(tReal,yReal(:,2),'b')
+    hold on
+    plot(t,y(:,2),'*g')
+    legend('integrated','optimal')
+    
+    figure
+    plot(yReal(:,1),yReal(:,2),'b')
+    hold on
+    plot(y(:,1),y(:,2),'*g')
+    title('x vs y')
+    legend('integrated','optimal')
+    
 elseif modelNumber == 5
     
     [x,F,inform,xmul,Fmul] = snopt(x,xlow,xupp,Flow,Fupp,'snoptuserfunLMPCSNOPT', A, iAfun, jAvar, iGfun, jGvar);

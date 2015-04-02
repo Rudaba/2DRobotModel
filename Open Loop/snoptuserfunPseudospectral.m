@@ -1,6 +1,6 @@
 function [F,Jac,tout,yout,uout] = snoptuserfunPseudospectral(x)
 
-global N t0 Hp xNav n m refTraj D_sort w t_sort
+global N t0 Hp y0 n m refTraj D_sort w t_sort
 
 numconstr   = 1+n*(N+1) + n;
 F           = zeros(numconstr,1);
@@ -47,8 +47,6 @@ end
 if nargout > 2
     tout = t;
 end
-
-y0 = xNav;
 
 % initial conditions
 F(1+n.*(N+1)+1) = y(1,1)- y0(1);

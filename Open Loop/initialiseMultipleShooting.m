@@ -1,24 +1,19 @@
-function [xNav,x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseMultipleShooting(Nui,n,m,refTraj,Hp,M,t0)
+function [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseMultipleShooting(Nui,n,m,y0,M)
 
-%*****Define Initial Conditions*****
-xNav = [0;5;0]; %This is initial nav robot state [x;y;psi]
-
-dti = Hp / (M);
-t0j = [t0:dti:t0+Hp-dti];
-tfj = [t0+dti:dti:t0+Hp];
-
-ICstart =  interp1(refTraj(:,1),refTraj(:,2:end),t0j)';
-ICend =  interp1(refTraj(:,1),refTraj(:,2:end),tfj)';
+% dti = Hp / (M);
+% t0j = [t0:dti:t0+Hp-dti];
+% tfj = [t0+dti:dti:t0+Hp];
+% 
+% ICstart =  interp1(refTraj(:,1),refTraj(:,2:end),t0j)';
+% ICend =  interp1(refTraj(:,1),refTraj(:,2:end),tfj)';
 
 for j = 1:M
-    %This fills in the continuity  for the begningng and the end of each
-    %interval
-    xlow((j-1)*n+1:j*n,1)       = -inf;
-    xlow(M*n+((j-1)*n+1:j*n),1) = -inf;
-    xupp((j-1)*n+1:j*n,1)       = inf;
-    xupp(M*n+((j-1)*n+1:j*n),1) = inf;
-    x((j-1)*n+1:j*n,1)          = ICstart(1:n,j);
-    x(M*n+((j-1)*n+1:j*n),1)    = ICend(1:n,j);
+  xlow((j-1)*n+1:j*n,1)         = -inf;
+  xlow(M*n+((j-1)*n+1:j*n),1)   = -inf;
+  xupp((j-1)*n+1:j*n,1)         = inf;
+  xupp(M*n+((j-1)*n+1:j*n),1)   = inf;
+  x((j-1)*n+1:j*n,1)            = 0;
+  x(M*n+((j-1)*n+1:j*n),1)      = 0;
 end
 
 count = 0;

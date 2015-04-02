@@ -1,4 +1,4 @@
-function [xNav,x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialisePseudospectral(N,n,m,refTraj)
+function [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialisePseudospectral(N,n,m,y0)
 global D_sort w t_sort
 
 %*****Calculate differentiation matrix, nodes, and quadrature weights*****
@@ -12,11 +12,11 @@ xNav = [0;5;0];; %This is initial nav robot state [x;y;psi]
 for j = 1:n
     
     if j == 1
-        const = xNav(1,1);
+        const = y0(1,1);
     elseif j == 2
-        const = xNav(2,1);
+        const = y0(2,1);
     elseif j == 3
-        const = xNav(3,1);
+        const = y0(3,1);
     end
     
     xlow((j-1)*(N+1)+1:j*(N+1),1) = -inf;

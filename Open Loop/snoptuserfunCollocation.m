@@ -1,6 +1,6 @@
 function [F,Jac,tout,yout,uout] = snoptuserfunCollocation(x)
 
-global N t0 tf xNav n m refTraj
+global N t0 tf y0 n m refTraj
 
 numconstr = 1 + n*(N+1);
 
@@ -40,8 +40,6 @@ end
 % if nargout > 2
 %   tout = t;
 % end
-
-y0 = xNav;
 
 F(1) = cost;
 % BC's

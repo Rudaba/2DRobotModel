@@ -1,6 +1,6 @@
 function [F,Jac,tout,yout,uout] = snoptuserfunDirectShooting(x)
 
-global Nu Nx t0 tf xNav n m refTraj;
+global Nu Nx t0 tf n m refTraj y0;
 
 numconstr = 1 + n;
 
@@ -17,7 +17,7 @@ tx  = [t0:dtx:tf];
 dtu = (tf - t0) / (Nu);
 tu  = [t0:dtu:tf];
 
-y   = xNav;
+y     = y0;
 cost  = 0;
 
 % if nargout > 2

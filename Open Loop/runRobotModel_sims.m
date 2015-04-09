@@ -1,27 +1,29 @@
+function runRobotModel_sims(model,initTime,finalTime,statePointsDS,controlPoints,sections,statePointsMS,nodePoints,fileName)
+                            
 global refTraj N n m y0 t0 tf Hp x Nu Nx M Nui intdt
 global R b
+
 %*****Define Simulation Parameters***
-modelNumber = 4;
-plotResults = 1;
+modelNumber = model;
+plotResults = 0;
 
 %*****Define Model Parameters*****
-n   = 3;   % Number of states
-m   = 2;   % Number of controls states
-Nx  = 20; % Number of state integration intervals for DS
-Nu  = 10; % Number of discrete control points for DS
-M   = 5;   % Number of intervals for MS
-Nui = 2;  % Number of control points per interval for MS
-N   = 10;  % Number of collocation points for Direct Collocation and Pseudospectral
+n   = 3;                % Number of states
+m   = 2;                % Number of controls states
+Nx  = statePointsDS;    % Number of state integration intervals for DS
+Nu  = controlPoints;    % Number of discrete control points for DS
+M   = sections;         % Number of intervals for MS
+Nui = statePointsMS;    % Number of control points per interval for MS
+N   = nodePoints;       % Number of collocation points for Direct Collocation and Pseudospectral
 
 %*****Define Variable Parameters*****
-t0    = 0;
-tf    = 1;
-Hp    = tf - t0;
-intdt = 0.01; 
+t0      = initTime;
+tf      = finalTime;
+Hp      = tf - t0;
+intdt   = 0.01; %Integration time step
 
 %*****Define Initial Conditions*****
 y0 = [-0.5;5+1;0]; %This is initial nav robot state [x;y;psi]
-% y0 = [0;5;0];
 
 %****Define Robot Parameters*****
 %Robot Constants
@@ -51,15 +53,12 @@ end
 
 %*****Set up optimisation*****
 %SNOPT parameters
-snsummary off;
-snscreen on;
+summaryName = strcat(fileName,'_Summary');
+snsummary(summaryName);
+snscreen off;
 
 snseti('Verify level', -1);
-% if modelNumber == 4
-    snseti('Derivative option', 2);
-% else
-    snseti('Derivative option', 0); % let SNOPT figure out jacobian
-% end
+snseti('Derivative option', 0); % let SNOPT figure out jacobian
 snseti('Major iterations',1000);
 
-runMPC(modelNumber,x,xlow,xupp,Flow,Fupp,iGfun,jGvar,'testing',plotResults);
+runMPC(modelNumber,x,xlow,xupp,Flow,Fupp,iGfun,jGvar,fileName,plotResults);

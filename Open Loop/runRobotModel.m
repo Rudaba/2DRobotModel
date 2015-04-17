@@ -1,7 +1,7 @@
 global refTraj N n m y0 t0 tf Hp x Nu Nx M Nui intdt
 global R b
 %*****Define Simulation Parameters***
-modelNumber = 4;
+modelNumber = 1;
 plotResults = 1;
 
 %*****Define Model Parameters*****

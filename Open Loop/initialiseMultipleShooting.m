@@ -19,8 +19,8 @@ end
 count = 0;
 for j = 1:M
     for k = 1:m
-        xlow(2*M*n+(j-1)*(Nui+1)+count+((k-1)*(Nui+1)+1:k*(Nui+1)),1) = -inf;
-        xupp(2*M*n+(j-1)*(Nui+1)+count+((k-1)*(Nui+1)+1:k*(Nui+1)),1) = inf;
+        xlow(2*M*n+(j-1)*(Nui+1)+count+((k-1)*(Nui+1)+1:k*(Nui+1)),1) = -0.6;
+        xupp(2*M*n+(j-1)*(Nui+1)+count+((k-1)*(Nui+1)+1:k*(Nui+1)),1) = 0.6;
         x(2*M*n+(j-1)*(Nui+1)+count+((k-1)*(Nui+1)+1:k*(Nui+1)),1)    = 0;
     end
     count = j*(Nui+1);

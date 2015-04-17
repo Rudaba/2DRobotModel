@@ -1,0 +1,67 @@
+ 
+
+ Nonlinear constraints      30     Linear constraints       0
+ Nonlinear variables        90     Linear variables         0
+ Jacobian  variables        90     Objective variables     90
+ Total constraints          30     Total variables         90
+ 
+
+ 
+ The user has defined       0   out of    2790   first  derivatives
+ 
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0     69               1  6.0E+00  1.4E-01  1.6470000E+02    50           r
+     1      3  1.2E-01      2  2.6E+00  1.5E-01  5.3676815E+02    48 2.4E+01 n rl
+     2     38  1.3E-01      3  1.5E+00  6.1E-01  4.6252096E+02    11 2.4E+01 s  l
+     3     12  6.4E-01      4  1.8E-01  5.1E-01  3.6003032E+01    18 4.9E+00    l
+     4     10  1.0E+00      5  5.4E-03  2.1E-02  3.1332623E+00    15 4.9E+00
+     5      2  1.0E+00      6  9.0E-04  1.2E-02  2.9757428E+00    16 4.9E+00
+     6      4  1.0E+00      7  2.4E-04  1.6E-02  2.9279799E+00    17 4.9E+00
+     7      3  1.0E+00      8  7.7E-05  9.8E-03  2.8604404E+00    17 4.9E+00
+     8      5  1.0E+00      9  8.7E-05  8.0E-03  2.8381458E+00    17 4.9E+00
+     9      2  1.0E+00     10  3.5E-04  5.0E-03  2.8172796E+00    18 4.9E+00
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    10      3  1.0E+00     11  7.8E-06  2.2E-03  2.8135197E+00    18 4.9E+00
+    11      2  1.0E+00     12  1.0E-05  1.9E-03  2.8118952E+00    19 4.9E+00
+    12      1  1.0E+00     13 (6.1E-07) 1.2E-03  2.8109723E+00    19 4.9E+00   R
+    13      1  1.0E+00     14 (8.0E-08) 1.0E-03  2.8107564E+00    19 4.9E+00 s
+    14      2  1.0E+00     15  1.7E-06  1.2E-03  2.8103012E+00    18 4.9E+00
+    15      2  4.6E-01     16 (5.8E-07) 5.5E-04  2.8101464E+00    19 4.9E+00
+    16      1  3.8E-01     17 (3.7E-07) 2.1E-04  2.8101300E+00    19 4.9E+00
+    17      1  1.0E+00     18 (3.5E-08) 2.1E-04  2.8101296E+00    19 4.9E+00
+    18      1  1.0E+00     19 (7.9E-09) 1.0E-04  2.8101233E+00    19 4.9E+00
+    19      1  4.4E-01     20 (4.4E-09) 3.3E-05  2.8101225E+00    19 4.9E+00
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    20      1  1.0E+00     21 (1.1E-09) 3.0E-05  2.8101223E+00    19 4.9E+00
+    21      1  1.0E+00     22 (5.0E-10) 2.8E-05  2.8101222E+00    19 4.9E+00
+    22      1  1.0E+00     23 (9.2E-10) 1.7E-05  2.8101222E+00    19 4.9E+00
+    23      1  1.0E+00     24 (7.6E-11) 1.3E-05  2.8101221E+00    19 4.9E+00   R
+    24      1  4.6E-01     25 (4.8E-11) 6.4E-06  2.8101221E+00    19 4.9E+00 s
+    25      1  1.0E+00     26 (2.8E-12) 5.0E-06  2.8101221E+00    19 4.9E+00
+    26      1  1.0E+00     27 (7.6E-12) 4.3E-06  2.8101221E+00    19 4.9E+00
+    27      1  1.0E+00     28 (2.2E-11) 3.6E-06  2.8101221E+00    19 4.9E+00
+    28      1  1.0E+00     29 (4.2E-12) 2.7E-06  2.8101221E+00    19 4.9E+00
+    29      1  1.0E+00     30 (1.8E-12)(9.7E-07) 2.8101221E+00    19 4.9E+00       c
+    29      2  1.0E+00     30 (1.8E-12)(1.0E-06) 2.8101221E+00    19 4.9E+00       c
+ 
+ SNOPTA EXIT   0 -- finished successfully
+ SNOPTA INFO   1 -- optimality conditions satisfied
+
+ Problem name
+ No. of iterations                 174   Objective value      2.8101221039E+00
+ No. of major iterations            29   Linear objective     0.0000000000E+00
+ Penalty parameter           4.916E+00   Nonlinear objective  2.8101221039E+00
+ No. of calls to funobj           2946   No. of calls to funcon           2946
+ Calls with modes 1,2 (known g)     30   Calls with modes 1,2 (known g)     30
+ Calls for forward differencing   2700   Calls for forward differencing   2700
+ Calls for central differencing    180   Calls for central differencing    180
+ No. of superbasics                 19   No. of basic nonlinears            30
+ No. of degenerate steps             6   Percentage                       3.45
+ Max x                       2 6.0E+00   Max pi                      3 5.4E+00
+ Max Primal infeas           0 0.0E+00   Max Dual infeas            85 1.3E-05
+ Nonlinear constraint violn    2.2E-11
+
+ Solution not printed

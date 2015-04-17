@@ -1,0 +1,69 @@
+ 
+
+ Nonlinear constraints      36     Linear constraints       0
+ Nonlinear variables        55     Linear variables         0
+ Jacobian  variables        55     Objective variables     55
+ Total constraints          36     Total variables         55
+ 
+
+ 
+ The user has defined       0   out of    2035   first  derivatives
+ 
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0     29               1 (2.5E-14) 6.5E-01  3.9683333E+02    14           r
+     1      9  3.0E-01      2 (3.7E-10) 1.3E+00  3.1694831E+02    19         n rl
+     2      1  2.6E-01      3  1.2E-03  7.3E-01  2.5292537E+02    19         s  l
+     3      1  1.0E+00      4  6.5E-02  5.2E-01  5.3237134E+01    19
+     4      1  1.0E+00      5  4.5E-02  3.2E-01  6.8308226E+00    19
+     5      1  1.0E+00      6  1.0E-02  3.6E-01  6.6395057E+00    19 1.3E+00
+     6      1  1.0E+00      7  4.3E-03  2.1E-01  3.5601282E+00    19 1.3E+00
+     7      1  1.0E+00      8  2.6E-03  1.7E-01  2.7344432E+00    19 1.3E+00
+     8      1  1.0E+00      9  2.0E-03  1.2E-01  2.1677719E+00    19 1.3E+00
+     9      1  1.0E+00     10  9.6E-04  5.9E-02  1.9240468E+00    19 1.3E+00
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    10      1  1.0E+00     11  4.6E-04  4.7E-02  1.8501655E+00    19 1.3E+00
+    11      1  1.0E+00     12  2.1E-04  1.7E-02  1.8082162E+00    19 1.3E+00
+    12      1  1.0E+00     13  4.7E-05  1.5E-02  1.7987259E+00    19 1.3E+00
+    13      1  1.0E+00     14  1.2E-04  1.3E-02  1.7872708E+00    19 1.3E+00
+    14      1  1.0E+00     15  3.9E-05  1.7E-02  1.7734163E+00    19 1.3E+00
+    15      1  1.0E+00     16  2.0E-04  1.7E-02  1.7507208E+00    19 1.3E+00
+    16      1  1.0E+00     17  5.9E-04  1.8E-02  1.7341133E+00    19 1.3E+00
+    17      1  1.0E+00     18  1.3E-04  7.9E-03  1.7274823E+00    19 1.3E+00
+    18      1  1.0E+00     19  3.3E-06  4.7E-03  1.7256178E+00    19 1.3E+00
+    19      1  1.0E+00     20  1.4E-06  3.6E-03  1.7248500E+00    19 1.3E+00
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    20      1  1.0E+00     21  6.9E-06  3.1E-03  1.7242622E+00    19 1.3E+00
+    21      1  1.0E+00     22  1.5E-05  3.3E-03  1.7235877E+00    19 1.3E+00
+    22      1  1.0E+00     23  2.0E-05  3.6E-03  1.7226215E+00    19 1.3E+00
+    23      1  1.0E+00     24  3.0E-06  3.1E-03  1.7215950E+00    19 1.3E+00
+    24      1  1.0E+00     25  1.6E-05  1.6E-03  1.7210126E+00    19 1.3E+00
+    25      1  1.0E+00     26 (8.1E-07) 6.0E-04  1.7208808E+00    19 1.3E+00
+    26      1  1.0E+00     27 (5.7E-07) 1.2E-04  1.7208698E+00    19 1.3E+00
+    27      1  1.0E+00     28 (6.9E-09) 3.7E-05  1.7208693E+00    19 1.3E+00
+    28      1  1.0E+00     29 (7.9E-11) 1.1E-05  1.7208693E+00    19 1.3E+00
+    29      1  1.0E+00     30 (1.2E-10) 3.3E-06  1.7208693E+00    19 1.3E+00
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    30      1  1.0E+00     31 (3.1E-11)(1.6E-06) 1.7208693E+00    19 1.3E+00
+ 
+ SNOPTA EXIT   0 -- finished successfully
+ SNOPTA INFO   1 -- optimality conditions satisfied
+
+ Problem name
+ No. of iterations                  67   Objective value      1.7208692777E+00
+ No. of major iterations            30   Linear objective     0.0000000000E+00
+ Penalty parameter           1.299E+00   Nonlinear objective  1.7208692777E+00
+ No. of calls to funobj           1768   No. of calls to funcon           1768
+ Calls with modes 1,2 (known g)     31   Calls with modes 1,2 (known g)     31
+ Calls for forward differencing   1705   Calls for forward differencing   1705
+ Calls for central differencing      0   Calls for central differencing      0
+ No. of superbasics                 19   No. of basic nonlinears            36
+ No. of degenerate steps            14   Percentage                      20.90
+ Max x                      11 1.0E+01   Max pi                     36 3.2E+00
+ Max Primal infeas           0 0.0E+00   Max Dual infeas            41 6.6E-06
+ Nonlinear constraint violn    5.6E-10
+
+ Solution not printed

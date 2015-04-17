@@ -1,8 +1,8 @@
 function [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseDirectShooting(Nu,n,m)
 
 for k = 1:m %Intialise MPC vector and define upper and lower constraints
-    xlow((k-1)*(Nu+1)+1:n+k*(Nu+1),1) = -inf;
-    xupp((k-1)*(Nu+1)+1:n+k*(Nu+1),1) =  inf;
+    xlow((k-1)*(Nu+1)+1:n+k*(Nu+1),1) = -0.6;
+    xupp((k-1)*(Nu+1)+1:n+k*(Nu+1),1) =  0.6;
     x((k-1)*(Nu+1)+1:n+k*(Nu+1),1) =  0;
 end
 

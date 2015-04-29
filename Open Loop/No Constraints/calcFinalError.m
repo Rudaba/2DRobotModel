@@ -1,16 +1,4 @@
-%Calculate Final Error
-global R b
-
-initTime    = 0;
-finalTime   = [1; 5; 10];
-n           = 3;             % Number of states
-m           = 2;             % Number of controls states
-intdt       = 0.01;          %Integration time step
-y0          = [-0.5;5+1;0];  %This is initial nav robot state [x;y;psi]
-R           = 2;
-b           = 1;
-yRef        = [0,5,0];
-
+function [DS_data, MS_data, Coll_data, Pseud_data] = calcFinalError(errorLimit, initTime, finalTime, n, m, intdt, refTraj, y0)
 
 %********************Gather all data*********************
 %Sims for direct shooting
@@ -40,7 +28,7 @@ end
 %Sims for multiple shooting
 for i = 1:length(finalTime)
     
-    statePointsMS   = [5;10;50];
+    statePointsMS   = [5;10;50;100];
     sections        = [2,5,10];
     model           = 2;
     
@@ -111,29 +99,32 @@ for i = 1:length(finalTime)
     for j = 1:length(controlPoints)
         for k = 1:length(statePointsDS)
             
-            lengthStateVec = size(DS_data{i}{j}{k}.states,1);
+            xRef                      = interp1(refTraj(:,1),refTraj(:,2:end),DS_data{i}{j}{k}.time);
             
-            DS_data{i}{j}{k}.errorVec = DS_data{i}{j}{k}.states - repmat(yRef,lengthStateVec,1);
+            DS_data{i}{j}{k}.errorVec = xRef(:,1:3) - DS_data{i}{j}{k}.states; %repmat(yRef,lengthStateVec,1);
             
-            if isempty(find(abs(DS_data{i}{j}{k}.errorVec(:,1)) < 0.001))
-                DS_data{i}{j}{k}.xError   = nan;
+            if isempty(find(abs(DS_data{i}{j}{k}.errorVec(:,1)) < errorLimit))
+                DS_data{i}{j}{k}.xErrorTime     = nan;
             else
-                DS_data{i}{j}{k}.xError   = find(abs(DS_data{i}{j}{k}.errorVec(:,1)) < 0.001);
+                index                       = find(abs(DS_data{i}{j}{k}.errorVec(:,1)) < errorLimit);
+                DS_data{i}{j}{k}.xErrorTime = DS_data{i}{j}{k}.time(index(1));
             end
             
-            if isempty(find(abs(DS_data{i}{j}{k}.errorVec(:,2)) < 0.001))
-                DS_data{i}{j}{k}.yError   = nan;
+            if isempty(find(abs(DS_data{i}{j}{k}.errorVec(:,2)) < errorLimit))
+                DS_data{i}{j}{k}.yErrorTime   = nan;
             else
-                DS_data{i}{j}{k}.yError   = find(abs(DS_data{i}{j}{k}.errorVec(:,2)) < 0.001);
+                index                       = find(abs(DS_data{i}{j}{k}.errorVec(:,2)) < errorLimit);
+                DS_data{i}{j}{k}.yErrorTime = DS_data{i}{j}{k}.time(index(1));
             end
             
-            if isempty(find(abs(DS_data{i}{j}{k}.errorVec(:,3)) < 0.001))
-                DS_data{i}{j}{k}.psiError   = nan;
+            if isempty(find(abs(DS_data{i}{j}{k}.errorVec(:,3)) < errorLimit))
+                DS_data{i}{j}{k}.psiErrorTime   = nan;
             else
-                DS_data{i}{j}{k}.psiError   = find(abs(DS_data{i}{j}{k}.errorVec(:,3)) < 0.001);
+                index   = find(abs(DS_data{i}{j}{k}.errorVec(:,3)) < errorLimit);
+                DS_data{i}{j}{k}.psiErrorTime = DS_data{i}{j}{k}.time(index(1));
             end
             
-            clear lengthStateVec
+            clear xRef
         end
     end
 end
@@ -147,29 +138,32 @@ for i = 1:length(finalTime)
             
             for l = 1:sections(j)
                 
-                lengthStateVec = size(MS_data{i}{j}{k}.states{l},1);
+                xRef                         = interp1(refTraj(:,1),refTraj(:,2:end),MS_data{i}{j}{k}.time{l});
                 
-                MS_data{i}{j}{k}.errorVec{l} = MS_data{i}{j}{k}.states{l} - repmat(yRef,lengthStateVec,1);
+                MS_data{i}{j}{k}.errorVec{l} = MS_data{i}{j}{k}.states{l} - xRef(:,1:3);
                 
-                if isempty(find(abs(MS_data{i}{j}{k}.errorVec{l}(:,1)) < 0.001))
-                    MS_data{i}{j}{k}.xError{l}   = nan;
+                if isempty(find(abs(MS_data{i}{j}{k}.errorVec{l}(:,1)) < errorLimit))
+                    MS_data{i}{j}{k}.xErrorTime{l}   = nan;
                 else
-                    MS_data{i}{j}{k}.xError{l}   = find(abs(MS_data{i}{j}{k}.errorVec{l}(:,1)) < 0.001);
+                    index                       = find(abs(MS_data{i}{j}{k}.errorVec{l}(:,1)) < errorLimit);
+                    MS_data{i}{j}{k}.xErrorTime{l} = MS_data{i}{j}{k}.time{l}(index(1));
                 end
                 
-                if isempty(find(abs(MS_data{i}{j}{k}.errorVec{l}(:,2)) < 0.001))
-                    MS_data{i}{j}{k}.yError{l}   = nan;
+                if isempty(find(abs(MS_data{i}{j}{k}.errorVec{l}(:,2)) < errorLimit))
+                    MS_data{i}{j}{k}.yErrorTime{l}   = nan;
                 else
-                    MS_data{i}{j}{k}.yError{l}   = find(abs(MS_data{i}{j}{k}.errorVec{l}(:,2)) < 0.001);
+                    index   = find(abs(MS_data{i}{j}{k}.errorVec{l}(:,2)) < errorLimit);
+                    MS_data{i}{j}{k}.yErrorTime{l} = MS_data{i}{j}{k}.time{l}(index(1));
                 end
                 
-                if isempty(find(abs(MS_data{i}{j}{k}.errorVec{l}(:,3)) < 0.001))
-                    MS_data{i}{j}{k}.psiError{l}   = nan;
+                if isempty(find(abs(MS_data{i}{j}{k}.errorVec{l}(:,3)) < errorLimit))
+                    MS_data{i}{j}{k}.psiErrorTime{l}   = nan;
                 else
-                    MS_data{i}{j}{k}.psiError{l}   = find(abs(MS_data{i}{j}{k}.errorVec{l}(:,3)) < 0.001);
+                    index  = find(abs(MS_data{i}{j}{k}.errorVec{l}(:,3)) < errorLimit);
+                    MS_data{i}{j}{k}.psiErrorTime{l} = MS_data{i}{j}{k}.time{l}(index(1));
                 end
                 
-                clear lengthStateVec
+                clear xRef
             end
         end
     end
@@ -181,29 +175,32 @@ for i = 1:length(finalTime)
     
     for j = 1:length(nodePoints)
         
-        lengthStateVec = size(Coll_data{i}{j}.states,1);
+        xRef                     = interp1(refTraj(:,1),refTraj(:,2:end),Coll_data{i}{j}.time);
         
-        Coll_data{i}{j}.errorVec = Coll_data{i}{j}.states - repmat(yRef,lengthStateVec,1);
+        Coll_data{i}{j}.errorVec = Coll_data{i}{j}.states - xRef(:,1:3);
         
-        if isempty(find(abs(Coll_data{i}{j}.errorVec(:,1)) < 0.001))
-            Coll_data{i}{j}.xError   = nan;
+        if isempty(find(abs(Coll_data{i}{j}.errorVec(:,1)) < errorLimit))
+            Coll_data{i}{j}.xErrorTime   = nan;
         else
-            Coll_data{i}{j}.xError   = find(abs(Coll_data{i}{j}.errorVec(:,1)) < 0.001);
+            index   = find(abs(Coll_data{i}{j}.errorVec(:,1)) < errorLimit);
+            Coll_data{i}{j}.xErrorTime = Coll_data{i}{j}.time(index(1));
         end
         
-        if isempty(find(abs(Coll_data{i}{j}.errorVec(:,2)) < 0.001))
-            Coll_data{i}{j}.yError   = nan;
+        if isempty(find(abs(Coll_data{i}{j}.errorVec(:,2)) < errorLimit))
+            Coll_data{i}{j}.yErrorTime   = nan;
         else
-            Coll_data{i}{j}.yError   = find(abs(Coll_data{i}{j}.errorVec(:,2)) < 0.001);
+            index   = find(abs(Coll_data{i}{j}.errorVec(:,2)) < errorLimit);
+            Coll_data{i}{j}.yErrorTime = Coll_data{i}{j}.time(index(1));
         end
         
-        if isempty(find(abs(Coll_data{i}{j}.errorVec(:,3)) < 0.001))
-            Coll_data{i}{j}.psiError   = nan;
+        if isempty(find(abs(Coll_data{i}{j}.errorVec(:,3)) < errorLimit))
+            Coll_data{i}{j}.psiErrorTime   = nan;
         else
-            Coll_data{i}{j}.psiError   = find(abs(Coll_data{i}{j}.errorVec(:,3)) < 0.001);
+            index   = find(abs(Coll_data{i}{j}.errorVec(:,3)) < errorLimit);
+            Coll_data{i}{j}.psiErrorTime = Coll_data{i}{j}.time(index(1));
         end
         
-        clear lengthStateVec
+        clear xRef
     end
 end
 
@@ -213,28 +210,31 @@ for i = 1:length(finalTime)
     
     for j = 1:length(nodePoints)
         
-        lengthStateVec = size(Pseud_data{i}{j}.states,1);
+        xRef                      = interp1(refTraj(:,1),refTraj(:,2:end),Pseud_data{i}{j}.time);
         
-        Pseud_data{i}{j}.errorVec = Pseud_data{i}{j}.states - repmat(yRef,lengthStateVec,1);
+        Pseud_data{i}{j}.errorVec = Pseud_data{i}{j}.states - xRef(:,1:3);
         
-        if isempty(find(abs(Pseud_data{i}{j}.errorVec(:,1)) < 0.001))
-            Pseud_data{i}{j}.xError   = nan;
+        if isempty(find(abs(Pseud_data{i}{j}.errorVec(:,1)) < errorLimit))
+            Pseud_data{i}{j}.xErrorTime   = nan;
         else
-            Pseud_data{i}{j}.xError   = find(abs(Pseud_data{i}{j}.errorVec(:,1)) < 0.001);
+            index   = find(abs(Pseud_data{i}{j}.errorVec(:,1)) < errorLimit);
+            Pseud_data{i}{j}.xErrorTime = Pseud_data{i}{j}.time(index(1));
         end
         
-        if isempty(find(abs(Pseud_data{i}{j}.errorVec(:,2)) < 0.001))
-            Pseud_data{i}{j}.yError   = nan;
+        if isempty(find(abs(Pseud_data{i}{j}.errorVec(:,2)) < errorLimit))
+            Pseud_data{i}{j}.yErrorTime   = nan;
         else
-            Pseud_data{i}{j}.yError   = find(abs(Pseud_data{i}{j}.errorVec(:,2)) < 0.001);
+            index   = find(abs(Pseud_data{i}{j}.errorVec(:,2)) < errorLimit);
+            Pseud_data{i}{j}.yErrorTime = Pseud_data{i}{j}.time(index(1));
         end
         
-        if isempty(find(abs(Pseud_data{i}{j}.errorVec(:,3)) < 0.001))
-            Pseud_data{i}{j}.psiError   = nan;
+        if isempty(find(abs(Pseud_data{i}{j}.errorVec(:,3)) < errorLimit))
+            Pseud_data{i}{j}.psiErrorTime   = nan;
         else
-            Pseud_data{i}{j}.psiError   = find(abs(Pseud_data{i}{j}.errorVec(:,3)) < 0.001);
+            index   = find(abs(Pseud_data{i}{j}.errorVec(:,3)) < errorLimit);
+            Pseud_data{i}{j}.psiErrorTime = Pseud_data{i}{j}.time(index(1));
         end
         
-        clear lengthStateVec
+        clear xRef
     end
 end

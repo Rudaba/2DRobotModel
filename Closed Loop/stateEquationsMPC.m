@@ -1,14 +1,10 @@
-function [yDots, df1_dx, df2_dx, df3_dx] = stateEquations_linear(stateVec, u, xRef)
+function [yDots, df1_dx, df2_dx, df3_dx] = stateEquationsMPC(stateVec, u, xRef)
 
-global n N
+global n N R b
 
 yDots               = zeros(n, length(stateVec));
 v                   = zeros(n,1);
 psi                 = zeros(n,1);
-
-%Robot Constants
-R       = 2; %Radius of tyres
-b       = 1; %Distance between centre of tyres
 
 
 for i = 1:length(xRef)

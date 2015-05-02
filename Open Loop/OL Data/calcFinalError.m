@@ -1,4 +1,4 @@
-function [DS_data, MS_data, Coll_data, Pseud_data] = calcFinalError(errorLimit, initTime, finalTime, n, m, intdt, refTraj, y0)
+function [DS_data, MS_data, Coll_data, Pseud_data] = calcFinalError(errorLimit, initTime, finalTime, n, m, intdt, refTraj, y0, NC)
 
 %********************Gather all data*********************
 %Sims for direct shooting
@@ -11,7 +11,11 @@ for i = 1:length(finalTime)
     for j = 1:length(controlPoints)
         for k = 1:length(statePointsDS)
             
-            fileName = strcat('Model_',int2str(model),'_tf_',int2str(finalTime(i)),'_Nu_',int2str(controlPoints(j)),'_Nx_',int2str(statePointsDS(k)));
+            if NC == 1
+                fileName = strcat('Model_',int2str(model),'_tf_',int2str(finalTime(i)),'_Nu_',int2str(controlPoints(j)),'_Nx_',int2str(statePointsDS(k)));
+            else
+                fileName = strcat('Model_',int2str(model),'_tf_',int2str(finalTime(i)),'_Nu_',int2str(controlPoints(j)),'_Nx_',int2str(statePointsDS(k)),'_WC');
+            end
             
             data                = load(fileName);
             [tReal, yReal, u]  = processDSdata(data.x,y0,initTime,finalTime(i),controlPoints(j),intdt,m);
@@ -35,9 +39,14 @@ for i = 1:length(finalTime)
     for j = 1:length(sections)
         for k = 1:length(statePointsMS)
             
-            fileName = strcat('Model_',int2str(model),'_tf_',int2str(finalTime(i)),'_M_',int2str(sections(j)),'_Nui_',int2str(statePointsMS(k)));
+            if NC == 1
+                fileName = strcat('Model_',int2str(model),'_tf_',int2str(finalTime(i)),'_M_',int2str(sections(j)),'_Nui_',int2str(statePointsMS(k)));
+            else
+                fileName = strcat('Model_',int2str(model),'_tf_',int2str(finalTime(i)),'_M_',int2str(sections(j)),'_Nui_',int2str(statePointsMS(k)),'_WC');
+            end
+            
             data                = load(fileName);
-            [tReal, yReal, u]  = processMSdata(data.x,y0,initTime,finalTime(i),sections(j),statePointsMS(k),intdt,m,n);
+            [tReal, yReal, u]   = processMSdata(data.x,y0,initTime,finalTime(i),sections(j),statePointsMS(k),intdt,m,n);
             
             MS_data{i}{j}{k}.time        = tReal;
             MS_data{i}{j}{k}.states      = yReal;
@@ -55,7 +64,12 @@ for i = 1:length(finalTime)
     
     for j = 1:length(nodePoints)
         
-        fileName = strcat('Model_',int2str(model),'_tf_',int2str(finalTime(i)),'_N_',int2str(nodePoints(j)));
+        if NC == 1
+            fileName = strcat('Model_',int2str(model),'_tf_',int2str(finalTime(i)),'_N_',int2str(nodePoints(j)));
+        else
+            fileName = strcat('Model_',int2str(model),'_tf_',int2str(finalTime(i)),'_N_',int2str(nodePoints(j)),'_WC');
+        end
+        
         data               = load(fileName);
         [tReal, yReal, u]  = processCollData(data.x,y0,initTime,finalTime(i),nodePoints(j),intdt,m,n);
         
@@ -76,7 +90,12 @@ for i = 1:length(finalTime)
     
     for j = 1:length(nodePoints)
         
-        fileName = strcat('Model_',int2str(model),'_tf_',int2str(finalTime(i)),'_N_',int2str(nodePoints(j)));
+        if NC == 1
+            fileName = strcat('Model_',int2str(model),'_tf_',int2str(finalTime(i)),'_N_',int2str(nodePoints(j)));
+        else 
+            fileName = strcat('Model_',int2str(model),'_tf_',int2str(finalTime(i)),'_N_',int2str(nodePoints(j)),'_WC');
+        end
+        
         data               = load(fileName);
         [t_sort,w]         = LegendreNodesAndWeights(nodePoints(j));
         [tReal, yReal, u]  = processPseudData(data.x,y0,initTime,finalTime(i),t_sort,nodePoints(j),intdt,m,n);

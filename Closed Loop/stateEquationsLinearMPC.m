@@ -1,4 +1,4 @@
-function [yDots, df1_dx, df2_dx, df3_dx] = stateEquationsMPC(stateVec, u, xRef)
+function [yDots, vOut, psiDot, df1_dx, df2_dx, df3_dx]  = stateEquationsMPC(stateVec,u,xRef)
 
 global n N R b
 
@@ -12,6 +12,8 @@ for i = 1:length(xRef)
     [A, B, V, PSI]      = Statespace(xRef(:,i),omegaR0,omegaL0);
     yDots(:,i)          = A*stateVec(i,:)' + B*u(i,:)';
     v(i,:)              = V;
+    vOut(i,:)           = R/2*(omegaR0 + u(i,1)) + R/2*(omegaL0 + u(i,2));
+    psiDot(i,:)         = R/(2*b)*(omegaR0 + u(i,1)) - R/(2*b)*(omegaL0 + u(i,2));
     psi(i,:)            = PSI; 
 end
 

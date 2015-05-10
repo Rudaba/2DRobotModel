@@ -14,13 +14,13 @@ updateRate  = 0.1;
 t0          = 0;
 Hp          = 5;
 tf          = updateRate;
-intdt       = 0.01;
-simTime     = 50;
+intdt       = 0.001;
+simTime     = 10;
 
 %*****Define Initial Conditions*****
 %This is initial nav robot state [x;y;psi]
 y0 = [-10;7;0;0]; %This is an offset from the path
-% y0 = [5;0;0];    %This starts on the path
+y0 = [5;0;0];    %This starts on the path
 
 %****Define Robot Parameters*****
 %Robot Constants
@@ -34,12 +34,12 @@ b       = 1; %Distance between centre of tyres
 if modelNumber == 1
     
     % MPC
-    [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseMPC(N,n,m);
+    [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseLinearMPC(N,n,m);
     
 elseif modelNumber == 2
     
     % NMPC
-    [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNMPC(N,n,m,y0);
+    [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC(N,n,m,y0);
     
 end
 
@@ -49,12 +49,12 @@ snsummary off;
 snscreen on;
 
 snseti('Verify level', -1);
-snseti('Derivative option', 0); % let SNOPT figure out jacobian
+snseti('Derivative option', 2); % let SNOPT figure out jacobian
 snseti('Major iterations',1000);
 
 for i = 1:simTime/updateRate
     x                       = runMPC(modelNumber,x,xlow,xupp,Flow,Fupp,iGfun,jGvar);
-    [y0,tReal,yReal, uReal] = integrateStates(x,y0,t0,tf,t_sort,N,intdt,m,n,model,refTraj);
+    [y0,tReal,yReal, uReal] = integrateStates(x,y0,t0,tf,t_sort,N,intdt,m,n,modelNumber,refTraj);
     yrefstore               = interp1(refTraj(:,1),refTraj(:,2:4),tReal)';
     
     stored(i).y = yReal';

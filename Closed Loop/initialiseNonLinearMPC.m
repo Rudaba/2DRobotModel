@@ -1,4 +1,4 @@
-function [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNMPC(N,n,m,y0)
+function [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC(N,n,m,y0,constraintValues)
 global D_sort w t_sort
 
 %*****Calculate differentiation matrix, nodes, and quadrature weights*****
@@ -26,8 +26,8 @@ for j = 1:n
 end
 
 for k = 1:m
-    xlow(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = -inf;
-    xupp(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = inf;
+    xlow(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = constraintValues(1);
+    xupp(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = constraintValues(2);
     x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = 0;
 end
 

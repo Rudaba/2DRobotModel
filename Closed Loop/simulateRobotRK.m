@@ -1,4 +1,4 @@
-function [y0,T,Y,U] = robotNav(y0,tref,uref,dt,initTime,finalTime)
+function [y0,T,Y,U] = simulateRobotRK(y0,tref,uref,dt,initTime,finalTime)
 %Extract Data
 psi     = y0(3);
 y       = y0(2);
@@ -10,6 +10,7 @@ x       = y0(1);
 %v       = R*(omegaR+omegaL)/2;
 
 [T,Y] = ode45(@(t,y) diffEqns(t,y,tref,uref),[initTime:dt:finalTime],[x y psi]);
+% [T,Y] = ode45(@(t,y) diffEqns(t,y,tref,uref),[initTime finalTime],[x y psi]);
 
 omegaR = interp1(tref, uref(:,1), T, 'pchip');
 omegaL = interp1(tref, uref(:,2), T, 'pchip');
@@ -26,7 +27,7 @@ U      = [omegaR,omegaL];
 y0    = Y(end,:)';%[x;y;psi];
 
 function dy = diffEqns(t,y,tref,uref)
-global R b uReal
+global R b
 
 omegaR = interp1(tref, uref(:,1), t, 'pchip');
 omegaL = interp1(tref, uref(:,2), t, 'pchip');

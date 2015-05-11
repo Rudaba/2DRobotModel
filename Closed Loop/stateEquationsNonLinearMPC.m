@@ -1,4 +1,4 @@
-function [yDots, v, df1_dx, df2_dx, df3_dx]  = stateEquationsNMPC(stateVec,u,t)
+function [yDots, v, df1_dx, df2_dx, df3_dx]  = stateEquationsNonLinearMPC(stateVec,u,t)
 
 global n N R b
 

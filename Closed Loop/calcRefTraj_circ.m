@@ -27,5 +27,8 @@ for i = 1:timeTaken
     V(i+1)          = R;
     time(i+1)       = time(i) + dt;
 end
-% plot(x,y)
+plot(x,y)
+title('Reference Trajectory')
+xlabel('x [m]')
+ylabel('y [m]')
 refTraj = [time;x;y;psi;V;thetaDot*ones(size(time))]';

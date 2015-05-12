@@ -1,4 +1,4 @@
-function [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC(N,n,m,y0,constraintValues)
+function [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseLinearMPC(N,n,m,constraintValues)
 global D_sort w t_sort
 
 %*****Calculate differentiation matrix, nodes, and quadrature weights*****
@@ -7,20 +7,11 @@ D_sort      = ComputeDifferentiationMatrix(N,t_sort);
 
 
 %*****Define Initial Conditions*****
-
 for j = 1:n
-    
-    if j == 1
-        const = y0(1,1);
-    elseif j == 2
-        const = y0(2,1);
-    elseif j == 3
-        const = y0(3,1);
-    end
     
     xlow((j-1)*(N+1)+1:j*(N+1),1) = -inf;
     xupp((j-1)*(N+1)+1:j*(N+1),1) = inf;
-    x((j-1)*(N+1)+1:j*(N+1),1) = const;
+    x((j-1)*(N+1)+1:j*(N+1),1) = 0;
     
 end
 
@@ -30,7 +21,7 @@ for k = 1:m
     x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = 0;
 end
 
-neF = 1 + n*(N+1) + n; %(1 for cost n*N for eq constraints and n for BC's)
+neF = 1 + n*(N+1) + 2*n; %(1 for cost n*N for eq constraints and 2*n for initial and end BC's)
 Jac = ones(neF,(n+m)*(N+1));
 [iGfun,jGvar,G]=find(Jac);
 

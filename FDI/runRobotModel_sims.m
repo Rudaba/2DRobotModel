@@ -1,8 +1,11 @@
+function runRobotModel_sims(constraints, constraintValues, model, initialConditions, fileString)
+
 global refTraj N n m y0 t0 Hp x intdt t_sort modelNumber
 global R b
+
 %*****Define Simulation Parameters***
-modelNumber = 2;
-fileName = 'testing';
+modelNumber = model;
+fileName = fileString;
 
 %*****Define Model Parameters*****
 n   = 3;   % Number of states
@@ -19,8 +22,7 @@ simTime     = 50;
 
 %*****Define Initial Conditions*****
 %This is initial nav robot state [x;y;psi]
-y0 = [-10;7;0;0]; %This is an offset from the path
-y0 = [5;0;0];    %This starts on the path
+y0 = initialConditions;
 
 %****Define Robot Parameters*****
 %Robot Constants
@@ -29,10 +31,6 @@ b       = 1; %Distance between centre of tyres
 
 %*****Define Reference Trajectory*****
 [refTraj] = calcRefTraj_circ;
-
-%*****Define Constraints*****
-constraints         = 0;
-constraintValues    = [-inf,inf];
 
 %*****Intialise model*****
 if modelNumber == 1
@@ -50,7 +48,7 @@ end
 %*****Set up optimisation*****
 %SNOPT parameters
 snsummary off;
-snscreen on;
+snscreen off;
 
 snseti('Verify level', -1);
 snseti('Derivative option', 2); % let SNOPT figure out jacobian

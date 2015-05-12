@@ -7,6 +7,7 @@ D_sort      = ComputeDifferentiationMatrix(N,t_sort);
 
 
 %*****Define Initial Conditions*****
+xNav = [0;5;0];%This is initial nav robot state [x;y;psi]
 
 for j = 1:n
     

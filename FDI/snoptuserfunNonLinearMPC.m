@@ -1,6 +1,6 @@
 function [F,Jac,tout,yout,uout] = snoptuserfunNonLinearMPC(x)
 
-global N t0 Hp y0 n m refTraj D_sort w t_sort
+global N t0 Hp y0 n m refTraj D_sort w t_sort X_EKF
 
 numconstr   = 1+n*(N+1) + n;
 F           = zeros(numconstr,1);
@@ -9,6 +9,9 @@ u           = zeros(N+1,m);
 Eqn         = zeros(N+1,n);
 tf          = t0 + Hp;
 factor      = (tf-t0)/2;
+
+RR          = 2;%X_EKF(4,1); 
+RL          = 2;%X_EKF(5,1); 
 
 % Extract states and controls from x vector
 for j = 1:n
@@ -26,7 +29,7 @@ end
 
 t                   = ((tf-t0)/2*t_sort+(tf+t0)/2);
 
-[yDots, v, df1_dx, df2_dx, df3_dx]    = stateEquationsNonLinearMPC(y, u, t);
+[yDots, v, df1_dx, df2_dx, df3_dx]    = stateEquationsNonLinearMPC(y, u, t,RR,RL);
 
 ydots = yDots';
 
@@ -37,7 +40,7 @@ end
 % Assign Objective Function and Constraints to F
 xRef                = interp1(refTraj(:,1),refTraj(:,2:end),t)';
 % xRef(1:2,:)         = xRef(1:2,:) ./ 10;
-[Mayer,Integral,dC_dx]    = integralCost(y',u',v',[],xRef);
+[Mayer,Integral,dC_dx]    = integralCost(y',u',v',xRef,RR,RL);
 
 F(1) = Mayer + sum(w.*Integral')*factor;
 for k = 1:n

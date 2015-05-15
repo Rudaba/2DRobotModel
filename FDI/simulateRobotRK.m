@@ -27,14 +27,17 @@ U      = [omegaR,omegaL];
 y0    = Y(end,:)';%[x;y;psi];
 
 function dy = diffEqns(t,y,tref,uref)
-global R b
+global X_EKF b
 
 omegaR = interp1(tref, uref(:,1), t, 'pchip');
 omegaL = interp1(tref, uref(:,2), t, 'pchip');
 
-v       = R*(omegaR+omegaL)/2;
+RR     = 2;%X_EKF(4,1);
+RL     = 2;%X_EKF(5,1);
+
+v       = RR*omegaR/2 + RL*omegaL/2;
 
 dy = zeros(3,1);    % a column vector
 dy(1) = v * cos(y(3));
 dy(2) = v * sin(y(3));
-dy(3) = R*(omegaR-omegaL)/(2*b);
+dy(3) = RR*omegaR/(2*b) - RL*omegaL/(2*b);

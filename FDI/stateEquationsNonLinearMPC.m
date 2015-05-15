@@ -1,6 +1,6 @@
-function [yDots, v, df1_dx, df2_dx, df3_dx]  = stateEquationsNonLinearMPC(stateVec,u,t)
+function [yDots, v, df1_dx, df2_dx, df3_dx]  = stateEquationsNonLinearMPC(stateVec,u,t,RR,RL)
 
-global n N R b
+global n N b
 
 yDots = zeros(n, length(t));
 
@@ -12,10 +12,10 @@ x             = stateVec(:,1);
 omegaR        = u(:,1);
 omegaL        = u(:,2);
 
-v             = R*(omegaR+omegaL)/2;
+v             = RR*omegaR/2 + RL*omegaL/2;
 
 %Solve DE's
-psiDot        = R*(omegaR-omegaL)/(2*b);
+psiDot        = RR*omegaR/(2*b) - RL*omegaL/(2*b);
 
 yDot        = v.*sin(psi);
 xDot        = v.*cos(psi);
@@ -29,18 +29,18 @@ yDots(3,:)  = psiDot;
 df1_dx = [zeros(1,N+1);
     zeros(1,N+1);
     (-v.*sin(psi))';
-    (R/2.*cos(psi))';
-    (R/2.*cos(psi))'];
+    (RR/2.*cos(psi))';
+    (RL/2.*cos(psi))'];
 
 df2_dx = [zeros(1,N+1);
     zeros(1,N+1);
     (v.*cos(psi))';
-    (R/2.*sin(psi))';
-    (R/2.*sin(psi))'];
+    (RR/2.*sin(psi))';
+    (RL/2.*sin(psi))'];
 
 df3_dx = [zeros(1,N+1);
     zeros(1,N+1);
     zeros(1,N+1);
-    R/(2*b)*ones(1,N+1);
-    -R/(2*b)*ones(1,N+1)];
+    RR/(2*b)*ones(1,N+1);
+    -RL/(2*b)*ones(1,N+1)];
 

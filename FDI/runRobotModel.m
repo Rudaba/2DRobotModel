@@ -12,17 +12,17 @@ m   = 2;   % Number of controls states
 N   = 50;  % Number of collocation points for Direct Collocation and Pseudospectral
 
 %*****Define Variable Parameters*****
-updateRate      = 0.1;
+MPCupdateRate   = 0.1;
 t0              = 0;
 Hp              = 5;
 intdt           = 0.01;
-simTime         = 25;
+simTime         = 50;
 EKFUpdateRate   = 0.01;
-tf              = updateRate;
+tf              = MPCupdateRate;
 
 %*****Define Initial Conditions*****
 %This is initial nav robot state [x;y;psi]
-y0          = [-10;7;0;0]; %This is an offset from the path
+y0          = [-10;7;0]; %This is an offset from the path
 y0          = [5;0;0];    %This starts on the path
 u           = [0;0];
 measurement = y0;
@@ -62,7 +62,8 @@ snsummary off;
 snscreen on;
 
 snseti('Verify level', -1);
-snseti('Derivative option', 2); % let SNOPT figure out jacobian
+snseti('Derivative option', 0); % let SNOPT figure out jacobian
+% snseti('Derivative option', 2); % provide Jacobians
 snseti('Major iterations',1000);
 
 %*******************Start Simulation***************************************
@@ -84,7 +85,7 @@ EKFData(1).P            = diag(P);
 EKFData(1).innovations  = innovations;
 
 count                   = count + 1;
-tf                      = tf + updateRate;
+tf                      = tf + MPCupdateRate;
 t0                      = t0 + EKFUpdateRate;
 
 u                       = interp1(tReal(:,1),uReal(:,1:2),t0,'pchip')';
@@ -103,7 +104,7 @@ for i = 1:simTime/EKFUpdateRate
     EKFData(i+1).P              = diag(P);
     EKFData(i+1).innovations    = innovations;
     
-    if mod(i,updateRate/EKFUpdateRate) == 0
+    if mod(i,MPCupdateRate/EKFUpdateRate) == 0
         
         x                       = runMPC(modelNumber,x,constraints,constraintValues,xlow,xupp,Flow,Fupp,iGfun,jGvar);
         [y0,tReal,yReal, uReal] = integrateStates(x,y0,t0,tf,t_sort,N,intdt,m,n,modelNumber,refTraj);
@@ -116,7 +117,7 @@ for i = 1:simTime/EKFUpdateRate
         
         count = count + 1;
         
-        tf = tf + updateRate;
+        tf = tf + MPCupdateRate;
         
     end
     

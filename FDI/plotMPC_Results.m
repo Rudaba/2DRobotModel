@@ -5,28 +5,37 @@ y    = [data.plant_yout];
 u    = [data.plant_uout];
 yref = [data.plant_yrefout];
 
+dt   = 1;
+
 figure
-plot(time,y(1,:),'b')
-hold on
 plot(time,yref(1,:),'r')
+hold on
+plot(time,y(1,:),'b')
 title('x')
 
 figure
-plot(time,y(2,:),'b')
-hold on
 plot(time,yref(2,:),'r')
+hold on
+plot(time,y(2,:),'b')
 title('y')
 
 figure
-plot(time,y(3,:),'b')
-hold on
 plot(time,yref(3,:),'r')
+hold on
+plot(time,y(3,:),'b')
 title('psi')
 
 figure
-plot(time,u(1,:))
+plot(time(1,1:dt:end),u(1,1:dt:end))
 title('OmegaR')
 
 figure
-plot(time,u(2,:))
+plot(time(1,1:dt:end),u(2,1:dt:end))
 title('OmegaL')
+
+figure
+plot(yref(1,:),yref(2,:),'r')
+hold on
+plot(y(1,:),y(2,:),'b')
+title('Trajectory')
+

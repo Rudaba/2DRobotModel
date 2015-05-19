@@ -6,6 +6,7 @@ time        = [data.EKF_tout];
 X           = [data.EKF_Xout];
 P           = [data.EKF_Pout];
 innovations = [data.EKF_Innovations];
+% time        = time(1:end-1)
 
 figure;
 plot(time,RR-X(4,:),'b')

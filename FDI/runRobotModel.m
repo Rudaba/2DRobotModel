@@ -15,7 +15,7 @@ N   = 50;  % Number of collocation points for Direct Collocation and Pseudospect
 MPCupdateRate   = 0.1;
 t0              = 0;
 Hp              = 5;
-intdt           = 0.01;
+intdt           = 0.001;
 simTime         = 50;
 EKFUpdateRate   = 0.01;
 tf              = MPCupdateRate;
@@ -38,8 +38,9 @@ b       = 1; %Distance between centre of tyres
 [refTraj] = calcRefTraj_circ;
 
 %*****Define Constraints*****
-constraints         = 0;
-constraintValues    = [-inf,inf];
+constraints         = 1;
+% constraintValues    = [-inf,inf];
+constraintValues    = [-5,5];
 
 %*****Intialisation*****
 if modelNumber == 1

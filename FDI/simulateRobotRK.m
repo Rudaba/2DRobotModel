@@ -9,8 +9,8 @@ x       = y0(1);
 
 %v       = R*(omegaR+omegaL)/2;
 
-% [T,Y] = ode45(@(t,y) diffEqns(t,y,tref,uref),[initTime:dt:finalTime],[x y psi]);
-[T,Y] = ode45(@(t,y) diffEqns(t,y,tref,uref),[initTime finalTime],[x y psi]);
+[T,Y] = ode45(@(t,y) diffEqns(t,y,tref,uref),[initTime:dt:finalTime],[x y psi]);
+% [T,Y] = ode45(@(t,y) diffEqns(t,y,tref,uref),[initTime finalTime],[x y psi]);
 
 omegaR = interp1(tref, uref(:,1), T, 'pchip');
 omegaL = interp1(tref, uref(:,2), T, 'pchip');

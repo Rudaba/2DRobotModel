@@ -52,12 +52,12 @@ if modelNumber == 1
 elseif modelNumber == 2
     
     Qp = 1;
-    Qu = 0.5;
-    Qs = 0.01;
+    Qu = 0;
+    Qs = 0.1;
     Qv = 0;
     Qa = 0.01;
     
-    accelerationTerm(1) = 0;
+    accelerationTerm(1) = Qa*((v(2) - v(1))/(t(2) - t(1)))^.2;
     for i = 1:length(v)-1
         accelerationTerm(i+1) = Qa*((v(i+1) - v(i))/(t(i+1) - t(i)))^.2;
     end

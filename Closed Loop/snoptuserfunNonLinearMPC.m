@@ -26,7 +26,7 @@ end
 
 t                   = ((tf-t0)/2*t_sort+(tf+t0)/2);
 
-[yDots, v, df1_dx, df2_dx, df3_dx]    = stateEquationsNonLinearMPC(y, u, t);
+[yDots, v, psiDot, df1_dx, df2_dx, df3_dx]    = stateEquationsNonLinearMPC(y, u, t);
 
 ydots = yDots';
 
@@ -37,7 +37,7 @@ end
 % Assign Objective Function and Constraints to F
 xRef                = interp1(refTraj(:,1),refTraj(:,2:end),t)';
 % xRef(1:2,:)         = xRef(1:2,:) ./ 10;
-[Mayer,Integral,dC_dx]    = integralCost(y',u',v',[],xRef);
+[Mayer,Integral,dC_dx]    = integralCost(y',u',v',psiDot',xRef);
 
 F(1) = Mayer + sum(w.*Integral')*factor;
 for k = 1:n

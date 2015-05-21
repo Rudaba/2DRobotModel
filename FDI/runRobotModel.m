@@ -7,8 +7,6 @@ EKFFileName     = 'EKFData';
 count           = 1;
 
 %*****Define Model Parameters*****
-n   = 3;   % Number of states
-m   = 2;   % Number of controls states
 N   = 50;  % Number of collocation points for Direct Collocation and Pseudospectral
 
 %*****Define Variable Parameters*****
@@ -25,7 +23,7 @@ tf              = MPCupdateRate;
 y0          = [-10;7;0]; %This is an offset from the path
 y0          = [5;0;0];    %This starts on the path
 u           = [0;0];
-measurement = y0;
+measurement = y0(1:3);
 % measurement = measurement + 0.01*rand(3,1);
 
 %****Define Robot Parameters*****
@@ -38,20 +36,25 @@ b       = 1; %Distance between centre of tyres
 [refTraj] = calcRefTraj_circ;
 
 %*****Define Constraints*****
-constraints         = 1;
-% constraintValues    = [-inf,inf];
-constraintValues    = [-5,5];
+constraints         = 0;
+constraintValues    = [-inf,inf];
+% constraintValues    = [-5,5];
 
 %*****Intialisation*****
 if modelNumber == 1
     
     % MPC
-    [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseLinearMPC(N,n,m,constraintValues);
+    [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseLinearMPC(N,constraintValues);
     
 elseif modelNumber == 2
     
     % NMPC
-    [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC(N,n,m,y0,constraintValues);
+    [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC(N,y0,constraintValues);
+    
+elseif modelNumber == 3
+    
+    % NMPC with rates
+    [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC_withRates(N,y0,constraintValues);
     
 end
 
@@ -63,8 +66,8 @@ snsummary off;
 snscreen on;
 
 snseti('Verify level', -1);
-snseti('Derivative option', 0); % let SNOPT figure out jacobian
-% snseti('Derivative option', 2); % provide Jacobians
+% snseti('Derivative option', 0); % let SNOPT figure out jacobian
+snseti('Derivative option', 2); % provide Jacobians
 snseti('Major iterations',1000);
 
 %*******************Start Simulation***************************************

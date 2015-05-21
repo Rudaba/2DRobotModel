@@ -25,6 +25,7 @@ U      = [omegaR,omegaL];
 % x       = x + xDot * dt;
 
 y0    = Y(end,:)';%[x;y;psi];
+y0    = [y0; U(end,:)'];
 
 function dy = diffEqns(t,y,tref,uref)
 global X_EKF b

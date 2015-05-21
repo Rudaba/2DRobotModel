@@ -1,4 +1,4 @@
-function [yDots, vOut, psiDot, df1_dx, df2_dx, df3_dx]  = stateEquationsMPC(stateVec,u,xRef)
+function [yDots, vOut, psiDot, df1_dx, df2_dx, df3_dx]  = stateEquationsLinearMPC(stateVec,u,xRef)
 
 global n N R b
 

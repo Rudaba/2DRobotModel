@@ -13,21 +13,25 @@ t                  = (((t0+Hp)-t0)/2*t_sort+((t0+Hp)+t0)/2);
 
 if model == 1
     
-     xRef               = interp1(refTraj(:,1),refTraj(:,2:end),t);
-     
-     for i = 1:length(t)
-         [omegaR0(i),omegaL0(i)]   = calcFeedforward(xRef(1,:));
-     end
+    xRef               = interp1(refTraj(:,1),refTraj(:,2:end),t);
+    
+    for i = 1:length(t)
+        [omegaR0(i),omegaL0(i)]   = calcFeedforward(xRef(1,:));
+    end
     
     uApp(:,1) = u(:,1) + omegaR0';
     uApp(:,2) = u(:,2) + omegaL0';
     
     [y0,tReal,yReal,uReal] = simulateRobotRK(y0,t,uApp,intdt,t0,tf);
-
+    
 elseif model == 2
     
     [y0,tReal,yReal,uReal] = simulateRobotRK(y0,t,u,intdt,t0,tf);
-
+    
+elseif model == 3
+    
+    [y0,tReal,yReal,uReal] = simulateRobotRK(y0,t,y(:,4:5),intdt,t0,tf);
+    
 end
 
 % t                  = (((t0+Hp)-t0)/2*t_sort+((t0+Hp)+t0)/2);

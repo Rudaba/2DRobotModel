@@ -38,4 +38,8 @@ elseif modelNumber == 2
     
     [x,F,inform,xmul,Fmul] = snopt(x,xlow,xupp,Flow,Fupp,'snoptuserfunNonLinearMPC', A, iAfun, jAvar, iGfun, jGvar);
     
+elseif modelNumber == 3
+    
+    [x,F,inform,xmul,Fmul] = snopt(x,xlow,xupp,Flow,Fupp,'snoptuserfunNLMPCWithRates', A, iAfun, jAvar, iGfun, jGvar);
+    
 end

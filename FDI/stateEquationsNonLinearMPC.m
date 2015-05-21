@@ -24,8 +24,6 @@ yDots(1,:)  = xDot;
 yDots(2,:)  = yDot;
 yDots(3,:)  = psiDot;
 
-
-
 df1_dx = [zeros(1,N+1);
     zeros(1,N+1);
     (-v.*sin(psi))';

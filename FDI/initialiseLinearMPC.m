@@ -1,5 +1,9 @@
-function [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseLinearMPC(N,n,m,constraintValues)
+function [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseLinearMPC(N,constraintValues)
 global D_sort w t_sort
+
+%*****Define Number of states and controls*****
+n   = 3;   % Number of states
+m   = 2;   % Number of controls states
 
 %*****Calculate differentiation matrix, nodes, and quadrature weights*****
 [t_sort,w]  = LegendreNodesAndWeights(N);

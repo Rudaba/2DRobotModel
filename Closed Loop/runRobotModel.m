@@ -14,7 +14,7 @@ updateRate  = 0.1;
 t0          = 0;
 Hp          = 5;
 tf          = updateRate;
-intdt       = 0.01;
+intdt       = 0.001;
 simTime     = 50;
 
 %*****Define Initial Conditions*****

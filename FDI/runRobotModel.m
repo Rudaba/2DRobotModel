@@ -1,7 +1,7 @@
 global refTraj N n m y0 t0 Hp x intdt t_sort modelNumber
-global b X_EKF
+global b X_EKF MPCupdateRate
 %*****Define Simulation Parameters***
-modelNumber     = 2;
+modelNumber     = 1;
 plantFileName   = 'plantData';
 EKFFileName     = 'EKFData';
 count           = 1;

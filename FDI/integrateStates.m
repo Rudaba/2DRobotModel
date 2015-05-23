@@ -1,5 +1,8 @@
 function [y0,tReal,yReal,uReal] = integrateStates(x,y0,t0,tf,t_sort,N,intdt,m,n,model,refTraj)
-global Hp
+global Hp MPCupdateRate
+
+tf = t0 + MPCupdateRate;
+
 % Extract states and controls
 for j = 1:n
     y(:,j) = x((j-1)*(N+1)+1:j*(N+1));

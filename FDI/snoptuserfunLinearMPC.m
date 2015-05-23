@@ -10,6 +10,10 @@ Eqn         = zeros(N+1,n);
 tf          = t0 + Hp; 
 factor      = (tf-t0)/2;
 
+RR = 2;
+RL = 2;
+
+
 % Extract states and controls from x vector
 for j = 1:n
     y(:,j) = x((j-1)*(N+1)+1:j*(N+1));
@@ -20,7 +24,7 @@ end
 
 t            = ((tf-t0)/2*t_sort+(tf+t0)/2);
 xRef         = interp1(refTraj(:,1),refTraj(:,2:end),t)';
-[yDots, v, psiDot, df1_dx, df2_dx, df3_dx]        = stateEquationsLinearMPC(y, u, xRef);
+[yDots, dv, dpsiDot, df1_dx, df2_dx, df3_dx]        = stateEquationsLinearMPC(y, u, xRef);
 
 ydots = yDots';
 
@@ -28,7 +32,7 @@ for index=n:-1:1
     Eqn(:,index) = 1./factor.*D_sort*y(:,index) - ydots(:,index);
 end
 
-[Mayer, Integral, dC_dx]   = integralCost(y',u',v',psiDot',xRef);
+[Mayer, Integral, dC_dx]   = integralCost(y',u',dv',dpsiDot',xRef,RR,RL);
 
 F(1) = Mayer + sum(w.*Integral')*factor;%0.5*x'*H*x;%
 for k = 1:n

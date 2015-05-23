@@ -26,10 +26,12 @@ plot(time,y(3,:),'b')
 title('psi')
 
 figure
+% plot(time(1,1:dt:end),round(u(1,1:dt:end)*100)/100)
 plot(time(1,1:dt:end),u(1,1:dt:end))
 title('OmegaR')
 
 figure
+% plot(time(1,1:dt:end),round(u(2,1:dt:end)*100)/100)
 plot(time(1,1:dt:end),u(2,1:dt:end))
 title('OmegaL')
 

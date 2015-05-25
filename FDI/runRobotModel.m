@@ -1,30 +1,23 @@
-global refTraj N n m y0 t0 Hp x intdt t_sort modelNumber
-global b X_EKF MPCupdateRate
+global refTraj N n m y0 t0 Hp x intdt t_sort MPCmodelNumber filterModelNumber
+global b X_Filter MPCUpdateRate
 %*****Define Simulation Parameters***
-modelNumber     = 1;
-plantFileName   = 'plantData';
-EKFFileName     = 'EKFData';
-count           = 1;
+MPCmodelNumber      = 1; % LMPC = 1, NMPC = 2, NMPC with rates = 3
+filterModelNumber   = 1; % EKF = 1, UKF = 2, IMM EKF = 3, IMM UKF = 4
+plantFileName       = 'plantData_LMPC';
+EKFFileName         = 'EKFData_LMPC';
+count               = 1;
 
 %*****Define Model Parameters*****
-N   = 50;  % Number of collocation points for Direct Collocation and Pseudospectral
+N   = 100;  % Number of collocation points for Direct Collocation and Pseudospectral
 
 %*****Define Variable Parameters*****
-MPCupdateRate   = 0.1;
-t0              = 0;
-Hp              = 5;
-intdt           = 0.001;
-simTime         = 50;
-EKFUpdateRate   = 0.01;
-tf              = MPCupdateRate;
-
-%*****Define Initial Conditions*****
-%This is initial nav robot state [x;y;psi]
-y0          = [-10;7;0]; %This is an offset from the path
-y0          = [5;0;0];    %This starts on the path
-u           = [0;0];
-measurement = y0(1:3);
-% measurement = measurement + 0.01*rand(3,1);
+MPCUpdateRate       = 0.1;
+t0                  = 0;
+Hp                  = 5;
+intdt               = 0.01;
+simTime             = 50;
+FilterUpdateRate    = 0.01;
+tf                  = MPCUpdateRate;
 
 %****Define Robot Parameters*****
 %Robot Constants
@@ -35,31 +28,46 @@ b       = 1; %Distance between centre of tyres
 %*****Define Reference Trajectory*****
 [refTraj] = calcRefTraj_circ;
 
+%*****Define Initial Conditions*****
+%This is initial nav robot state [x;y;psi]
+y0          = refTraj(1,2:8)';    %This starts on the path
+% y0          = [0;60;0;0;0]; %This is an offset from the path
+u           = refTraj(1,7:8)';
+measurement = y0(1:3);
+% measurement = measurement + 0.01*rand(3,1);
+
 %*****Define Constraints*****
 constraints         = 0;
 constraintValues    = [-inf,inf];
 % constraintValues    = [-5,5];
 
 %*****Intialisation*****
-if modelNumber == 1
+if MPCmodelNumber == 1
     
     % MPC
     [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseLinearMPC(N,constraintValues);
     
-elseif modelNumber == 2
+elseif MPCmodelNumber == 2
     
     % NMPC
-    [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC(N,y0,constraintValues);
+    [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC(N,y0,u,constraintValues);
     
-elseif modelNumber == 3
+elseif MPCmodelNumber == 3
     
     % NMPC with rates
     [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC_withRates(N,y0,constraintValues);
     
 end
 
-[X_EKF, P, Q, R_Noise] = initialiseEKF(y0,RR, RL);
-
+if filterModelNumber == 1
+    
+    [X_Filter, P, Q, R_Noise] = initialiseEKF(y0(1:3),RR, RL);
+    
+elseif filterModelNumber == 2
+    
+    [X_Filter, P, Q, R_Noise] = initialiseUKF(y0,RR, RL);
+    
+end
 %*****Set up optimisation*****
 %SNOPT parameters
 snsummary off;
@@ -72,66 +80,44 @@ snseti('Major iterations',1000);
 
 %*******************Start Simulation***************************************
 %At time t0 = 0
-[X_EKF,P,innovations]   = EKFUpdate(X_EKF,P,u,EKFUpdateRate,measurement,Q,R_Noise);
 
-x                       = runMPC(modelNumber,x,constraints,constraintValues,xlow,xupp,Flow,Fupp,iGfun,jGvar);
-[y0,tReal,yReal, uReal] = integrateStates(x,y0,t0,tf,t_sort,N,intdt,m,n,modelNumber,refTraj);
-yrefstore               = interp1(refTraj(:,1),refTraj(:,2:4),tReal)';
+[FilterData(1), X_Filter, P]            = runFilter(filterModelNumber,t0,X_Filter,P,u,FilterUpdateRate,measurement,Q,R_Noise);
 
-plantData(count).y      = yReal';
-plantData(count).t      = tReal';
-plantData(count).u      = uReal';
-plantData(count).yref   = yrefstore;
+x                                       = runMPC(MPCmodelNumber,x,constraints,constraintValues,xlow,xupp,Flow,Fupp,iGfun,jGvar);
 
-EKFData(1).t            = t0;
-EKFData(1).X            = X_EKF;
-EKFData(1).P            = diag(P);
-EKFData(1).innovations  = innovations;
+[plantData(1), y0, tReal, yReal, uReal] = integrateStates(x,y0,t0,t_sort,N,intdt,m,n,MPCmodelNumber,refTraj);
 
-count                   = count + 1;
-tf                      = tf + MPCupdateRate;
-t0                      = t0 + EKFUpdateRate;
+u                = interp1(tReal(:,1),uReal(:,1:2),t0,'pchip')';
+u                = u + 0.01*rand(2,1);
 
-u                       = interp1(tReal(:,1),uReal(:,1:2),t0,'pchip')';
-u                       = u + 0.01*rand(2,1);
+measurement      = interp1(tReal(:,1),yReal(:,1:3),t0,'pchip')';
+measurement      = measurement + 0.01*rand(3,1);
 
-measurement             = interp1(tReal(:,1),yReal(:,1:3),t0,'pchip')';
-measurement             = measurement + 0.01*rand(3,1);
+count                        = count + 1;
+t0                           = t0 + FilterUpdateRate;
 
 %Remaining simulation time
-for i = 1:simTime/EKFUpdateRate
+for i = 1:simTime/FilterUpdateRate
     
-    [X_EKF,P] = EKFUpdate(X_EKF,P,u,EKFUpdateRate,measurement,Q,R_Noise);
+    [FilterData(i+1), X_Filter, P]  = runFilter(filterModelNumber,t0,X_Filter,P,u,FilterUpdateRate,measurement,Q,R_Noise);
     
-    EKFData(i+1).t              = t0;
-    EKFData(i+1).X              = X_EKF;
-    EKFData(i+1).P              = diag(P);
-    EKFData(i+1).innovations    = innovations;
-    
-    if mod(i,MPCupdateRate/EKFUpdateRate) == 0
+    if mod(i,MPCUpdateRate/FilterUpdateRate) == 0
         
-        x                       = runMPC(modelNumber,x,constraints,constraintValues,xlow,xupp,Flow,Fupp,iGfun,jGvar);
-        [y0,tReal,yReal, uReal] = integrateStates(x,y0,t0,tf,t_sort,N,intdt,m,n,modelNumber,refTraj);
-        yrefstore               = interp1(refTraj(:,1),refTraj(:,2:4),tReal)';
-        
-        plantData(count).y     = yReal';
-        plantData(count).t     = tReal';
-        plantData(count).u     = uReal';
-        plantData(count).yref  = yrefstore;
+        x                                             = runMPC(MPCmodelNumber,x,constraints,constraintValues,xlow,xupp,Flow,Fupp,iGfun,jGvar);
+        [plantData(count), y0, tReal, yReal, uReal]   = integrateStates(x,y0,t0,t_sort,N,intdt,m,n,MPCmodelNumber,refTraj);
         
         count = count + 1;
         
-        tf = tf + MPCupdateRate;
-        
     end
     
-    t0 = t0 + EKFUpdateRate;
+    u                = interp1(tReal(:,1),uReal(:,1:2),t0,'pchip')';
+    u                = u + 0.01*rand(2,1);
     
-    u            = interp1(tReal(:,1),uReal(:,1:2),t0,'pchip')';
-    u            = u + 0.01*rand(2,1);
+    measurement      = interp1(tReal(:,1),yReal(:,1:3),t0,'pchip')';
+    measurement      = measurement + 0.01*rand(3,1);
     
-    measurement  = interp1(tReal(:,1),yReal(:,1:3),t0,'pchip')';
-    measurement  = measurement + 0.01*rand(3,1);
+    
+    t0               = t0 + FilterUpdateRate;
     
 end
 
@@ -142,9 +128,10 @@ plant_yrefout = [plantData.yref];
 
 save(plantFileName, 'plant_tout','plant_yout','plant_uout','plant_yrefout');
 
-EKF_tout        = [EKFData.t];
-EKF_Xout        = [EKFData.X];
-EKF_Pout        = [EKFData.P];
-EKF_Innovations = [EKFData.innovations];
+Filter_tout        = [FilterData.t];
+Filter_Xout        = [FilterData.X];
+Filter_Pout        = [FilterData.P];
+Filter_Innovations = [FilterData.innovations];
+Filter_S           = [FilterData.S];
 
-save(EKFFileName, 'EKF_tout','EKF_Xout','EKF_Pout','EKF_Innovations');
+save(EKFFileName, 'Filter_tout','Filter_Xout','Filter_Pout','Filter_Innovations','Filter_S');

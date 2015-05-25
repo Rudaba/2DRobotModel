@@ -1,4 +1,4 @@
-data = load('plantData');
+data = load('plantData_LMPC');
 
 time = [data.plant_tout];
 y    = [data.plant_yout];

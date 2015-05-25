@@ -25,7 +25,7 @@ for k = 1:m
     x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = 0;
 end
 
-neF = 1 + n*(N+1) + 2*n; %(1 for cost n*N for eq constraints and 2*n for initial and end BC's)
+neF = 1 + n*(N+1) + 2*(n) + m; %(1 for cost n*N for eq constraints and 2*n for initial and end BC's)
 Jac = ones(neF,(n+m)*(N+1));
 [iGfun,jGvar,G]=find(Jac);
 

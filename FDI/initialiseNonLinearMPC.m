@@ -1,4 +1,4 @@
-function [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC(N,y0,constraintValues)
+function [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC(N,y0,u,constraintValues)
 global D_sort w t_sort
 
 %*****Define Number of states and controls*****
@@ -28,12 +28,18 @@ for j = 1:n
 end
 
 for k = 1:m
+     if k == 1
+         init_u = u(1,1);
+     else
+         init_u = u(2,1);
+     end
+    
     xlow(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = constraintValues(1);
     xupp(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = constraintValues(2);
-    x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = 0;
+    x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = init_u;
 end
 
-neF = 1 + n*(N+1) + n; %(1 for cost n*N for eq constraints and n for BC's)
+neF = 1 + n*(N+1) + (n); %(1 for cost n*N for eq constraints and n for BC's)
 Jac = ones(neF,(n+m)*(N+1));
 [iGfun,jGvar,G]=find(Jac);
 

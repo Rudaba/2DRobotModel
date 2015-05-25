@@ -1,4 +1,4 @@
-function [yDots, dv, dpsiDot, df1_dx, df2_dx, df3_dx]  = stateEquationsLinearMPC(stateVec,u,xRef)
+function [yDots, dv, dpsiDot, df1_dx, df2_dx, df3_dx]  = stateEquationsLinearMPC(stateVec, u, t, tRef, xRef)
 
 global n N R b
 
@@ -11,7 +11,8 @@ b = 1;
 
 
 for i = 1:length(xRef)
-    [omegaR0,omegaL0]           = calcFeedforward(xRef(:,i));
+    omegaR0                     = xRef(6,i);
+    omegaL0                     = xRef(7,i);
     omegaR                      = omegaR0 + u(i,1);
     omegaL                      = omegaL0 + u(i,2);
     [A,B,V0,PSI0,PSI_DOT0]      = Statespace(xRef(:,i),omegaR0,omegaL0);

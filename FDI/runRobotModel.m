@@ -1,10 +1,10 @@
 global refTraj N n m y0 t0 Hp x intdt t_sort MPCmodelNumber filterModelNumber
 global b X_Filter MPCUpdateRate
 %*****Define Simulation Parameters***
-MPCmodelNumber      = 1; % LMPC = 1, NMPC = 2, NMPC with rates = 3
-filterModelNumber   = 1; % EKF = 1, UKF = 2, IMM EKF = 3, IMM UKF = 4
-plantFileName       = 'plantData_LMPC';
-EKFFileName         = 'EKFData_LMPC';
+MPCmodelNumber      = 2; % LMPC = 1, NMPC = 2, NMPC with rates = 3
+filterModelNumber   = 2; % EKF = 1, UKF = 2, IMM EKF = 3, IMM UKF = 4
+plantFileName       = 'plantData_NMPC';
+EKFFileName         = 'UKFData_NMPC';
 count               = 1;
 
 %*****Define Model Parameters*****
@@ -14,7 +14,7 @@ N   = 100;  % Number of collocation points for Direct Collocation and Pseudospec
 MPCUpdateRate       = 0.1;
 t0                  = 0;
 Hp                  = 5;
-intdt               = 0.01;
+intdt               = 0.001;
 simTime             = 50;
 FilterUpdateRate    = 0.01;
 tf                  = MPCUpdateRate;
@@ -50,7 +50,7 @@ if MPCmodelNumber == 1
 elseif MPCmodelNumber == 2
     
     % NMPC
-    [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC(N,y0,u,constraintValues);
+    [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC(N,refTraj,u,constraintValues);
     
 elseif MPCmodelNumber == 3
     
@@ -65,7 +65,7 @@ if filterModelNumber == 1
     
 elseif filterModelNumber == 2
     
-    [X_Filter, P, Q, R_Noise] = initialiseUKF(y0,RR, RL);
+    [X_Filter, P, Q, R_Noise] = initialiseUKF(y0(1:3),RR, RL);
     
 end
 %*****Set up optimisation*****

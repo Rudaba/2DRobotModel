@@ -1,6 +1,6 @@
 function [F,Jac,tout,yout,uout] = snoptuserfunDirectShooting(x)
 
-global Nu Nx t0 tf n m refTraj y0;
+global Nu Nx t0 Hp n m refTraj y0;
 
 numconstr = 1 + n;
 
@@ -12,6 +12,7 @@ for k = 1:m
 end
 
 % Integrate the state equations
+tf  = t0 + Hp;
 dtx = (tf - t0) / (Nx);
 tx  = [t0:dtx:tf];
 dtu = (tf - t0) / (Nu);

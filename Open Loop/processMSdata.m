@@ -1,4 +1,5 @@
 function processMSdata(x,y0,t0,tf,M,Nui,intdt,m,n)
+global refTraj
 %Extract time, Controls and States
 
 dti = (tf - t0) / (M);
@@ -25,20 +26,20 @@ for j = 1:M
 end
 
 for j = 1:M
-    [y0,tReal{j},yReal{j}] = simulateRobotRK(y0,t{j},u{j},intdt,t{j}(1),t{j}(end));
+    [y0,tReal{j},yReal{j},uReal{j}] = simulateRobotRK(y0,t{j},u{j},intdt,t{j}(1),t{j}(end));
 end
 
 %Plot results
 figure;
 for j = 1:M
     subplot(2,1,1)
-    plot(t{j}(1:Nui),u{j}(1:Nui,1),'-r'); hold on;
+    plot(tReal{j},uReal{j}(:,1),'-r'); hold on;
 end
 title('Controls MS, omegaR (top), omegaL (bottom)')
 
 for j = 1:M
     subplot(2,1,2)
-    plot(t{j}(1:Nui),u{j}(1:Nui,2),'-b'); hold on;
+    plot(tReal{j},uReal{j}(:,2),'-b'); hold on;
 end
 
 figure;
@@ -59,6 +60,12 @@ end
 
 figure
 for j = 1:M
-    plot(yReal{j}(:,1),yReal{j}(:,2)); hold on;
+    plot(yReal{j}(:,1),yReal{j}(:,2),'b'); hold on;
+    
+    ref  = interp1(refTraj(:,1),refTraj(:,2:end),tReal{j},'pchip');
+    hold on
+    plot(ref(:,1),ref(:,2),'r')
+    
 end
 title('x vs y')
+legend('integrated','reference')

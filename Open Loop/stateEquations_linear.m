@@ -12,7 +12,7 @@ b       = 1; %Distance between centre of tyres
 
 
 for i = 1:length(xRef)
-    [omegaR0,omegaL0]   = calcFeedforward(xRef(:,i));
+    [omegaR0,omegaL0]   = calcFeedforward(xRef(4,i),xRef(5,i));
     [A, B, V, PSI]      = Statespace(xRef(:,i),omegaR0,omegaL0);
     yDots(:,i)          = A*stateVec(i,:)' + B*u(i,:)';
     v(i,:)              = V;

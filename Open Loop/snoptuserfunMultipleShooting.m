@@ -1,8 +1,8 @@
 function [F,Jac,tout,yout,uout] = snoptuserfunMultipleShooting(x)
 
-global M t0 tf y0 n m refTraj Nui
+global M t0 Hp y0 n m refTraj Nui
 
-numconstr = 1 + 2*n*M;
+numconstr = 1 + 2*n*M + n;
 
 F  = zeros(numconstr,1);
 
@@ -21,6 +21,7 @@ for j = 1:M
 end
 
 % Integrate the state equations
+tf  = t0 + Hp;
 dti = (tf - t0) / (M);
 dtu = dti / (Nui);
 t0j = [t0:dti:tf-dti];
@@ -38,7 +39,7 @@ cost = 0;
 %     end
 % end
 
-uout = u;
+% uout = u;
 
 for j = 1:M
     y = ystart{j};
@@ -74,6 +75,11 @@ for j = 1:M
     end
     
     F(1 + n*M + ((j-1)*n+1:j*n)) = yend{j} - yfinal{j};
+    
+    if j == M
+        xRef        = interp1(refTraj(:,1),refTraj(:,2:end),tu{j})';
+        F(1 + n*M + ((j-1)*n+1+n:j*n+n)) = yend{j} - xRef(1:3,end);
+    end
 end
 
 Jac= [];

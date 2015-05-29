@@ -1,8 +1,8 @@
 function [F,Jac,tout,yout,uout] = snoptuserfunCollocation(x)
 
-global N t0 tf y0 n m refTraj
+global N t0 Hp y0 n m refTraj
 
-numconstr = 1 + n*(N+1);
+numconstr   = 1 + n*(N+1) + 2*n;
 
 F  = zeros(numconstr,1);
 
@@ -17,6 +17,7 @@ end
 
 
 % Integrate the state equations
+tf   = t0 + Hp;
 dt   = (tf - t0) / (N);
 t    = [t0:dt:tf];
 cost = 0;
@@ -42,7 +43,16 @@ end
 % end
 
 F(1) = cost;
-% BC's
-F(1 + n*N + (1:n)) = y(1,:) - y0';
+
+% initial conditions
+F(1+n.*(N+1)+1) = y(1,1)- y0(1);
+F(1+n.*(N+1)+2) = y(1,2)- y0(2);
+F(1+n.*(N+1)+3) = y(1,3)- y0(3);
+
+%Terminal constraints
+F(1+n.*(N+1)+4) = y(N+1,1) - xRef(1,end);
+F(1+n.*(N+1)+5) = y(N+1,2) - xRef(2,end);
+F(1+n.*(N+1)+6) = y(N+1,3) - xRef(3,end);
+
 
 Jac= [];

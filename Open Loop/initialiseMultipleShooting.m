@@ -19,14 +19,14 @@ end
 count = 0;
 for j = 1:M
     for k = 1:m
-        xlow(2*M*n+(j-1)*(Nui+1)+count+((k-1)*(Nui+1)+1:k*(Nui+1)),1) = -0.6;
-        xupp(2*M*n+(j-1)*(Nui+1)+count+((k-1)*(Nui+1)+1:k*(Nui+1)),1) = 0.6;
+        xlow(2*M*n+(j-1)*(Nui+1)+count+((k-1)*(Nui+1)+1:k*(Nui+1)),1) = -inf;
+        xupp(2*M*n+(j-1)*(Nui+1)+count+((k-1)*(Nui+1)+1:k*(Nui+1)),1) = inf;
         x(2*M*n+(j-1)*(Nui+1)+count+((k-1)*(Nui+1)+1:k*(Nui+1)),1)    = 0;
     end
     count = j*(Nui+1);
 end
 
-neF=1+n*M*2;
+neF=1+n*M*2 + n;
 Jac = ones(neF,2*n*M + (Nui+1)*M*m);
 [iGfun,jGvar,G]=find(Jac);
 

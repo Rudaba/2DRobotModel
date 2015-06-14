@@ -1,4 +1,4 @@
-function [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialisePseudospectral(refTraj,N,n,m,y0)
+function [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialisePseudospectral(N,n,m,y0)
 global D_sort w t_sort
 
 %*****Calculate differentiation matrix, nodes, and quadrature weights*****
@@ -26,14 +26,14 @@ for j = 1:n
 end
 
 for k = 1:m
-    xlow(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = -inf;
-    xupp(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = inf;
+    xlow(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = -0.4;
+    xupp(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = 0.4;
     
-    if k == 1
-        x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = refTraj(1,7);
-    elseif k == 2
-        x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = refTraj(1,8);
-    end
+%     if k == 1
+        x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = 0; %refTraj(1,7);
+%     elseif k == 2
+%         x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = refTraj(1,8);
+%     end
     
 end
 

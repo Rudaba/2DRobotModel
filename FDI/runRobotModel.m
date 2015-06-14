@@ -8,7 +8,15 @@ EKFFileName         = 'UKFData_NMPC';
 count               = 1;
 
 %*****Define Model Parameters*****
-N   = 100;  % Number of collocation points for Direct Collocation and Pseudospectral
+N           = 100;  % Number of collocation points for Direct Collocation and Pseudospectral
+X_Filter    = []; 
+P_Filter    = [];
+X_IMM       = [];
+P_IMM       = []; 
+Q           = [];
+R_Noise     = [];
+transMatrix = [];
+modeProbs = [];
 
 %*****Define Variable Parameters*****
 MPCUpdateRate       = 0.1;
@@ -61,11 +69,15 @@ end
 
 if filterModelNumber == 1
     
-    [X_Filter, P, Q, R_Noise] = initialiseEKF(y0(1:3),RR, RL);
+    [X_Filter, P_Filter, Q, R_Noise] = initialiseEKF(y0(1:3),RR, RL);
     
 elseif filterModelNumber == 2
     
-    [X_Filter, P, Q, R_Noise] = initialiseUKF(y0(1:3),RR, RL);
+    [X_Filter, P_Filter, Q, R_Noise] = initialiseUKF(y0(1:3),RR, RL);
+    
+elseif filterModelNumber == 3
+    
+    [X_Filter, P_Filter, X_IMM, P_IMM, Q, R_Noise, transMatrix, modeProbs] = initialiseIMMEKF(y0(1:3),RR, RL);
     
 end
 %*****Set up optimisation*****
@@ -81,7 +93,7 @@ snseti('Major iterations',1000);
 %*******************Start Simulation***************************************
 %At time t0 = 0
 
-[FilterData(1), X_Filter, P]            = runFilter(filterModelNumber,t0,X_Filter,P,u,FilterUpdateRate,measurement,Q,R_Noise);
+[FilterData(1), X_Filter, P_Filter, X_IMM, P_IMM, modeProbs] = runFilter(filterModelNumber,t0,X_Filter,P_Filter,X_IMM,P_IMM,u,FilterUpdateRate,measurement,Q,R_Noise,transMatrix,modeProbs);
 
 x                                       = runMPC(MPCmodelNumber,x,constraints,constraintValues,xlow,xupp,Flow,Fupp,iGfun,jGvar);
 
@@ -99,7 +111,7 @@ t0                           = t0 + FilterUpdateRate;
 %Remaining simulation time
 for i = 1:simTime/FilterUpdateRate
     
-    [FilterData(i+1), X_Filter, P]  = runFilter(filterModelNumber,t0,X_Filter,P,u,FilterUpdateRate,measurement,Q,R_Noise);
+    [FilterData(i+1), X_Filter, P_Filter, X_IMM, P_IMM, modeProbs]  = runFilter(filterModelNumber,t0,X_Filter,P_Filter,X_IMM,P_IMM,u,FilterUpdateRate,measurement,Q,R_Noise,transMatrix,modeProbs);
     
     if mod(i,MPCUpdateRate/FilterUpdateRate) == 0
         

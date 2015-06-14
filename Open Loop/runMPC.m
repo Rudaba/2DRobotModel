@@ -19,7 +19,7 @@ elseif MPCmodelNumber == 2
     [x,F,inform,xmul,Fmul] = snopt(x,xlow,xupp,Flow,Fupp,'snoptuserfunMultipleShooting', A, iAfun, jAvar, iGfun, jGvar);
     
     if plotResults == 1
-        processMSdata(x,y0,t0,Hp,M,Nui,intdt,m,n)
+        processMSdata(x,y0,t0,Hp,M,Nui,intdt,m,n) 
     end
     
 elseif MPCmodelNumber == 3

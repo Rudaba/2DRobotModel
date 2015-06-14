@@ -1,13 +1,13 @@
-function [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseCollocation(refTraj,N,n,m,y0)
+function [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseCollocation(N,n,m,y0)
 
 for j = 1:n
     
     if j == 1
-        const = refTraj(1,2);
+        const = y0(1,1);
     elseif j == 2
-        const = refTraj(1,3);
+        const = y0(2,1);
     else
-        const = refTraj(1,4);
+        const = y0(3,1);
     end
     
     xlow((j-1)*(N+1)+1:j*(N+1),1) = -inf;
@@ -17,16 +17,10 @@ for j = 1:n
 end
 
 for k = 1:m
-    xlow(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = -inf;
-    xupp(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = inf;
+    xlow(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = -0.4;
+    xupp(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = 0.4;
     
-    if k == 1
-        const = refTraj(1,7);
-    elseif k == 2
-        const = refTraj(1,8);
-    end
-        
-    x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = const;
+    x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = 0;
 end
 
 neF = 1 + n*(N+1) + 2*n; 

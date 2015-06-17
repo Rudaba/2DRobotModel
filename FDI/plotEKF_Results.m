@@ -1,4 +1,4 @@
-data = load('UKFData_NMPC');
+data = load('IMMData_NMPC');
 
 RR          = 2; 
 RL          = 2; 

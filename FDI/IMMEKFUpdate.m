@@ -1,10 +1,10 @@
-function [X_Filter,P_Filter, innovation,S, X_IMM, P_IMM, modeProbs]= IMMEKFUpdate(X_Filter,P_Filter,X_IMM,P_IMM,u,FilterUpdateRate,measurement,Q,R_Noise,transMatrix,modeProbs)
-
+function [X_Filter,P_Filter, innovation, S, X_IMM, P_IMM, modeProbs]= IMMEKFUpdate(X_IMM,P_IMM,u,FilterUpdateRate,measurement,Q,R_Noise,transMatrix,modeProbs)
+                                                                      
 %Determine number of models
 m = length(X_IMM);
 
 %Number of states
-n = size(X_Filter,1);
+n = size(length(X_IMM{1}),1);
 
 %*****Interacting/Mixing*****
 c_j = zeros(1,m);
@@ -17,14 +17,14 @@ end
 modeProbs_ij = zeros(m,m);
 for i = 1:m
     for j = 1:m
-        modeProbs_ij = 1/c_j(j)*transMatrix(i,j)*modeProbs(i)
+        modeProbs_ij(i,j) = 1/c_j(j)*transMatrix(i,j)*modeProbs(i);
     end
 end
 
 %Calculate mixed state and covariance
 X0j = cell(1,m);
 for j = 1:m
-    X0j{j} = zeros(1,n);
+    X0j{j} = zeros(n,1);
     for i = 1:m
         X0j{j} = X0j{j} + X_IMM{i}*modeProbs_ij(i,j); 
     end
@@ -40,9 +40,8 @@ end
 
 %Perform Kalman filter updates on each filter and calculate likelihoods
 for i = 1:m
-    [X0j{i}, P0j{i}]                        = EKFPredict(X0j{i}, P0j{i},Q{i}); 
-    [X0j{i}, P0j{i}, measurementPred, S]    = EKFUpdate(X0j{i}, P0j{i},R{i});
-    lamba(i)                                = EKFlikelihood(measurement, measurementPred, S) 
+    [X_IMM{i},P_IMM{i}, measurementPred, S{i}, innovation{i}]  = IMM_EKFPredictAndUpdate(X0j{i},P0j{i},i,u,FilterUpdateRate,measurement,Q{i},R_Noise);
+    lamda(i)                               = gaussPDF(measurement, measurementPred, S{i}); 
 end
 
 %Mode probability update
@@ -58,10 +57,10 @@ end
 %Estimate and Covariance Combination
 X_Filter = zeros(n,1);
 for j = 1:m
-    X_Filter = X_Filter + X0j{i} * modeProbs(j);
+    X_Filter = X_Filter + X_IMM{j} * modeProbs(j);
 end
 
 P_Filter = zeros(n,n);
 for j = 1:m
-    P_Filter = P_Filter +  modeProbs(j) * (P0j{i} + (X0j{i}-X_Filter{j})*(X0j{i}-X_Filter{j})')  ;
+    P_Filter = P_Filter +  modeProbs(j) * (P_IMM{j} + (X_IMM{j}-X_Filter)*(X_IMM{j}-X_Filter)');
 end

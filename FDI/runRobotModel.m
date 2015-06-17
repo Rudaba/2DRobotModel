@@ -2,9 +2,9 @@ global refTraj N n m y0 t0 Hp x intdt t_sort MPCmodelNumber filterModelNumber
 global b X_Filter MPCUpdateRate
 %*****Define Simulation Parameters***
 MPCmodelNumber      = 2; % LMPC = 1, NMPC = 2, NMPC with rates = 3
-filterModelNumber   = 2; % EKF = 1, UKF = 2, IMM EKF = 3, IMM UKF = 4
+filterModelNumber   = 3; % EKF = 1, UKF = 2, IMM EKF = 3, IMM UKF = 4
 plantFileName       = 'plantData_NMPC';
-EKFFileName         = 'UKFData_NMPC';
+EKFFileName         = 'IMMData_NMPC';
 count               = 1;
 
 %*****Define Model Parameters*****
@@ -95,7 +95,7 @@ snseti('Major iterations',1000);
 
 [FilterData(1), X_Filter, P_Filter, X_IMM, P_IMM, modeProbs] = runFilter(filterModelNumber,t0,X_Filter,P_Filter,X_IMM,P_IMM,u,FilterUpdateRate,measurement,Q,R_Noise,transMatrix,modeProbs);
 
-x                                       = runMPC(MPCmodelNumber,x,constraints,constraintValues,xlow,xupp,Flow,Fupp,iGfun,jGvar);
+x                = runMPC(MPCmodelNumber,x,constraints,constraintValues,xlow,xupp,Flow,Fupp,iGfun,jGvar);
 
 [plantData(1), y0, tReal, yReal, uReal] = integrateStates(x,y0,t0,t_sort,N,intdt,m,n,MPCmodelNumber,refTraj);
 
@@ -105,8 +105,8 @@ u                = u + 0.01*rand(2,1);
 measurement      = interp1(tReal(:,1),yReal(:,1:3),t0,'pchip')';
 measurement      = measurement + 0.01*rand(3,1);
 
-count                        = count + 1;
-t0                           = t0 + FilterUpdateRate;
+count            = count + 1;
+t0               = t0 + FilterUpdateRate;
 
 %Remaining simulation time
 for i = 1:simTime/FilterUpdateRate

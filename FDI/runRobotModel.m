@@ -8,7 +8,7 @@ EKFFileName         = 'IMMData_NMPC';
 count               = 1;
 
 %*****Define Model Parameters*****
-N           = 100;  % Number of collocation points for Direct Collocation and Pseudospectral
+N           = 50;  % Number of collocation points for Direct Collocation and Pseudospectral
 X_Filter    = []; 
 P_Filter    = [];
 X_IMM       = [];
@@ -16,7 +16,7 @@ P_IMM       = [];
 Q           = [];
 R_Noise     = [];
 transMatrix = [];
-modeProbs = [];
+modeProbs   = [];
 
 %*****Define Variable Parameters*****
 MPCUpdateRate       = 0.1;

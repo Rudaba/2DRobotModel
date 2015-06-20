@@ -1,6 +1,6 @@
 data = load('IMMData_NMPC');
 
-m           = 1; %Number of models
+m           = 3; %Number of models
 RR          = 2;
 RL          = 2;
 time        = [data.Filter_tout];
@@ -8,7 +8,7 @@ X           = [data.Filter_Xout];
 P           = [data.Filter_Pout];
 innovations = [data.Filter_Innovations];
 S           = [data.Filter_S];
-obsStates   = length(innovations)/m;
+obsStates   = size(innovations,1)/m;
 % time        = time(1:end-1)
 
 figure;
@@ -29,26 +29,26 @@ title('RL')
 
 for i = 1:m
     figure;
-    plot(time,innovations(1,:),'b')
+    plot(time,innovations(1+(i-1)*obsStates,:),'b')
     hold on
-    plot(time,2*sqrt(S(1,:)),'--r')
+    plot(time,2*sqrt(S(1+(i-1)*obsStates,:)),'--r')
     hold on
-    plot(time,-2*sqrt(S(1,:)),'--r')
-    title('X innovations')
+    plot(time,-2*sqrt(S(1+(i-1)*obsStates,:)),'--r')
+    title(strcat('X innovations ',' Model  ',int2str(i)))
     
     figure;
-    plot(time,innovations(2,:),'b')
+    plot(time,innovations(2+(i-1)*obsStates,:),'b')
     hold on
-    plot(time,2*sqrt(S(2,:)),'--r')
+    plot(time,2*sqrt(S(2+(i-1)*obsStates,:)),'--r')
     hold on
-    plot(time,-2*sqrt(S(2,:)),'--r')
-    title('Y innovations')
+    plot(time,-2*sqrt(S(2+(i-1)*obsStates,:)),'--r')
+    title(strcat('Y innovations ',' Model  ',int2str(i)))
     
     figure;
-    plot(time,innovations(3,:),'b')
+    plot(time,innovations(3+(i-1)*obsStates,:),'b')
     hold on
-    plot(time,2*sqrt(S(3,:)),'--r')
+    plot(time,2*sqrt(S(3+(i-1)*obsStates,:)),'--r')
     hold on
-    plot(time,-2*sqrt(S(3,:)),'--r')
-    title('Psi innovations')
+    plot(time,-2*sqrt(S(3+(i-1)*obsStates,:)),'--r')
+    title(strcat('Psi innovations ',' Model  ',int2str(i)))
 end

@@ -33,8 +33,12 @@ global X_EKF b
 omegaR = interp1(tref, uref(:,1), t, 'pchip');
 omegaL = interp1(tref, uref(:,2), t, 'pchip');
 
-RR     = 2;%X_EKF(4,1);
-RL     = 2;%X_EKF(5,1);
+RR     = 2;
+RL     = 2;
+
+if t > 25
+    RR     = 0.5*2;
+end
 
 v       = RR*omegaR/2 + RL*omegaL/2;
 

@@ -6,13 +6,8 @@ x   = X_Filter(1,1);
 y   = X_Filter(2,1);
 psi = X_Filter(3,1);
 
-if mode == 1
-%     RL = 2;
-%     RR = X_Filter(4,1);
-% % elseif mode == 2
-    RL  = X_Filter(5,1);
-    RR  = 2;
-end
+RR  = X_Filter(4,1);
+RL  = X_Filter(5,1);
 
 omegaR = u(1,1);
 omegaL = u(2,1);
@@ -30,29 +25,25 @@ x      = x + xDot*dt;
 yDot   = V*sin(psi);
 y      = y + yDot*dt;
 
-% if mode == 1
-%     
-%    F   = [1, 0, (-RR/2*omegaR*sin(psi) - RL/2*omegaL*sin(psi))*dt, (omegaR/2*cos(psi))*dt, 0;...
-%        0, 1, (RR/2*omegaR*cos(psi) + RL/2*omegaL*cos(psi))*dt, (omegaR/2*sin(psi))*dt, 0;...
-%        0, 0, 1, (omegaR/(2*b))*dt, 0;...
-%        0, 0, 0, 1, 0;...
-%        0, 0, 0, 0, 0];
-%    
-%    RL = 0;
-%    
-% elseif mode == 2
-    
-   F   = [1, 0, (-RR/2*omegaR*sin(psi) - RL/2*omegaL*sin(psi))*dt, 0, (omegaL/2*cos(psi)) * dt;...
-       0, 1, (RR/2*omegaR*cos(psi) + RL/2*omegaL*cos(psi))*dt, 0, (omegaL/2*sin(psi)) * dt;...
-       0, 0, 1, 0, (-omegaL/(2*b))*dt;...
-       0, 0, 0, 0, 0;...
+F   = [1, 0, (-RR/2*omegaR*sin(psi) - RL/2*omegaL*sin(psi))*dt, (omegaR/2*cos(psi))*dt, (omegaL/2*cos(psi)) * dt;...
+       0, 1, (RR/2*omegaR*cos(psi) + RL/2*omegaL*cos(psi))*dt, (omegaR/2*sin(psi))*dt, (omegaL/2*sin(psi)) * dt;...
+       0, 0, 1, (omegaR/(2*b))*dt, (-omegaL/(2*b))*dt;...
+       0, 0, 0, 1, 0;...
        0, 0, 0, 0, 1];
-   
-   RR = 0;
 
+P          = Q + F * P *F';
+
+% if mode == 1
+%     RR = 2;
+%     RL = 2;
+% elseif mode == 2
+%     RR = 0.5*2;
+%     RL = 2;
+% elseif mode == 3
+%     RR = 2;
+%     RL = 0.5*2;
 % end
-   
-P       = Q + F * P *F'; 
+
 X_Filter   = [x;y;psi;RR;RL];
 
 %Update

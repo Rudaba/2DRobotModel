@@ -1,4 +1,4 @@
-data = load('IMMData_NMPC');
+data = load('EKFData_NMPC');
 
 RR          = 2; 
 RL          = 2; 

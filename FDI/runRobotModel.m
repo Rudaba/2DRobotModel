@@ -2,9 +2,9 @@ global refTraj N n m y0 t0 Hp x intdt t_sort MPCmodelNumber filterModelNumber
 global b X_Filter MPCUpdateRate
 %*****Define Simulation Parameters***
 MPCmodelNumber      = 2; % LMPC = 1, NMPC = 2, NMPC with rates = 3
-filterModelNumber   = 3; % EKF = 1, UKF = 2, IMM EKF = 3, IMM UKF = 4
+filterModelNumber   = 1; % EKF = 1, UKF = 2, IMM EKF = 3, IMM UKF = 4
 plantFileName       = 'plantData_NMPC';
-EKFFileName         = 'IMMData_NMPC';
+EKFFileName         = 'EKFData_NMPC';
 count               = 1;
 
 %*****Define Model Parameters*****

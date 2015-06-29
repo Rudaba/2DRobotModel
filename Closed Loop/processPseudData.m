@@ -1,4 +1,5 @@
 function processPseudData(x,y0,t0,tf,t_sort,N,intdt,m,n)
+global refTraj
 
 % Extract states and controls
 for j = 1:n
@@ -11,16 +12,16 @@ end
 
 t                  = ((tf-t0)/2*t_sort+(tf+t0)/2);
 
-[y0,tReal,yReal] = simulateRobotRK(y0,t,u,intdt,t0,tf);
+[y0,tReal,yReal,uReal] = simulateRobotRK(y0,t,u,intdt,t0,tf);
 
 %Plot results
 figure
 subplot(2,1,1)
-title('Controls Coll, omegaR (top), omegaL (bottom)')
-plot(t,u(:,1),'-r')
+title('Controls Pseudospectral, omegaR (top), omegaL (bottom)')
+plot(tReal,uReal(:,1),'-r')
 hold on
 subplot(2,1,2)
-plot(t,u(:,2),'-b')
+plot(tReal,uReal(:,2),'-b')
 
 figure
 subplot(2,1,1)
@@ -35,9 +36,10 @@ hold on
 plot(t,y(:,2),'*g')
 legend('integrated','optimal')
 
+ref  = interp1(refTraj(:,1),refTraj(:,2:end),tReal,'pchip');
 figure
 plot(yReal(:,1),yReal(:,2),'b')
 hold on
-plot(y(:,1),y(:,2),'*g')
+plot(ref(:,1),ref(:,2),'r')
 title('x vs y')
-legend('integrated','optimal')
+legend('integrated','referece')

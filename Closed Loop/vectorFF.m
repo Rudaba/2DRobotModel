@@ -1,4 +1,4 @@
-function F = vectorFF(x,xRef)
+function F = vectorFF(x,V,psiDot)
 
 omegaR = x(1);
 omegaL = x(2);
@@ -8,8 +8,8 @@ R   = 2; %Radius of tyres
 b   = 1; %Distance between centre of tyres
 
 %Extract states
-V           = xRef(4);
-psiDot      = xRef(5);
+% V           = xRef(5);
+% psiDot      = xRef(6);
 
 F = [V - (R * (x(1) + x(2)) / 2); 
     psiDot - (R/(2*b) * (x(1) - x(2)))];

@@ -1,4 +1,4 @@
-function [X_Filter,P, innovation,S] = EKFUpdate(X_Filter,P,u,dt,measurement,Q,R_Noise)
+function [X_Filter,P, innovation,S] = UKFUpdate(X_Filter,P,u,dt,measurement,Q,R_Noise)
 global b
 
 %Calculate sigma points

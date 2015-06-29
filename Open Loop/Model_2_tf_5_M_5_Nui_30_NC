@@ -1,0 +1,94 @@
+ 
+
+ Nonlinear constraints      33     Linear constraints       0
+ Nonlinear variables       340     Linear variables         0
+ Jacobian  variables       340     Objective variables    340
+ Total constraints          33     Total variables        340
+ 
+
+ 
+ The user has defined       0   out of   11560   first  derivatives
+ XXX  Some first  derivatives are missing --- derivative level reduced to 0
+ 
+
+        Minor   QPmult   nInf   SumInf   rgNorm  Elastic QPobj    nS
+          100 -7.7E-01      1  1.0E+00  7.3E-11  3.1837204E+04    89
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0    111               1  1.2E+00  1.0E+00  2.0663007E+05   100           r iT
+
+        Minor   QPmult   nInf   SumInf   rgNorm  Elastic QPobj    nS
+          100  6.5E+01                  8.6E-12  1.8386729E+04   195
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     1    104  9.0E-02      2  9.8E-01  1.3E+00  1.9096462E+05   199         n rl T
+     2     92  7.6E-02      4  7.9E-01  2.0E+00  1.7484402E+05   288         sM l
+     3     11  7.5E-01      6  7.2E-02  1.6E+01  4.3700638E+04   297          m l
+     4      1  1.0E+00      7  5.5E-03  8.5E-01  3.0020091E+02   297
+     5      1  1.0E+00      8  1.6E-04  7.8E-01  2.0228973E+01   297
+     6      1  1.0E+00     10 (2.7E-07) 5.0E-01  1.9387400E+01   297         sM
+     7      1  2.8E-02     11  2.3E-03  1.4E+00  1.6498299E+01   297
+     8      1  6.6E-02     12  6.9E-03  8.6E-01  1.1190317E+01   297
+     9      1  1.1E-01     13  4.6E-03  8.0E-01  9.3206752E+00   297
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    10      1  1.5E-01     14  5.3E-03  4.9E-01  8.7029996E+00   297
+    11      1  1.2E-01     15  7.2E-03  8.9E-01  8.1042437E+00   297
+    12      1  7.0E-02     16  3.7E-02  9.2E-01  6.3867984E+00   297           R
+    13      1  1.0E+00     17  1.6E-02  1.1E+00  8.2078951E+00   297 1.4E+01 s
+    14      1  1.0E+00     18  1.5E-02  1.2E+00  5.4712249E+00   297 5.0E+00
+    15      1  1.0E+00     19  1.3E-02  1.2E+00  3.9622969E+00   297 5.0E+00
+    16      1  1.0E+00     20  5.1E-03  1.2E+00  3.0987135E+00   297 5.0E+00
+    17      1  1.0E+00     21  1.3E-03  1.1E+00  2.7848935E+00   297 5.0E+00
+    18      1  1.0E+00     22  2.8E-03  1.1E+00  2.4146364E+00   297 5.0E+00
+    19      1  1.0E+00     23  2.5E-03  9.0E-01  1.9775313E+00   297 5.0E+00
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    20      1  1.0E+00     24  3.1E-03  5.5E-01  1.4603688E+00   297 5.0E+00
+    21      1  1.0E+00     25  2.0E-03  2.4E-01  1.0515678E+00   297 5.0E+00
+    22      1  1.0E+00     26  5.9E-04  9.1E-02  8.4983467E-01   297 5.0E+00
+    23      1  1.0E+00     27  2.8E-05  1.1E-01  7.8880107E-01   297 5.0E+00   R
+    24      1  1.0E+00     28  1.4E-05  1.1E-01  7.7279689E-01   297 5.0E+00 s
+    25      1  1.0E+00     29  1.0E-04  9.0E-02  7.6093396E-01   297 5.0E+00
+    26      1  1.0E+00     30  8.3E-05  8.2E-02  7.6088151E-01   297 5.0E+00
+    27      1  1.0E+00     31  4.9E-05  7.6E-02  7.5648178E-01   297 5.0E+00
+    28      1  1.0E+00     32  6.5E-06  6.8E-02  7.5549578E-01   297 5.0E+00
+    29      1  1.0E+00     33  4.2E-06  5.4E-02  7.5385412E-01   297 5.0E+00
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    30      1  1.0E+00     34  1.5E-05  2.9E-02  7.5165945E-01   297 5.0E+00
+    31      1  1.0E+00     35  2.7E-06  1.1E-02  7.5019629E-01   297 5.0E+00
+    32      1  1.0E+00     36  4.3E-06  2.3E-03  7.4976571E-01   297 5.0E+00
+    33      1  1.0E+00     37  4.5E-06  1.6E-03  7.4957962E-01   297 5.0E+00
+    34      1  1.0E+00     38  1.2E-06  8.0E-04  7.4949918E-01   297 5.0E+00   R
+    35      1  4.2E-01     39 (8.9E-07) 4.7E-04  7.4945901E-01   297 5.0E+00 s
+    36      1  1.0E+00     40 (3.4E-09) 2.5E-04  7.4945643E-01   297 5.0E+00
+    37      1  1.0E+00     41 (1.3E-09) 9.9E-05  7.4945560E-01   297 5.0E+00
+    38      1  1.0E+00     42 (2.6E-09) 2.7E-05  7.4945501E-01   297 5.0E+00
+    39      1  1.0E+00     43 (5.6E-10) 2.1E-05  7.4945486E-01   297 5.0E+00
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    40      1  1.0E+00     44 (7.3E-11) 1.9E-05  7.4945483E-01   297 5.0E+00
+    41      1  1.0E+00     45 (1.7E-11) 1.1E-05  7.4945483E-01   297 5.0E+00
+    42      1  1.0E+00     46 (1.1E-11) 4.0E-06  7.4945483E-01   297 5.0E+00
+    43      1  1.0E+00     47 (2.0E-12)(8.8E-07) 7.4945483E-01   297 5.0E+00       c
+    43      2  1.0E+00     47 (2.0E-12)(7.1E-07) 7.4945483E-01   297 5.0E+00       c
+ 
+ SNOPTA EXIT   0 -- finished successfully
+ SNOPTA INFO   1 -- optimality conditions satisfied
+
+ Problem name
+ No. of iterations                 359   Objective value      7.4945482618E-01
+ No. of major iterations            43   Linear objective     0.0000000000E+00
+ Penalty parameter           4.955E+00   Nonlinear objective  7.4945482618E-01
+ No. of calls to funobj          16767   No. of calls to funcon          16767
+ Calls with modes 1,2 (known g)     47   Calls with modes 1,2 (known g)     47
+ Calls for forward differencing  15980   Calls for forward differencing  15980
+ Calls for central differencing    680   Calls for central differencing    680
+ No. of superbasics                297   No. of basic nonlinears            33
+ No. of degenerate steps             8   Percentage                       2.23
+ Max x                       2 6.0E+00   Max pi                      2 1.3E+00
+ Max Primal infeas           0 0.0E+00   Max Dual infeas            13 1.6E-06
+ Nonlinear constraint violn    2.9E-11
+
+ Solution not printed

@@ -57,7 +57,7 @@ end
 
 %*****Set up optimisation*****
 %SNOPT parameters
-snsummary off;
+snsummary(fileName);
 snscreen off;
 
 snseti('Verify level', -1);

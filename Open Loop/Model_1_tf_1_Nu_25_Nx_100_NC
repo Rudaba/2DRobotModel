@@ -1,0 +1,49 @@
+
+ 
+ ===>  WARNING - variable       53 has no Jacobian entries.
+ ===>  WARNING - variable       54 has no Jacobian entries.
+ ===>  WARNING - variable       55 has no Jacobian entries.
+ 
+
+ Nonlinear constraints       3     Linear constraints       0
+ Nonlinear variables        52     Linear variables         3
+ Jacobian  variables        52     Objective variables     52
+ Total constraints           3     Total variables         55
+ 
+
+ 
+ The user has defined       0   out of     208   first  derivatives
+ XXX  Some first  derivatives are missing --- derivative level reduced to 0
+ 
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0     50               1 (0.0E+00) 3.0E-02  1.2866750E+00    50           r
+     1      1  1.5E-01      2 (0.0E+00) 2.5E-02  9.8609301E-01    50         n rl
+     2      1  1.5E-01      3 (0.0E+00) 2.0E-02  7.6699149E-01    50         s  l
+     3      1  1.0E+00      4 (0.0E+00) 2.4E-03  5.3829876E-01    50
+     4      1  1.0E+00      5 (0.0E+00) 1.3E-03  5.3575410E-01    50
+     5      1  1.0E+00      6 (0.0E+00) 2.9E-04  5.3556715E-01    50
+     6      1  1.0E+00      7 (0.0E+00) 4.2E-05  5.3555528E-01    50
+     7      1  1.0E+00      8 (0.0E+00) 1.4E-05  5.3555498E-01    50
+     8      1  1.0E+00      9 (0.0E+00)(9.0E-07) 5.3555495E-01    50
+ 
+ SNOPTA EXIT   0 -- finished successfully
+ SNOPTA INFO   1 -- optimality conditions satisfied
+
+ Problem name
+ No. of iterations                  58   Objective value      5.3555494638E-01
+ No. of major iterations             8   Linear objective     0.0000000000E+00
+ Penalty parameter           0.000E+00   Nonlinear objective  5.3555494638E-01
+ No. of calls to funobj            485   No. of calls to funcon            485
+ Calls with modes 1,2 (known g)      9   Calls with modes 1,2 (known g)      9
+ Calls for forward differencing    468   Calls for forward differencing    468
+ Calls for central differencing      0   Calls for central differencing      0
+ No. of superbasics                 50   No. of basic nonlinears             0
+ No. of degenerate steps             0   Percentage                        .00
+ Max x       (scaled)       27 1.2E+00   Max pi      (scaled)        1 0.0E+00
+ Max x                      27 1.2E+00   Max pi                      1 0.0E+00
+ Max Prim inf(scaled)        0 0.0E+00   Max Dual inf(scaled)        1 1.8E-06
+ Max Primal infeas           0 0.0E+00   Max Dual infeas             1 1.8E-06
+ Nonlinear constraint violn    0.0E+00
+
+ Solution not printed

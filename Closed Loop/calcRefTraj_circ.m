@@ -1,4 +1,4 @@
-function refTraj = calcRefTraj_circ 
+function refTraj = calcRefTraj_circ
 
 %Calculate circular trajectory for 2D robot
 
@@ -16,6 +16,12 @@ y(1)        = 0;
 psi(1)      = theta;
 V(1)        = R;
 time(1)     = 0;
+psiDot(1)   = thetaDot;
+
+[omegaR0,omegaL0] = calcFeedforward(V(1), psiDot(1));
+
+omegaR(1) = omegaR0;
+omegaL(1) = omegaL0;
 
 for i = 1:timeTaken
     theta           = thetaDot * dt + theta;
@@ -25,10 +31,13 @@ for i = 1:timeTaken
     y(i+1)          = y(i) + yDot*dt;
     psi(i+1)        = theta;
     V(i+1)          = R;
+    psiDot(i+1)     = thetaDot;
     time(i+1)       = time(i) + dt;
+    
+    [omegaR0,omegaL0] = calcFeedforward(V(i+1), psiDot(i+1));
+    
+    omegaR(i+1) = omegaR0;
+    omegaL(i+1) = omegaL0;
 end
 % plot(x,y)
-% title('Reference Trajectory')
-% xlabel('x [m]')
-% ylabel('y [m]')
-refTraj = [time;x;y;psi;V;thetaDot*ones(size(time))]';
+refTraj = [time;x;y;psi;V;psiDot;omegaR;omegaL]';

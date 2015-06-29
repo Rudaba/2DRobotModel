@@ -1,0 +1,91 @@
+
+ 
+ ===>  WARNING - variable     1003 has no Jacobian entries.
+ ===>  WARNING - variable     1004 has no Jacobian entries.
+ ===>  WARNING - variable     1005 has no Jacobian entries.
+ 
+
+ Nonlinear constraints       3     Linear constraints       0
+ Nonlinear variables      1002     Linear variables         3
+ Jacobian  variables      1002     Objective variables   1002
+ Total constraints           3     Total variables       1005
+ 
+
+ 
+ The user has defined       0   out of    4008   first  derivatives
+ XXX  Some first  derivatives are missing --- derivative level reduced to 0
+ 
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0     99               1 (0.0E+00) 1.5E-03  1.2911667E+00    99           r  T
+
+        Minor   QPmult   nInf   SumInf   rgNorm    QPobjective    nS cgItns
+          100 -2.7E-03                           9.2205258E-01   198
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     1    100  2.4E-01      2 (0.0E+00) 1.4E-03  1.2098013E+00   198         n rl T
+
+        Minor   QPmult   nInf   SumInf   rgNorm    QPobjective    nS cgItns
+          100 -2.0E-03                  5.1E-21  8.9912699E-01   297
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     2    100  1.4E-01      3 (0.0E+00) 1.3E-03  1.1379319E+00   297         s  l T
+
+        Minor   QPmult   nInf   SumInf   rgNorm    QPobjective    nS cgItns
+          100 -1.8E-03                  2.2E-19  8.1122698E-01   396
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     3    100  8.9E-01      4 (0.0E+00) 9.9E-04  8.8780458E-01   396            l T
+
+        Minor   QPmult   nInf   SumInf   rgNorm    QPobjective    nS cgItns
+          100 -1.5E-03                  2.2E-19  7.4288961E-01   495
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     4    100  1.0E+00      5 (0.0E+00) 9.3E-04  8.0054632E-01   495              T
+
+        Minor   QPmult   nInf   SumInf   rgNorm    QPobjective    nS cgItns
+          100 -1.6E-03                  2.2E-19  6.7881601E-01   594
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     5    100  1.0E+00      6 (0.0E+00) 8.7E-04  7.3590369E-01   594              T
+
+        Minor   QPmult   nInf   SumInf   rgNorm    QPobjective    nS cgItns
+          100 -1.3E-03                  2.2E-19  6.3995782E-01   693
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     6    100  1.0E+00      7 (0.0E+00) 7.2E-04  6.7657296E-01   693              T
+     7     99  1.0E+00      8 (0.0E+00) 6.5E-04  6.3212508E-01   849           R  T
+
+        Minor   QPmult   nInf   SumInf   rgNorm    QPobjective    nS cgItns
+          100 -1.0E-03                  1.0E-10  5.4723650E-01   948      2
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     8    100  1.0E+00      9 (0.0E+00) 5.5E-04  5.7844272E-01   948         s    T
+     9     53  1.0E+00     10 (0.0E+00) 5.2E-04  5.4800512E-01  1000
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    10      1  1.0E+00     11 (0.0E+00) 1.1E-04  5.3477192E-01  1000
+    11      1  1.0E+00     12 (0.0E+00) 5.9E-05  5.3388119E-01  1000
+    12      1  1.0E+00     13 (0.0E+00)(1.7E-06) 5.3329832E-01  1000
+ 
+ SNOPTA EXIT   0 -- finished successfully
+ SNOPTA INFO   1 -- optimality conditions satisfied
+
+ Problem name
+ No. of iterations                1012   Objective value      5.3329831902E-01
+ No. of major iterations            12   Linear objective     0.0000000000E+00
+ Penalty parameter           0.000E+00   Nonlinear objective  5.3329831902E-01
+ No. of calls to funobj          13052   No. of calls to funcon          13052
+ Calls with modes 1,2 (known g)     13   Calls with modes 1,2 (known g)     13
+ Calls for forward differencing  13026   Calls for forward differencing  13026
+ Calls for central differencing      0   Calls for central differencing      0
+ No. of superbasics               1000   No. of basic nonlinears             0
+ No. of CG iterations              357
+ No. of degenerate steps             0   Percentage                        .00
+ Max x       (scaled)      502 1.2E+00   Max pi      (scaled)        1 0.0E+00
+ Max x                     502 1.2E+00   Max pi                      1 0.0E+00
+ Max Prim inf(scaled)        0 0.0E+00   Max Dual inf(scaled)      640 3.4E-06
+ Max Primal infeas           0 0.0E+00   Max Dual infeas           640 3.4E-06
+ Nonlinear constraint violn    0.0E+00
+
+ Solution not printed

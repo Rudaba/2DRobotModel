@@ -1,28 +1,24 @@
-function runRobotModel_sims(constraints, constraintValues, model, initialConditions, fileString)
+function runRobotModel_sims(model,initTime,finalTime,statePointsDS,controlPoints,sections,statePointsMS,nodePoints,fileName)
 
-global refTraj N n m y0 t0 Hp x intdt t_sort modelNumber
-global R b
-
+global refTraj N n m y0 t0 Hp x Nu Nx M Nui intdt
+global  MPCmodelNumber R b
 %*****Define Simulation Parameters***
-modelNumber = model;
-fileName = fileString;
+MPCmodelNumber  = model;
+plotResults     = 0;
 
 %*****Define Model Parameters*****
-n   = 3;   % Number of states
-m   = 2;   % Number of controls states
-N   = 50;  % Number of collocation points for Direct Collocation and Pseudospectral
+n   = 3;                % Number of states
+m   = 2;                % Number of controls states
+Nx  = statePointsDS;    % Number of state integration intervals for DS
+Nu  = controlPoints;    % Number of discrete control points for DS
+M   = sections;         % Number of intervals for MS
+Nui = statePointsMS;    % Number of control points per interval for MS
+N   = nodePoints;       % Number of collocation points for Direct Collocation and Pseudospectral
 
 %*****Define Variable Parameters*****
-updateRate  = 0.1;
-t0          = 0;
-Hp          = 5;
-tf          = updateRate;
-intdt       = 0.01;
-simTime     = 50;
-
-%*****Define Initial Conditions*****
-%This is initial nav robot state [x;y;psi]
-y0 = initialConditions;
+t0    = initTime;
+Hp    = finalTime;
+intdt = 0.001; 
 
 %****Define Robot Parameters*****
 %Robot Constants
@@ -30,48 +26,42 @@ R       = 2; %Radius of tyres
 b       = 1; %Distance between centre of tyres
 
 %*****Define Reference Trajectory*****
-[refTraj] = calcRefTraj_circ;
+[refTraj] = calcRefTrajectory; 
+
+%*****Define Initial Conditions*****
+% y0 = [-0.5;5+1;0]; %This is initial nav robot state [x;y;psi]
+y0 = [-0.5;5+1;0]; %This is initial nav robot state [x;y;psi]
+% y0 = refTraj(1,2:4)';
 
 %*****Intialise model*****
-if modelNumber == 1
+if MPCmodelNumber == 1
+    % Direct Shooting
+    [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseDirectShooting(y0,Nu,n,m);
     
-    % MPC
-    [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseLinearMPC(N,n,m,constraintValues);
+elseif MPCmodelNumber == 2
+    % Multiple Shooting
+    [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseMultipleShooting(Nui,n,m,y0,M);
     
-elseif modelNumber == 2
+elseif MPCmodelNumber == 3
+    % Collocation
+    [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseCollocation(N,n,m,y0);
     
-    % NMPC
-    [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC(N,n,m,y0,constraintValues);
-    
+elseif MPCmodelNumber == 4
+    % Pseudospectral
+    [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialisePseudospectral(N,n,m,y0);
+
+elseif MPCmodelNumber == 5
+    % Pseudospectral
+    [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseLinearMPC(N,n,m);
 end
 
 %*****Set up optimisation*****
 %SNOPT parameters
-snsummary off;
+snsummary(fileName);
 snscreen off;
 
 snseti('Verify level', -1);
-snseti('Derivative option', 2); % let SNOPT figure out jacobian
+snseti('Derivative option', 2);
 snseti('Major iterations',1000);
 
-for i = 1:simTime/updateRate
-    x                       = runMPC(modelNumber,x,constraints,constraintValues,xlow,xupp,Flow,Fupp,iGfun,jGvar);
-    [y0,tReal,yReal, uReal] = integrateStates(x,y0,t0,tf,t_sort,N,intdt,m,n,modelNumber,refTraj);
-    yrefstore               = interp1(refTraj(:,1),refTraj(:,2:4),tReal)';
-    
-    stored(i).y = yReal';
-    stored(i).t = tReal';
-    stored(i).u = uReal';
-    stored(i).yref  = yrefstore;
-    
-    t0 = tf;
-    tf = t0 + updateRate;
-    
-end
-
-tout    = [stored.t];
-yout    = [stored.y];
-uout    = [stored.u];
-yrefout = [stored.yref];
-
-save(fileName, 'tout','yout','uout','yrefout');
+runMPC(MPCmodelNumber,x,xlow,xupp,Flow,Fupp,iGfun,jGvar,fileName,plotResults);

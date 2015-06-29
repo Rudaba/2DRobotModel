@@ -1,0 +1,86 @@
+
+ 
+ ===>  WARNING - variable      203 has no Jacobian entries.
+ ===>  WARNING - variable      204 has no Jacobian entries.
+ ===>  WARNING - variable      205 has no Jacobian entries.
+ 
+
+ Nonlinear constraints       3     Linear constraints       0
+ Nonlinear variables       202     Linear variables         3
+ Jacobian  variables       202     Objective variables    202
+ Total constraints           3     Total variables        205
+ 
+
+ 
+ The user has defined       0   out of     808   first  derivatives
+ XXX  Some first  derivatives are missing --- derivative level reduced to 0
+ 
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0     99               1 (0.0E+00) 3.8E-01  3.1084375E+01    99           r  T
+
+        Minor   QPmult   nInf   SumInf   rgNorm    QPobjective    nS
+          100 -3.7E-02                  6.9E-18 -2.3127531E+01   198
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     1    100  1.1E-01      2 (0.0E+00) 3.8E-01  2.2099275E+01   198         n rl T
+     2      3  7.8E-02      3 (0.0E+00) 3.5E-01  1.5630384E+01   200         s  l
+     3      1  3.7E-01      4 (0.0E+00) 3.7E-01  6.7516842E+00   200
+     4      1  5.0E-01      5 (0.0E+00) 1.3E-01  1.4431662E+00   200
+     5      1  1.0E+00      6 (0.0E+00) 4.5E-02  1.0789240E+00   200
+     6      1  1.0E+00      7 (0.0E+00) 2.1E-02  9.8752988E-01   200
+     7      1  1.0E+00      8 (0.0E+00) 3.6E-02  8.7980620E-01   200
+     8      1  1.0E+00      9 (0.0E+00) 2.6E-02  8.1717969E-01   200
+     9      1  1.0E+00     10 (0.0E+00) 7.7E-03  7.8893357E-01   200
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    10      1  1.0E+00     11 (0.0E+00) 1.1E-02  7.8147362E-01   200
+    11      1  1.0E+00     12 (0.0E+00) 8.9E-03  7.7068580E-01   200
+    12      1  1.0E+00     13 (0.0E+00) 4.3E-03  7.6483286E-01   200           R
+    13      1  2.2E-01     14 (0.0E+00) 6.7E-03  7.6413969E-01   200         s
+    14      1  1.0E+00     15 (0.0E+00) 5.7E-03  7.6366566E-01   200
+    15      1  1.0E+00     16 (0.0E+00) 2.4E-03  7.6214191E-01   200
+    16      1  1.0E+00     17 (0.0E+00) 2.4E-03  7.6196350E-01   200
+    17      1  1.0E+00     18 (0.0E+00) 1.5E-03  7.6123041E-01   200
+    18      1  1.0E+00     19 (0.0E+00) 1.5E-03  7.6111451E-01   200
+    19      1  1.0E+00     20 (0.0E+00) 2.0E-03  7.6088330E-01   200
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    20      1  1.0E+00     21 (0.0E+00) 2.8E-03  7.6058697E-01   200
+    21      1  1.0E+00     22 (0.0E+00) 2.9E-03  7.6022109E-01   200
+    22      1  1.0E+00     23 (0.0E+00) 2.0E-03  7.6004136E-01   200
+    23      1  1.0E+00     24 (0.0E+00) 1.2E-03  7.5999096E-01   200           R
+    24      1  1.0E+00     25 (0.0E+00) 1.1E-03  7.5997629E-01   200         s
+    25      1  4.7E-02     26 (0.0E+00) 2.3E-03  7.5994681E-01   200
+    26      1  1.0E+00     27 (0.0E+00) 1.0E-03  7.5982763E-01   200
+    27      1  1.0E+00     28 (0.0E+00) 4.2E-04  7.5974387E-01   200
+    28      1  2.5E-01     29 (0.0E+00) 2.2E-04  7.5973208E-01   200
+    29      1  1.0E+00     30 (0.0E+00) 2.8E-04  7.5972185E-01   200
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    30      1  1.0E+00     31 (0.0E+00) 7.8E-05  7.5971677E-01   200
+    31      1  1.0E+00     32 (0.0E+00) 1.8E-05  7.5971510E-01   200
+    32      1  1.0E+00     33 (0.0E+00) 1.4E-05  7.5971500E-01   200
+    33      1  1.0E+00     34 (0.0E+00) 3.5E-06  7.5971493E-01   200
+    34      1  1.0E+00     35 (0.0E+00)(1.4E-06) 7.5971492E-01   200           R
+ 
+ SNOPTA EXIT   0 -- finished successfully
+ SNOPTA INFO   1 -- optimality conditions satisfied
+
+ Problem name
+ No. of iterations                 234   Objective value      7.5971492206E-01
+ No. of major iterations            34   Linear objective     0.0000000000E+00
+ Penalty parameter           0.000E+00   Nonlinear objective  7.5971492206E-01
+ No. of calls to funobj           7149   No. of calls to funcon           7149
+ Calls with modes 1,2 (known g)     35   Calls with modes 1,2 (known g)     35
+ Calls for forward differencing   7070   Calls for forward differencing   7070
+ Calls for central differencing      0   Calls for central differencing      0
+ No. of superbasics                200   No. of basic nonlinears             0
+ No. of degenerate steps             0   Percentage                        .00
+ Max x       (scaled)      102 1.4E+00   Max pi      (scaled)        1 0.0E+00
+ Max x                     102 1.4E+00   Max pi                      1 0.0E+00
+ Max Prim inf(scaled)        0 0.0E+00   Max Dual inf(scaled)       15 2.7E-06
+ Max Primal infeas           0 0.0E+00   Max Dual infeas            15 2.7E-06
+ Nonlinear constraint violn    0.0E+00
+
+ Solution not printed

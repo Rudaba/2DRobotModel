@@ -14,7 +14,7 @@ if modelNumber == 1
         xRef               = interp1(refTraj(:,1),refTraj(:,2:end),t);
         
         for i = 1:length(t)
-            [omegaR0(i),omegaL0(i)]   = calcFeedforward(xRef(1,:));
+            [omegaR0(i),omegaL0(i)]   = calcFeedforward(xRef(i,4),xRef(i,5));
         end
         
         for k = 1:m

@@ -1,0 +1,73 @@
+
+ 
+ ===>  WARNING - variable      103 has no Jacobian entries.
+ ===>  WARNING - variable      104 has no Jacobian entries.
+ ===>  WARNING - variable      105 has no Jacobian entries.
+ 
+
+ Nonlinear constraints       3     Linear constraints       0
+ Nonlinear variables       102     Linear variables         3
+ Jacobian  variables       102     Objective variables    102
+ Total constraints           3     Total variables        105
+ 
+
+ 
+ The user has defined       0   out of     408   first  derivatives
+ XXX  Some first  derivatives are missing --- derivative level reduced to 0
+ 
+
+        Minor   QPmult   nInf   SumInf   rgNorm    QPobjective    nS
+          100 -7.0E-02                  1.4E-17 -4.5705741E-01    16
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0    100               1 (0.0E+00) 3.1E-01  3.1271094E+01    16           r
+     1      5  2.7E-01      2 (0.0E+00) 2.2E-01  2.1437647E+01    12         n rl
+     2     17  3.7E-01      3 (0.0E+00) 1.4E-01  1.3810811E+01    24         s  l
+     3     11  1.0E+00      4 (0.0E+00) 9.6E-03  5.2067516E+00    14
+     4      1  1.0E+00      5 (0.0E+00) 6.4E-02  5.1466207E+00    14
+     5      4  1.0E+00      6 (0.0E+00) 3.2E-02  5.1127169E+00    11
+     6      3  1.0E+00      7 (0.0E+00) 4.6E-03  5.0856204E+00     9
+     7      4  1.0E+00      8 (0.0E+00) 2.5E-03  5.0768575E+00     6
+     8      1  1.0E+00      9 (0.0E+00) 2.6E-03  5.0682409E+00     6
+     9      3  1.0E+00     10 (0.0E+00) 1.2E-03  5.0640337E+00     4
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    10      2  1.0E+00     11 (0.0E+00) 1.1E-03  5.0622299E+00     3
+    11      1  1.0E+00     12 (0.0E+00) 1.2E-03  5.0621104E+00     3
+    12      1  1.0E+00     13 (0.0E+00) 1.1E-03  5.0615648E+00     3           R
+    13      1  1.0E+00     14 (0.0E+00) 4.2E-04  5.0615431E+00     3         s
+    14      1  1.0E+00     15 (0.0E+00) 1.8E-04  5.0615345E+00     3
+    15      1  1.0E+00     16 (0.0E+00) 2.6E-04  5.0615205E+00     3
+    16      1  1.0E+00     17 (0.0E+00) 3.8E-04  5.0615088E+00     3
+    17      1  1.0E+00     18 (0.0E+00) 1.9E-04  5.0615046E+00     3
+    18      1  1.0E+00     19 (0.0E+00) 2.8E-05  5.0615041E+00     3
+    19      1  1.0E+00     20 (0.0E+00) 2.0E-05  5.0615041E+00     3
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    20      1  1.0E+00     21 (0.0E+00) 2.5E-05  5.0615040E+00     3
+    21      1  1.0E+00     22 (0.0E+00) 2.7E-05  5.0615040E+00     3
+    22      1  1.0E+00     23 (0.0E+00) 1.8E-05  5.0615040E+00     3
+    23      1  1.0E+00     24 (0.0E+00) 5.8E-06  5.0615040E+00     3           R
+    24      1  4.5E-01     25 (0.0E+00)(6.9E-07) 5.0615040E+00     3         s     c
+    24      2  4.5E-01     25 (0.0E+00)(6.6E-07) 5.0615040E+00     3         s     c
+ 
+ SNOPTA EXIT   0 -- finished successfully
+ SNOPTA INFO   1 -- optimality conditions satisfied
+
+ Problem name
+ No. of iterations                 166   Objective value      5.0615039852E+00
+ No. of major iterations            24   Linear objective     0.0000000000E+00
+ Penalty parameter           0.000E+00   Nonlinear objective  5.0615039852E+00
+ No. of calls to funobj           2811   No. of calls to funcon           2811
+ Calls with modes 1,2 (known g)     25   Calls with modes 1,2 (known g)     25
+ Calls for forward differencing   2550   Calls for forward differencing   2550
+ Calls for central differencing    204   Calls for central differencing    204
+ No. of superbasics                  3   No. of basic nonlinears             0
+ No. of degenerate steps             0   Percentage                        .00
+ Max x       (scaled)        4 4.0E-01   Max pi      (scaled)        1 0.0E+00
+ Max x                       4 4.0E-01   Max pi                      1 0.0E+00
+ Max Prim inf(scaled)        0 0.0E+00   Max Dual inf(scaled)        3 9.2E-06
+ Max Primal infeas           0 0.0E+00   Max Dual infeas             3 9.2E-06
+ Nonlinear constraint violn    0.0E+00
+
+ Solution not printed

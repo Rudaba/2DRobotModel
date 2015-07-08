@@ -1,0 +1,42 @@
+
+ 
+ ===>  WARNING - variable     1003 has no Jacobian entries.
+ ===>  WARNING - variable     1004 has no Jacobian entries.
+ ===>  WARNING - variable     1005 has no Jacobian entries.
+ 
+
+ Nonlinear constraints       3     Linear constraints       0
+ Nonlinear variables      1002     Linear variables         3
+ Jacobian  variables      1002     Objective variables   1002
+ Total constraints           3     Total variables       1005
+ 
+
+ 
+ The user has defined       0   out of    4008   first  derivatives
+ XXX  Some first  derivatives are missing --- derivative level reduced to 0
+ 
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0     10               1 (0.0E+00) 5.2E-02  1.1950000E+00                 r
+     1      0  1.0E+00      2 (0.0E+00)(0.0E+00) 6.7980000E-01               n r   c
+     1      0  1.0E+00      2 (0.0E+00)(1.7E-13) 6.7980000E-01               n r   c
+ 
+ SNOPTA EXIT   0 -- finished successfully
+ SNOPTA INFO   1 -- optimality conditions satisfied
+
+ Problem name
+ No. of iterations                  10   Objective value      6.7980000000E-01
+ No. of major iterations             1   Linear objective     0.0000000000E+00
+ Penalty parameter           0.000E+00   Nonlinear objective  6.7980000000E-01
+ No. of calls to funobj           4011   No. of calls to funcon           4011
+ Calls with modes 1,2 (known g)      2   Calls with modes 1,2 (known g)      2
+ Calls for forward differencing   2004   Calls for forward differencing   2004
+ Calls for central differencing   2004   Calls for central differencing   2004
+ No. of degenerate steps             0   Percentage                        .00
+ Max x       (scaled)        1 4.0E-01   Max pi      (scaled)        1 0.0E+00
+ Max x                       1 4.0E-01   Max pi                      1 0.0E+00
+ Max Prim inf(scaled)        0 0.0E+00   Max Dual inf(scaled)        2 8.3E-13
+ Max Primal infeas           0 0.0E+00   Max Dual infeas             2 8.3E-13
+ Nonlinear constraint violn    0.0E+00
+
+ Solution not printed

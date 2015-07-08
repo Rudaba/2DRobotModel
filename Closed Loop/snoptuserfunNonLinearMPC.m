@@ -1,4 +1,4 @@
-function [F,Jac,tout,yout,uout] = snoptuserfunPseudospectral(x)
+function [F,Jac,tout,yout,uout] = snoptuserfunNonLinearMPC(x)
 
 global N t0 Hp y0 n m refTraj D_sort w t_sort
 

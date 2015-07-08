@@ -1,0 +1,56 @@
+ 
+
+ Nonlinear constraints      33     Linear constraints       0
+ Nonlinear variables       140     Linear variables         0
+ Jacobian  variables       140     Objective variables    140
+ Total constraints          33     Total variables        140
+ 
+
+ 
+ The user has defined       0   out of    4760   first  derivatives
+ XXX  Some first  derivatives are missing --- derivative level reduced to 0
+ 
+
+        Minor  RedCost   nInf   SumInf   rgNorm    LPobjective
+          100 -1.0E+00      3  1.9E+01
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0    122               1  8.5E-01  4.0E-02  2.7845332E+05     2           r i
+     1     12  1.6E-01      2  7.2E-01  5.3E-02  2.5080081E+05    11         n rli
+     2      3  2.4E-01      3  5.3E-01  1.1E-01  2.1687031E+05    11         s  li
+     3      3  1.0E+00      5  1.5E-01  4.0E-01  1.0708163E+05    11          M  i
+     4      1  1.0E+00      6  1.3E-01  4.0E-01  1.0705093E+05    11             i
+     5      2  1.0E+00      7  1.3E-01  2.5E-01  1.0690723E+05    11             i
+     6      1  1.0E+00      8  8.9E-02  2.3E-03  9.1329993E+04    11             i
+     7      5  1.0E+00      9  9.2E-02  1.0E-04  9.1340105E+04    11 1.7E+04     i
+     8      3  4.9E-01     10  4.7E-02  3.7E-06  9.1339882E+04    13 1.9E+02     i
+     9      4  1.0E+00     11  5.5E-02  2.3E-05  9.1339878E+04    16 3.3E+01     i
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    10      1  1.0E+00     12  5.3E-02  2.8E-06  9.1339872E+04    16 3.3E+01     i
+    11      1  1.0E+00     13  5.3E-02 (6.0E-13) 9.1338772E+10    16 3.3E+01     i c
+    11      2  1.0E+00     13  5.3E-02 (1.9E-12) 6.8869239E+10    16 3.3E+01     i c
+    12      1  2.6E-01     14  5.5E-02 (3.8E-12) 8.6735020E+10    16 6.4E+11   R i c
+    12      2              14  5.5E-02 (3.8E-12) 8.4307607E+10    16           r i c
+    12      2              14  5.5E-02 (3.8E-12) 8.4307607E+10    16           r i c
+ 
+ SNOPTA EXIT  40 -- terminated after numerical difficulties
+ SNOPTA INFO  41 -- current point cannot be improved
+
+ Problem name
+ No. of iterations                 161   Objective value      1.0789444195E+00
+ No. of infeasibilities              8   Sum of infeas        1.9110351286E+00
+ Elastic weight                4.3E+10   Scaled Merit         2.1323771641E+00
+ No. of major iterations            12   Linear objective     0.0000000000E+00
+ Penalty parameter           1.474E+12   Nonlinear objective  1.0789444195E+00
+ No. of calls to funobj           2427   No. of calls to funcon           2427
+ Calls with modes 1,2 (known g)     14   Calls with modes 1,2 (known g)     14
+ Calls for forward differencing   1820   Calls for forward differencing   1820
+ Calls for central differencing    560   Calls for central differencing    560
+ No. of superbasics                 16   No. of basic nonlinears            24
+ No. of degenerate steps             9   Percentage                       5.59
+ Max x                       2 6.0E+00   Max pi                      1 4.3E+10
+ Max Primal infeas         142 6.2E-01   Max Dual infeas             2 9.1E-01
+ Nonlinear constraint violn    6.2E-01
+
+ Solution not printed

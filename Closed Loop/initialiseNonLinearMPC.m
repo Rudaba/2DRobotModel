@@ -1,4 +1,4 @@
-function [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialisePseudospectral(N,n,m,y0,constraintValues,refTraj)
+function [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC(N,n,m,y0,constraintValues,refTraj)
 global D_sort w t_sort
 
 %*****Calculate differentiation matrix, nodes, and quadrature weights*****
@@ -12,14 +12,14 @@ for j = 1:n
     if j == 1
         const = y0(1,1);
     elseif j == 2
-        const = y0(2,1);
+        const = y0(1,2);
     elseif j == 3
-        const = y0(3,1);
+        const = y0(1,3);
     end
     
     xlow((j-1)*(N+1)+1:j*(N+1),1) = -inf;
     xupp((j-1)*(N+1)+1:j*(N+1),1) = inf;
-    x((j-1)*(N+1)+1:j*(N+1),1) = const;
+    x((j-1)*(N+1)+1:j*(N+1),1)    = const;
     
 end
 
@@ -28,9 +28,9 @@ for k = 1:m
     xupp(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = constraintValues(2);
     
     if k == 1
-        x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = refTraj(1,7);
+        x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = 0;
     elseif k == 2
-        x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = refTraj(1,8);
+        x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = 0;
     end
     
 end

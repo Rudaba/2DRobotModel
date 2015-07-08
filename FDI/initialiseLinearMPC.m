@@ -1,31 +1,40 @@
-function [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseLinearMPC(N,constraintValues)
+function[x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseLinearMPC(N,n,m,y0,constraintValues,refTraj)
 global D_sort w t_sort
-
-%*****Define Number of states and controls*****
-n   = 3;   % Number of states
-m   = 2;   % Number of controls states
 
 %*****Calculate differentiation matrix, nodes, and quadrature weights*****
 [t_sort,w]  = LegendreNodesAndWeights(N);
 D_sort      = ComputeDifferentiationMatrix(N,t_sort);
 
-
 %*****Define Initial Conditions*****
 for j = 1:n
+        
+    if j == 1
+        const = y0(1,1) - refTraj(1,2);
+    elseif j == 2
+        const = y0(2,1) - refTraj(1,3);
+    elseif j == 3
+        const = y0(3,1) - refTraj(1,4);
+    end
     
     xlow((j-1)*(N+1)+1:j*(N+1),1) = -inf;
     xupp((j-1)*(N+1)+1:j*(N+1),1) = inf;
-    x((j-1)*(N+1)+1:j*(N+1),1) = 0;
+    x((j-1)*(N+1)+1:j*(N+1),1)    = const;
     
 end
 
 for k = 1:m
     xlow(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = constraintValues(1);
     xupp(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = constraintValues(2);
-    x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = 0;
+    
+    if k == 1
+        x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = -refTraj(1,7);
+    elseif k == 2
+        x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)),1) = -refTraj(1,8);
+    end
+    
 end
 
-neF = 1 + n*(N+1)+ 2*(n); %(1 for cost n*N for eq constraints and 2*n for initial and end BC's)
+neF = 1 + n*(N+1) + 2*n; %(1 for cost n*N for eq constraints and n for intial and terminal constraints)
 Jac = ones(neF,(n+m)*(N+1));
 [iGfun,jGvar,G]=find(Jac);
 

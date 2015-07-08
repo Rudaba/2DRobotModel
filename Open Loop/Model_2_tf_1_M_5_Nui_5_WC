@@ -1,0 +1,39 @@
+ 
+
+ Nonlinear constraints      33     Linear constraints       0
+ Nonlinear variables        90     Linear variables         0
+ Jacobian  variables        90     Objective variables     90
+ Total constraints          33     Total variables         90
+ 
+
+ 
+ The user has defined       0   out of    3060   first  derivatives
+ XXX  Some first  derivatives are missing --- derivative level reduced to 0
+ 
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0     69               1  1.9E-01  3.2E-02  3.3284334E+04                 r i
+     1     12  2.1E-01      2  1.5E-01  2.4E-02  3.1038518E+04    11         n rli
+     2      1  5.3E-01      3  1.1E-01  5.9E-02  2.6571873E+04    10         s  li
+     3     13  1.0E+00      4  1.2E-01 (3.7E-12) 2.2632483E+10                   i c
+     3     13  1.0E+00      4  1.2E-01 (6.7E-13) 2.2632483E+10                   i c
+ 
+ SNOPTA EXIT  10 -- the problem appears to be infeasible
+ SNOPTA INFO  13 -- nonlinear infeasibilities minimized
+
+ Problem name
+ No. of iterations                  95   Objective value      1.8927199995E-01
+ No. of infeasibilities              2   Sum of infeas        1.6999999999E+00
+ Elastic weight                1.3E+10   Scaled Merit         1.6999999999E+00
+ No. of major iterations             3   Linear objective     0.0000000000E+00
+ Penalty parameter           0.000E+00   Nonlinear objective  1.8927199995E-01
+ No. of calls to funobj            551   No. of calls to funcon            551
+ Calls with modes 1,2 (known g)      4   Calls with modes 1,2 (known g)      4
+ Calls for forward differencing    360   Calls for forward differencing    360
+ Calls for central differencing    180   Calls for central differencing    180
+ No. of degenerate steps            18   Percentage                      18.95
+ Max x                       2 5.0E+00   Max pi                     33 1.3E+10
+ Max Primal infeas          93 1.0E+00   Max Dual infeas            13 1.3E-01
+ Nonlinear constraint violn    1.0E+00
+
+ Solution not printed

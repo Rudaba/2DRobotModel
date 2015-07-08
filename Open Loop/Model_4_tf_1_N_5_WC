@@ -1,0 +1,34 @@
+ 
+
+ Nonlinear constraints      24     Linear constraints       0
+ Nonlinear variables        30     Linear variables         0
+ Jacobian  variables        30     Objective variables     30
+ Total constraints          24     Total variables         30
+ 
+
+ 
+ The user has defined     750   out of     750   first  derivatives
+ 
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0     18               1  1.8E-01  3.0E-01  3.8694356E+04                 r i
+     1      5  3.1E-01      2  1.3E-01  1.9E-01  3.4796101E+04     1         n rli
+     2      2  1.0E+00      3  8.3E-02  1.2E-03  2.6311709E+04               s   i
+     3      1  1.0E+00      4  1.3E-01 (4.2E-14) 2.6311283E+10                   i
+ 
+ SNOPTA EXIT  10 -- the problem appears to be infeasible
+ SNOPTA INFO  13 -- nonlinear infeasibilities minimized
+
+ Problem name
+ No. of iterations                  26   Objective value      1.9166666667E-01
+ No. of infeasibilities              2   Sum of infeas        1.7000000000E+00
+ Elastic weight                1.5E+10   Scaled Merit         1.7000000000E+00
+ No. of major iterations             3   Linear objective     0.0000000000E+00
+ Penalty parameter           0.000E+00   Nonlinear objective  1.9166666667E-01
+ No. of calls to funobj              4   No. of calls to funcon              4
+ No. of degenerate steps            15   Percentage                      57.69
+ Max x                      10 5.0E+00   Max pi                     19 1.5E+10
+ Max Primal infeas          51 1.0E+00   Max Dual infeas             4 1.7E-01
+ Nonlinear constraint violn    1.0E+00
+
+ Solution not printed

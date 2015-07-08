@@ -1,0 +1,94 @@
+ 
+
+ Nonlinear constraints     183     Linear constraints       0
+ Nonlinear variables      3240     Linear variables         0
+ Jacobian  variables      3240     Objective variables   3240
+ Total constraints         183     Total variables       3240
+ 
+
+ 
+ The user has defined       0   out of  596160   first  derivatives
+ XXX  Some first  derivatives are missing --- derivative level reduced to 0
+ 
+
+        Minor  RedCost   nInf   SumInf   rgNorm    LPobjective
+          100  2.0E+00      2  6.4E+00
+          200 -6.7E-03      2  6.3E+00
+          300 -6.7E-03      2  6.2E+00
+          400 -6.7E-03      2  6.0E+00
+          500 -6.7E-03      2  5.9E+00
+          600 -6.7E-03      2  5.8E+00
+          700 -6.7E-03      2  5.6E+00
+          800 -6.7E-03      2  5.5E+00
+          900 -6.7E-03      2  5.4E+00
+         1000 -6.7E-03      2  5.2E+00
+
+        Minor  RedCost   nInf   SumInf   rgNorm    LPobjective
+         1100 -6.7E-03      2  5.1E+00
+         1200 -6.7E-03      2  5.0E+00
+         1300 -6.7E-03      2  4.8E+00
+         1400 -6.7E-03      2  4.7E+00
+         1500 -6.7E-03      2  4.6E+00
+         1600 -6.7E-03      2  4.4E+00
+         1700 -6.7E-03      2  4.3E+00
+         1800 -6.7E-03      2  4.2E+00
+         1900 -6.7E-03      2  4.0E+00
+         2000 -6.7E-03      2  3.9E+00
+
+        Minor  RedCost   nInf   SumInf   rgNorm    LPobjective
+         2100 -6.7E-03      2  3.8E+00
+         2200 -6.7E-03      2  3.6E+00
+         2300 -6.7E-03      2  3.5E+00
+         2400 -6.7E-03      2  3.4E+00
+         2500 -6.7E-03      2  3.2E+00
+         2600 -6.7E-03      2  3.1E+00
+         2700 -6.7E-03      2  3.0E+00
+         2800 -6.7E-03      2  2.8E+00
+         2900 -6.7E-03      2  2.7E+00
+         3000 -6.7E-03      2  2.6E+00
+
+        Minor  RedCost   nInf   SumInf   rgNorm    LPobjective
+         3100               2  2.5E+00
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0   3120               1  7.0E-01  2.7E-03  9.6392872E+04     1           r i
+     1     65  3.8E-02      2  6.2E-01  2.2E-02  9.4123616E+04    62         n rli
+     2      6  4.5E-02      3  5.5E-01  5.6E-02  9.1558642E+04    61         s  li
+     3      1  7.8E-01      4  4.6E-02  4.0E-02  4.8948899E+04    61            li
+     4      2  1.0E+00      6  4.9E-02  2.5E-01  3.7046062E+04    60         sM  i
+     5      1  1.0E+00      7  5.0E-02  3.4E-04  3.1612183E+04    60             i
+     6      4  1.4E-01      8  4.3E-02  1.8E-04  3.1612128E+04    61             i
+     7      2  4.8E-01      9  2.2E-02  1.0E-04  3.1613224E+04    60 4.5E+04   R i
+     8      7  1.8E-01     10  1.8E-02  5.9E-05  3.1622760E+04    65 5.0E+02 s   i
+     9      7  1.0E+00     11  3.4E-02  5.0E-05  3.1613422E+04    65 8.9E+01     i
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    10      5  1.0E+00     12  3.0E-02  1.8E-05  3.1613309E+04    67 5.1E+01     i
+    11      5  1.0E+00     13  2.0E-02  2.4E-06  3.1613233E+04    67 5.1E+01     i
+    12      4  1.0E+00     14  1.6E-02  3.1E-06  3.1613226E+04    68 5.1E+01     i
+    13      5  1.0E+00     15  1.9E-02  2.0E-06  3.1613210E+04    68 5.1E+01   R i
+    14      8  1.0E+00     16  1.6E-02 (7.6E-12) 3.1612143E+10    66 5.1E+01 s   i c
+    14     69  1.0E+00     16  1.6E-02 (3.4E-12) 1.4399282E+10     6 5.1E+01 s   i c
+    15      1  1.5E-06     17  1.6E-02 (1.7E-11) 2.3129981E+10     6 1.3E+11     i c
+    16      1  1.0E+00     19  2.9E-02 (2.3E-10) 3.1612143E+10     6 2.6E+11  M  i c
+ 
+ SNOPTA EXIT  10 -- the problem appears to be infeasible
+ SNOPTA INFO  13 -- nonlinear infeasibilities minimized
+
+ Problem name
+ No. of iterations                3305   Objective value      1.3759866338E+00
+ No. of infeasibilities              9   Sum of infeas        2.1323771641E+00
+ Elastic weight                1.5E+10   Scaled Merit         2.1323771642E+00
+ No. of major iterations            16   Linear objective     0.0000000000E+00
+ Penalty parameter           2.647E+11   Nonlinear objective  1.3759866338E+00
+ No. of calls to funobj          77809   No. of calls to funcon          77809
+ Calls with modes 1,2 (known g)     19   Calls with modes 1,2 (known g)     19
+ Calls for forward differencing  51840   Calls for forward differencing  51840
+ Calls for central differencing  25920   Calls for central differencing  25920
+ No. of superbasics                  6   No. of basic nonlinears           180
+ No. of degenerate steps           118   Percentage                       3.57
+ Max x                       2 6.0E+00   Max pi                    103 1.5E+10
+ Max Primal infeas        3374 8.9E-01   Max Dual infeas            21 3.4E+00
+ Nonlinear constraint violn    8.9E-01
+
+ Solution not printed

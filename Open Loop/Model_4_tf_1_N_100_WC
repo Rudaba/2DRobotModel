@@ -1,0 +1,42 @@
+ 
+
+ Nonlinear constraints     309     Linear constraints       0
+ Nonlinear variables       505     Linear variables         0
+ Jacobian  variables       505     Objective variables    505
+ Total constraints         309     Total variables        505
+ 
+
+ 
+ The user has defined  156550   out of  156550   first  derivatives
+ 
+
+        Minor  RedCost   nInf   SumInf   rgNorm    LPobjective
+          100 -1.5E+00      2  2.5E+00
+          200 -4.9E-02      2  2.0E+00
+          300 -6.8E-03      2  1.7E+00
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0    314               1  5.0E-02  1.5E-02  2.8338748E+04                 r i
+     1     65  7.7E-02      2  4.7E-02  1.5E-02  2.7642834E+04    27         n rli
+     2     31  2.2E-01      4  4.1E-02  2.3E-02  2.5801978E+04               sM li
+     3      2  1.0E+00      5  3.1E-02  7.8E-05  1.9270159E+04                   i
+     3     13               9  3.1E-02 (8.7E-07) 1.9270159E+04     2           r i
+     4      2  1.0E+00     10  2.4E-02 (3.2E-12) 1.9269470E+10     1         s   i
+ 
+ SNOPTA EXIT  10 -- the problem appears to be infeasible
+ SNOPTA INFO  13 -- nonlinear infeasibilities minimized
+
+ Problem name
+ No. of iterations                 425   Objective value      4.0319001376E-01
+ No. of infeasibilities              4   Sum of infeas        1.7000000000E+00
+ Elastic weight                1.1E+10   Scaled Merit         1.7000000001E+00
+ No. of major iterations             4   Linear objective     0.0000000000E+00
+ Penalty parameter           0.000E+00   Nonlinear objective  4.0319001376E-01
+ No. of calls to funobj             10   No. of calls to funcon             10
+ No. of superbasics                  1   No. of basic nonlinears           304
+ No. of degenerate steps           140   Percentage                      32.94
+ Max x                     154 5.8E+00   Max pi                    304 1.1E+10
+ Max Primal infeas         814 7.6E-01   Max Dual infeas           100 1.2E-03
+ Nonlinear constraint violn    7.6E-01
+
+ Solution not printed

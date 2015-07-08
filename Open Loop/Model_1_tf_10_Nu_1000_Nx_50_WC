@@ -1,0 +1,72 @@
+
+ 
+ ===>  WARNING - variable     2003 has no Jacobian entries.
+ ===>  WARNING - variable     2004 has no Jacobian entries.
+ ===>  WARNING - variable     2005 has no Jacobian entries.
+ 
+
+ Nonlinear constraints       3     Linear constraints       0
+ Nonlinear variables      2002     Linear variables         3
+ Jacobian  variables      2002     Objective variables   2002
+ Total constraints           3     Total variables       2005
+ 
+
+ 
+ The user has defined       0   out of    8008   first  derivatives
+ XXX  Some first  derivatives are missing --- derivative level reduced to 0
+ 
+
+        Minor   QPmult   nInf   SumInf   rgNorm    QPobjective    nS cgItns
+          100 -1.0E-01                  1.4E-17 -7.3691839E+01     4
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0    100               1 (0.0E+00) 2.2E+00  1.9495000E+02     4           r
+     1     27  1.0E+00      2 (0.0E+00) 1.8E+00  1.7782497E+01     8         n r
+     2     31  2.1E-02      3 (0.0E+00) 6.5E-01  1.7391067E+01    25         s
+     3      9  1.0E+00      4 (0.0E+00) 6.1E-01  1.7274099E+01    17
+     4      3  1.0E+00      5 (0.0E+00) 3.3E-01  1.7099602E+01    15
+     5      3  1.0E+00      6 (0.0E+00) 1.9E-01  1.7055051E+01    13
+     6      3  1.0E+00      7 (0.0E+00) 1.2E-01  1.7024065E+01    11
+     7      1  1.0E+00      8 (0.0E+00) 7.7E-02  1.6999324E+01    11           R
+     8      3  1.0E+00      9 (0.0E+00) 1.2E-01  1.6991860E+01     9         s
+     9      2  1.0E+00     10 (0.0E+00) 1.4E-01  1.6949715E+01     8
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    10      2  1.0E+00     11 (0.0E+00) 7.0E-02  1.6918433E+01     7
+    11      4  1.0E+00     12 (0.0E+00) 1.2E-02  1.6895435E+01     4
+    12      1  1.0E+00     13 (0.0E+00) 2.5E-02  1.6871579E+01     4
+    13      1  1.0E+00     14 (0.0E+00) 1.8E-02  1.6868781E+01     4           R
+    14      1  1.0E+00     15 (0.0E+00) 9.7E-03  1.6865865E+01     4         s
+    15      1  1.0E+00     16 (0.0E+00) 4.6E-02  1.6862043E+01     4
+    16      2  1.0E+00     17 (0.0E+00) 9.0E-02  1.6854264E+01     3
+    17      1  1.0E+00     18 (0.0E+00) 9.6E-02  1.6842260E+01     3
+    18      1  1.0E+00     19 (0.0E+00) 3.0E-02  1.6831964E+01     3
+    19      1  1.0E+00     20 (0.0E+00) 2.2E-02  1.6828230E+01     3           R
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+    20      4  1.0E+00     21 (0.0E+00) 1.5E-02  1.6827674E+01     1         s
+    21      1  1.0E+00     22 (0.0E+00) 5.6E-03  1.6825546E+01     1
+    22      1  1.0E+00     23 (0.0E+00) 1.8E-03  1.6825520E+01     1
+    23      1  1.0E+00     24 (0.0E+00)(1.4E-07) 1.6825516E+01     1               c
+    23      2  1.0E+00     24 (0.0E+00)(7.9E-07) 1.6825516E+01     1               c
+ 
+ SNOPTA EXIT   0 -- finished successfully
+ SNOPTA INFO   1 -- optimality conditions satisfied
+
+ Problem name
+ No. of iterations                 205   Objective value      1.6825516150E+01
+ No. of major iterations            23   Linear objective     0.0000000000E+00
+ Penalty parameter           0.000E+00   Nonlinear objective  1.6825516150E+01
+ No. of calls to funobj          52115   No. of calls to funcon          52115
+ Calls with modes 1,2 (known g)     24   Calls with modes 1,2 (known g)     24
+ Calls for forward differencing  48048   Calls for forward differencing  48048
+ Calls for central differencing   4004   Calls for central differencing   4004
+ No. of superbasics                  1   No. of basic nonlinears             0
+ No. of degenerate steps             2   Percentage                        .98
+ Max x       (scaled)       21 4.0E-01   Max pi      (scaled)        1 0.0E+00
+ Max x                      21 4.0E-01   Max pi                      1 0.0E+00
+ Max Prim inf(scaled)        0 0.0E+00   Max Dual inf(scaled)        1 4.1E-06
+ Max Primal infeas           0 0.0E+00   Max Dual infeas             1 4.1E-06
+ Nonlinear constraint violn    0.0E+00
+
+ Solution not printed

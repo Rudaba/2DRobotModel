@@ -1,0 +1,46 @@
+
+ 
+ ===>  WARNING - variable     2003 has no Jacobian entries.
+ ===>  WARNING - variable     2004 has no Jacobian entries.
+ ===>  WARNING - variable     2005 has no Jacobian entries.
+ 
+
+ Nonlinear constraints       3     Linear constraints       0
+ Nonlinear variables      2002     Linear variables         3
+ Jacobian  variables      2002     Objective variables   2002
+ Total constraints           3     Total variables       2005
+ 
+
+ 
+ The user has defined       0   out of    8008   first  derivatives
+ XXX  Some first  derivatives are missing --- derivative level reduced to 0
+ 
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0     10               1 (0.0E+00) 2.5E+00  2.4375000E+01                 r
+     1      1  1.0E+00      2 (0.0E+00) 2.8E-01  4.7750000E+00               n r
+     2      1  3.2E-02      3 (0.0E+00) 3.8E-02  4.7648831E+00     1         s
+     3      1  1.0E+00      4 (0.0E+00) 1.7E-05  4.7646830E+00     1
+     4      1  1.0E+00      5 (0.0E+00)(7.0E-07) 4.7646830E+00     1               c
+     4      2  1.0E+00      5 (0.0E+00)(1.1E-07) 4.7646830E+00     1               c
+ 
+ SNOPTA EXIT   0 -- finished successfully
+ SNOPTA INFO   1 -- optimality conditions satisfied
+
+ Problem name
+ No. of iterations                  15   Objective value      4.7646830045E+00
+ No. of major iterations             4   Linear objective     0.0000000000E+00
+ Penalty parameter           0.000E+00   Nonlinear objective  4.7646830045E+00
+ No. of calls to funobj          14024   No. of calls to funcon          14024
+ Calls with modes 1,2 (known g)      5   Calls with modes 1,2 (known g)      5
+ Calls for forward differencing  10010   Calls for forward differencing  10010
+ Calls for central differencing   4004   Calls for central differencing   4004
+ No. of superbasics                  1   No. of basic nonlinears             0
+ No. of degenerate steps             0   Percentage                        .00
+ Max x       (scaled)      201 4.0E-01   Max pi      (scaled)        1 0.0E+00
+ Max x                     201 4.0E-01   Max pi                      1 0.0E+00
+ Max Prim inf(scaled)        0 0.0E+00   Max Dual inf(scaled)        1 7.2E-06
+ Max Primal infeas           0 0.0E+00   Max Dual infeas             1 7.2E-06
+ Nonlinear constraint violn    0.0E+00
+
+ Solution not printed

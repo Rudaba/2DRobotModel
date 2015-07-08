@@ -1,0 +1,48 @@
+ 
+
+ Nonlinear constraints     183     Linear constraints       0
+ Nonlinear variables       840     Linear variables         0
+ Jacobian  variables       840     Objective variables    840
+ Total constraints         183     Total variables        840
+ 
+
+ 
+ The user has defined       0   out of  154560   first  derivatives
+ XXX  Some first  derivatives are missing --- derivative level reduced to 0
+ 
+
+        Minor  RedCost   nInf   SumInf   rgNorm    LPobjective
+          100  2.0E+00      2  2.4E+00
+          200 -6.7E-03      2  2.3E+00
+          300 -6.7E-03      2  2.2E+00
+          400 -6.7E-03      2  2.0E+00
+          500 -6.7E-03      2  1.9E+00
+          600 -6.7E-03      2  1.8E+00
+          700               2  1.7E+00
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction    nS Penalty
+     0    719               1  1.0E-01  2.7E-03  2.7613592E+04                 r i
+     1     62  7.4E-02      2  9.4E-02  4.0E-03  2.6956768E+04    61         n rli
+     2      1  1.2E-01      3  8.3E-02  2.2E-02  2.5975097E+04    60         s  li
+     3      0  1.0E+00      4  5.0E-02 (7.5E-13) 1.8776365E+10    60             i c
+     3     60  1.0E+00      4  5.0E-02 (7.5E-13) 1.8776365E+10                   i c
+ 
+ SNOPTA EXIT  10 -- the problem appears to be infeasible
+ SNOPTA INFO  13 -- nonlinear infeasibilities minimized
+
+ Problem name
+ No. of iterations                 842   Objective value      1.9146670526E-01
+ No. of infeasibilities              2   Sum of infeas        1.7000000052E+00
+ Elastic weight                1.1E+10   Scaled Merit         1.7000000052E+00
+ No. of major iterations             3   Linear objective     0.0000000000E+00
+ Penalty parameter           0.000E+00   Nonlinear objective  1.9146670526E-01
+ No. of calls to funobj           5052   No. of calls to funcon           5052
+ Calls with modes 1,2 (known g)      4   Calls with modes 1,2 (known g)      4
+ Calls for forward differencing   3360   Calls for forward differencing   3360
+ Calls for central differencing   1680   Calls for central differencing   1680
+ No. of degenerate steps           118   Percentage                      14.01
+ Max x                       2 5.0E+00   Max pi                      1 1.1E+10
+ Max Primal infeas         843 1.0E+00   Max Dual infeas            88 2.3E-02
+ Nonlinear constraint violn    1.0E+00
+
+ Solution not printed

@@ -1,5 +1,6 @@
 global refTraj N n m y0 t0 Hp x intdt t_sort MPCmodelNumber filterModelNumber
 global b X_Filter MPCUpdateRate
+
 %*****Define Simulation Parameters***
 MPCmodelNumber      = 2; % LMPC = 1, NMPC = 2, NMPC with rates = 3
 filterModelNumber   = 1; % EKF = 1, UKF = 2, IMM EKF = 3, IMM UKF = 4
@@ -8,11 +9,13 @@ EKFFileName         = 'EKFData_NMPC';
 count               = 1;
 
 %*****Define Model Parameters*****
-N           = 50;  % Number of collocation points for Direct Collocation and Pseudospectral
-X_Filter    = []; 
+n   = 3;   % Number of states
+m   = 2;   % Number of controls states
+N   = 50; % Number of collocation points for Direct Collocation and Pseudospectral
+X_Filter    = [];
 P_Filter    = [];
 X_IMM       = [];
-P_IMM       = []; 
+P_IMM       = [];
 Q           = [];
 R_Noise     = [];
 transMatrix = [];
@@ -36,37 +39,30 @@ b       = 1; %Distance between centre of tyres
 %*****Define Reference Trajectory*****
 [refTraj] = calcRefTraj_circ;
 
-%*****Define Initial Conditions*****
-%This is initial nav robot state [x;y;psi]
-y0          = refTraj(1,2:8)';    %This starts on the path
-% y0          = [0;60;0;0;0]; %This is an offset from the path
-u           = refTraj(1,7:8)';
-measurement = y0(1:3);
-% measurement = measurement + 0.01*rand(3,1);
-
 %*****Define Constraints*****
 constraints         = 0;
 constraintValues    = [-inf,inf];
-% constraintValues    = [-5,5];
 
-%*****Intialisation*****
+%*****Define Initial Conditions*****
+%This is initial nav robot state [x;y;psi]
+y0          = refTraj(1,2:8)';    %This starts on the path
+u           = refTraj(1,7:8)' + 0.01*rand(2,1);
+measurement = refTraj(1,2:4)' + 0.01*rand(3,1);
+
+%*****Intialise Controllers*****
 if MPCmodelNumber == 1
     
-    % MPC
-    [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseLinearMPC(N,constraintValues);
+    % Pseudospectral
+    [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseLinearMPC(N,n,m,y0,constraintValues,refTraj);
     
 elseif MPCmodelNumber == 2
     
-    % NMPC
-    [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC(N,refTraj,u,constraintValues);
-    
-elseif MPCmodelNumber == 3
-    
-    % NMPC with rates
-    [x,n,m,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC_withRates(N,y0,constraintValues);
+    % Pseudospectral
+    [x,xlow,xupp,Flow,Fupp,iGfun,jGvar] = initialiseNonLinearMPC(N,n,m,y0,constraintValues,refTraj);
     
 end
 
+%*****Initialise Filters*****
 if filterModelNumber == 1
     
     [X_Filter, P_Filter, Q, R_Noise] = initialiseEKF(y0(1:3),RR, RL);
@@ -79,18 +75,22 @@ elseif filterModelNumber == 3
     
     [X_Filter, P_Filter, X_IMM, P_IMM, Q, R_Noise, transMatrix, modeProbs] = initialiseIMMEKF(y0(1:3),RR, RL);
     
+elseif filterModelNumber == 4
+    
+    [X_Filter, P_Filter, X_IMM, P_IMM, Q, R_Noise, transMatrix, modeProbs] = initialiseIMMUKF(y0(1:3),RR, RL);
+    
 end
+
 %*****Set up optimisation*****
 %SNOPT parameters
 snsummary off;
 snscreen on;
 
 snseti('Verify level', -1);
-% snseti('Derivative option', 0); % let SNOPT figure out jacobian
-snseti('Derivative option', 2); % provide Jacobians
+snseti('Derivative option', 2);
 snseti('Major iterations',1000);
 
-%*******************Start Simulation***************************************
+%*****Start Simulation*****
 %At time t0 = 0
 
 [FilterData(1), X_Filter, P_Filter, X_IMM, P_IMM, modeProbs] = runFilter(filterModelNumber,t0,X_Filter,P_Filter,X_IMM,P_IMM,u,FilterUpdateRate,measurement,Q,R_Noise,transMatrix,modeProbs);
@@ -100,10 +100,10 @@ x                = runMPC(MPCmodelNumber,x,constraints,constraintValues,xlow,xup
 [plantData(1), y0, tReal, yReal, uReal] = integrateStates(x,y0,t0,t_sort,N,intdt,m,n,MPCmodelNumber,refTraj);
 
 u                = interp1(tReal(:,1),uReal(:,1:2),t0,'pchip')';
-u                = u + 0.01*rand(2,1);
+u                = u + 0.01*randn(2,1);
 
 measurement      = interp1(tReal(:,1),yReal(:,1:3),t0,'pchip')';
-measurement      = measurement + 0.01*rand(3,1);
+measurement      = measurement + 0.01*randn(3,1);
 
 count            = count + 1;
 t0               = t0 + FilterUpdateRate;
@@ -123,10 +123,10 @@ for i = 1:simTime/FilterUpdateRate
     end
     
     u                = interp1(tReal(:,1),uReal(:,1:2),t0,'pchip')';
-    u                = u + 0.01*rand(2,1);
+    u                = u + 0.01*randn(2,1);
     
     measurement      = interp1(tReal(:,1),yReal(:,1:3),t0,'pchip')';
-    measurement      = measurement + 0.01*rand(3,1);
+    measurement      = measurement + 0.01*randn(3,1);
     
     
     t0               = t0 + FilterUpdateRate;

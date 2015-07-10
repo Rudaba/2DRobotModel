@@ -1,18 +1,17 @@
-function F = vectorFF(x,V,psiDot)
+function F = vectorFF(x,V,psiDot,RR,RL)
 
 omegaR = x(1);
 omegaL = x(2);
 
 %Robot Constants
-R   = 2; %Radius of tyres
 b   = 1; %Distance between centre of tyres
 
 %Extract states
 % V           = xRef(5);
 % psiDot      = xRef(6);
 
-F = [V - (R * (x(1) + x(2)) / 2); 
-    psiDot - (R/(2*b) * (x(1) - x(2)))];
+F = [V - (RR*x(1) + RL*x(2)) / 2; 
+    psiDot - (RR*x(1) - RL*x(2))/(2*b)];
 
 % %Robot Constants
 % R   = 2; %Radius of tyres

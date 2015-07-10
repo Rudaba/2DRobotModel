@@ -1,14 +1,8 @@
 function [FilterData, X_Filter, P_Filter, X_IMM, P_IMM, modeProbs] = runFilter(filterModelNumber,t0,X_Filter,P_Filter,X_IMM,P_IMM,u,FilterUpdateRate,measurement,Q,R_Noise,transMatrix,modeProbs)
 
-% X_IMM          = [];
-% P_IMM          = [];
-% modeProbs      = [];
-%
-
 if filterModelNumber == 1
     
     [X_Filter,P_Filter, innovation,S] = EKFUpdate(X_Filter,P_Filter,u,FilterUpdateRate,measurement,Q,R_Noise);
-    
     
 elseif filterModelNumber == 2
     

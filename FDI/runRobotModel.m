@@ -1,11 +1,14 @@
 global refTraj N n m y0 t0 Hp x intdt t_sort MPCmodelNumber filterModelNumber
-global b X_Filter MPCUpdateRate
+global b X_Filter MPCUpdateRate feedbackFlag faultOccurrenceFlag faultScenarioCase
 
 %*****Define Simulation Parameters***
 MPCmodelNumber      = 2; % LMPC = 1, NMPC = 2, NMPC with rates = 3
 filterModelNumber   = 1; % EKF = 1, UKF = 2, IMM EKF = 3, IMM UKF = 4
 plantFileName       = 'plantData_NMPC';
 EKFFileName         = 'EKFData_NMPC';
+feedbackFlag        = 0;
+faultOccurrenceFlag = 0;
+faultScenarioCase   = 0;
 count               = 1;
 
 %*****Define Model Parameters*****
@@ -25,7 +28,7 @@ modeProbs   = [];
 MPCUpdateRate       = 0.1;
 t0                  = 0;
 Hp                  = 5;
-intdt               = 0.001;
+intdt               = 0.01;
 simTime             = 50;
 FilterUpdateRate    = 0.01;
 tf                  = MPCUpdateRate;

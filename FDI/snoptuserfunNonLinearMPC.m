@@ -1,6 +1,6 @@
 function [F,Jac,tout,yout,uout] = snoptuserfunNonLinearMPC(x)
 
-global N t0 Hp y0 n m refTraj D_sort w t_sort
+global N t0 Hp y0 n m refTraj D_sort w t_sort X_Filter feedbackFlag
 
 numconstr   = 1+n*(N+1) + 2*n;
 F           = zeros(numconstr,1);
@@ -19,14 +19,17 @@ for k = 1:m
     u(:,k) = x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)));
 end
 
-% if nargout > 3
-%     yout = y;
-%     uout = u;
-% end
+if feedbackFlag == 1
+    RR = X_Filter(4,1);
+    RL = X_Filter(5,1);
+else
+    RR = 2;
+    RL = 2;
+end
 
 t                   = ((tf-t0)/2*t_sort+(tf+t0)/2);
 
-[yDots, df1_dx, df2_dx, df3_dx]    = stateEquations(y, u, t);
+[yDots, df1_dx, df2_dx, df3_dx]    = stateEquations(y, u, t, RR, RL);
 
 ydots = yDots';
 
@@ -36,7 +39,12 @@ end
 
 % Assign Objective Function and Constraints to F
 xRef                = interp1(refTraj(:,1),refTraj(:,2:end),t)';
-% xRef(1:2,:)         = xRef(1:2,:) ./ 10;
+for i = 1:length(xRef)
+    [omegaR0,omegaL0]   = calcFeedforward(xRef(4,i), xRef(5,i), RR, RL);
+    xRef(6,i)           = omegaR0;
+    xRef(7,i)           = omegaL0;
+end
+
 [Mayer,Integral,dC_dx]    = integralCost(y',u',xRef);
 
 F(1) = Mayer + sum(w.*Integral')*factor;

@@ -18,7 +18,10 @@ V(1)        = R;
 time(1)     = 0;
 psiDot(1)   = thetaDot;
 
-[omegaR0,omegaL0] = calcFeedforward(V(1), psiDot(1));
+RR          = 2;
+RL          = 2; 
+
+[omegaR0,omegaL0] = calcFeedforward(V(1), psiDot(1),RR,RL);
 
 omegaR(1) = omegaR0;
 omegaL(1) = omegaL0;
@@ -34,7 +37,7 @@ for i = 1:timeTaken
     psiDot(i+1)     = thetaDot;
     time(i+1)       = time(i) + dt;
     
-    [omegaR0,omegaL0] = calcFeedforward(V(i+1), psiDot(i+1));
+    [omegaR0,omegaL0] = calcFeedforward(V(i+1), psiDot(i+1),RR,RL);
     
     omegaR(i+1) = omegaR0;
     omegaL(i+1) = omegaL0;

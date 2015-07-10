@@ -41,8 +41,8 @@ plantData.t      = tReal';
 plantData.u      = uReal';
 plantData.yref   = yrefstore;
 
-u                = interp1(tReal(:,1),uReal(:,1:2),t0,'pchip')';
-u                = u + 0.01*rand(2,1);
-
-measurement      = interp1(tReal(:,1),yReal(:,1:3),t0,'pchip')';
-measurement      = measurement + 0.01*rand(3,1);
+% u                = interp1(tReal(:,1),uReal(:,1:2),t0,'pchip')';
+% u                = u + 0.01*rand(2,1);
+% 
+% measurement      = interp1(tReal(:,1),yReal(:,1:3),t0,'pchip')';
+% measurement      = measurement + 0.01*rand(3,1);

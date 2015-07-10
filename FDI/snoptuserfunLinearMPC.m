@@ -1,6 +1,6 @@
 function [F,Jac,tout,yout,uout] = snoptuserfunLinearMPC(x)
 
-global N t0 Hp y0 n m refTraj D_sort w t_sort
+global N t0 Hp y0 n m refTraj D_sort w t_sort X_Filter feedbackFlag
 
 numconstr   = 1+n*(N+1) + 2*n; 
 F           = zeros(numconstr,1);
@@ -19,9 +19,23 @@ for k = 1:m
     u(:,k) = x(n*(N+1)+((k-1)*(N+1)+1:k*(N+1)));
 end
 
+if feedbackFlag == 1
+    RR = X_Filter(4,1);
+    RL = X_Filter(5,1);
+else
+    RR = 2;
+    RL = 2;
+end
+
 t            = ((tf-t0)/2*t_sort+(tf+t0)/2);
-xRef         = interp1(refTraj(:,1),refTraj(:,2:end),t)';
-[ydots, df1_dx, df2_dx, df3_dx]    = stateEquations_linear(y, u, xRef);
+xRef                = interp1(refTraj(:,1),refTraj(:,2:end),t)';
+for i = 1:length(xRef)
+    [omegaR0,omegaL0]   = calcFeedforward(xRef(4,i), xRef(5,i), RR, RL);
+    xRef(6,i)           = omegaR0;
+    xRef(7,i)           = omegaL0;
+end
+
+[ydots, df1_dx, df2_dx, df3_dx]    = stateEquations_linear(y, u, xRef,RR,RL);
 
 ydots = ydots';
 

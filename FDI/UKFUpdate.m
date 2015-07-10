@@ -3,7 +3,7 @@ function [X_Filter,P, ymeas, S, innovation] = UKFUpdate(X_Filter,P,u,dt,measurem
 global b
 
 %Calculate sigma points
-kapa            = 0.1;
+kapa            = 0.0002;
 na              = length(X_Filter); %length of states
 N               = length(measurement); %length of measurements
 sigma           = zeros(na,2*na+1);
@@ -36,17 +36,21 @@ for i = 1:2*na+1
     RL  = sigma(5,i);
     
     psiDot          = RR/(2*b)*omegaR - RL/(2*b)*omegaL;
-    sigma(3,i)      = psi + psiDot*dt;
+    psi             = psi + psiDot*dt;
     
     V               = RR/2*omegaR + RL/2*omegaL;
     
-    xDot            =  V*cos(psi);
-    sigma(1,i)      = x + xDot*dt;
+    xDot            = V*cos(psi);
+    x               = x + xDot*dt;
     
     
     yDot            = V*sin(psi);
-    sigma(2,i)      = y + yDot*dt;
+    y               = y + yDot*dt;
     
+    sigma(1,i)     = x;
+    sigma(2,i)     = y;
+    sigma(3,i)     = psi;
+        
     %Measurement predictions
     sigma_meas(1,i) = sigma(1,i);
     sigma_meas(2,i) = sigma(2,i);

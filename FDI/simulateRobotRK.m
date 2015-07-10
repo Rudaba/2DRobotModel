@@ -18,7 +18,7 @@ U      = [omegaR,omegaL];
 
 % %Solve DE's
 % psiDot  = R*(omegaR-omegaL)/(2*b);
-% psi     = psi + psiDot * dt; 
+% psi     = psi + psiDot * dt;
 % yDot    = v*sin(psi);
 % y       = y + yDot * dt;
 % xDot    = v*cos(psi);
@@ -28,13 +28,37 @@ y0    = Y(end,:)';%[x;y;psi];
 % y0    = [y0; U(end,:)'];
 
 function dy = diffEqns(t,y,tref,uref)
-global X_EKF b
+global b faultScenarioCase faultOccurrenceFlag
 
 omegaR = interp1(tref, uref(:,1), t, 'pchip');
 omegaL = interp1(tref, uref(:,2), t, 'pchip');
 
-RR     = 2;%X_EKF(4,1);
-RL     = 2;%X_EKF(5,1);
+RR     = 2;
+RL     = 2;
+
+if faultOccurrenceFlag == 1
+    switch faultScenarioCase
+        case 1
+            if t >= 20
+                RR     = 2;
+                RL     = 0.5*2;
+            end
+        case 2
+            if t >= 20
+                RR     = 0.5*2;
+                RL     = 2;
+            end
+        case 3
+            if t >= 15
+                RR     = 0.5*2;
+            end
+            if t >= 30
+                RL     = 2;
+            end
+        otherwise
+            disp('Unknown fault Scenario')
+    end
+end
 
 v       = RR*omegaR/2 + RL*omegaL/2;
 

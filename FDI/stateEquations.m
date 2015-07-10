@@ -1,11 +1,10 @@
-function [yDots, df1_dx, df2_dx, df3_dx]  = stateEquations(stateVec,u,t)
+function [yDots, df1_dx, df2_dx, df3_dx]  = stateEquations(stateVec,u,t,RR,RL)
 
-global n N
+global n N 
 
 yDots = zeros(n, length(t));
 
 %Robot Constants
-R       = 2; %Radius of tyres
 b       = 1; %Distance between centre of tyres
 
 %Extract Data
@@ -16,10 +15,10 @@ x             = stateVec(:,1);
 omegaR        = u(:,1);
 omegaL        = u(:,2);
 
-v             = R*(omegaR+omegaL)/2;
+v             = (RR*omegaR + RL*omegaL)/2;
 
 %Solve DE's
-psiDot        = R*(omegaR-omegaL)/(2*b);
+psiDot        = (RR*omegaR - RL*omegaL)/(2*b);
 
 yDot        = v.*sin(psi);
 xDot        = v.*cos(psi);
@@ -33,18 +32,18 @@ if nargout > 1
     df1_dx = [zeros(1,N+1);
         zeros(1,N+1);
         (-v.*sin(psi))';
-        (R/2.*cos(psi))';
-        (R/2.*cos(psi))'];
+        (RR/2.*cos(psi))';
+        (RL/2.*cos(psi))'];
     
     df2_dx = [zeros(1,N+1);
         zeros(1,N+1);
         (v.*cos(psi))';
-        (R/2.*sin(psi))';
-        (R/2.*sin(psi))'];
+        (RR/2.*sin(psi))';
+        (RL/2.*sin(psi))'];
     
     df3_dx = [zeros(1,N+1);
         zeros(1,N+1);
         zeros(1,N+1);
-        R/(2*b)*ones(1,N+1);
-        -R/(2*b)*ones(1,N+1)];
+        RR/(2*b)*ones(1,N+1);
+        -RL/(2*b)*ones(1,N+1)];
 end
